@@ -15,11 +15,11 @@ python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requir
 make check && make board
 git status   # if this is not yet a git repository: git init -b main && git add -A && git commit -m "Starter kit import"
 ```
-`make check` must be green. If it is not, fixing it is the first task and gets its own PR, once the owner approves that PR.
+`make check` must be green. If it is not, fixing it is the first task and gets its own PR.
 
 ## 3. Status today (2026-10-31)
 - Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are accepted, and WO-001 is next. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
-- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The rename pull request merged to `main` at `292d368` on the owner's explicit approval. Each later pull request still needs its own owner approval (`ledgers/approvals.jsonl`).
+- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. Agents merge their own pull requests when all required checks are green, after a full review where `AGENTS.md §13.9` requires one. Owner approval is only for the authorization matrix (`AGENTS.md §2`).
 - `config/budget.json`: $0 approved. Hardware purchase is an owner action that follows D0 and D1.
 - The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
 
@@ -33,7 +33,7 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 Branch from the updated `main`.
 1. `make check` green → `python tools/status_board.py --append --wo WO-001 --event ready`, then `--event in_progress`; `--phase D0 --event ready`, then `in_progress`.
 2. Branch `wo/WO-001-d0`; fill `docs/OPERATING_ENVELOPE.md` and `docs/BOM_WORKSHEET.md` (both airframe options, sourced and dated); write `config/stack-lock.proposed.json` with every pin labelled `proposed` and an evidence URL; write ADR-0004; draft `evals/D1-exit-tests.json`.
-3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request; then stop and ask the owner. Open the PR and merge it only on the owner's separate approval, recorded in `ledgers/approvals.jsonl`, and only when `AGENTS.md §4.6` also holds.
+3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request. This work order closes milestone exit tests, so run the full review (`AGENTS.md §13.9`); then open the PR and merge it when `AGENTS.md §4.6` holds. Then ask the owner for the decision.
 4. When the owner records a decision or deferral in `ledgers/approvals.jsonl`, append `accepted`; `make board`; continue to WO-002 (software only).
 
 The first-session prompt the owner pastes into a fresh agent is `prompts/FIRST_SESSION.md`.
