@@ -63,23 +63,31 @@
       "value": "isaac_ros_visual_slam 4.6.0",
       "tag": "v4.6-0",
       "commit_short": "6e23c6c",
-      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install.",
+      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install.",
       "status": "proposed",
       "evidence_url": "https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_visual_slam/index.html",
-      "evidence_date": "2026-10-31"
+      "evidence_date": "2026-10-31",
+      "jetpack": "7.2"
     },
     "sensor_driver_commits": {
       "value": "depthai_ros_v3 3.2.1-1 (tag v3.2.1-jazzy) for OAK-D Pro; realsense2_camera 4.58.4-1 for D435i",
-      "note": "Both are versions in the Jazzy apt main repository except depthai_ros_v3, which Luxonis installs with the testing apt source added. Newer versions are in testing only. Exact commits are recorded when a camera is chosen.",
+      "note": "All in the Jazzy apt main repository on this date. realsense2_camera 4.59.1-1 is in building and testing only. Luxonis's install instructions add the testing apt source. Exact commits are recorded when a camera is chosen.",
       "status": "proposed",
       "evidence_url": "http://repo.ros2.org/status_page/ros_jazzy_default.html",
       "evidence_date": "2026-10-31"
     },
     "flight_controller_firmware_target": {
       "value": "px4_fmu-v6c_default",
-      "note": "Pixhawk 6C and Pixhawk 6C Mini. WO-002 uses SITL: make px4_sitl gz_x500. No hardware is connected in D0 or D1.",
+      "note": "Pixhawk 6C and Pixhawk 6C Mini. WO-002 uses SITL: make px4_sitl gz_x500, and no hardware is connected in D0 or D1. For hardware, RC input from the proposed ELRS receiver needs a custom board configuration of this target with crsf_rc enabled, because the default build does not include it; pin that configuration when hardware is bought (ADR-0007).",
       "status": "proposed",
       "evidence_url": "https://docs.px4.io/v1.17/en/flight_controller/pixhawk6c.html",
+      "evidence_date": "2026-10-31"
+    },
+    "px4_external_vision_interface": {
+      "value": "/fmu/in/vehicle_visual_odometry (px4_msgs VehicleOdometry), EKF2_EV_CTRL, EKF2_HGT_REF 3 (vision), global origin set with SET_GPS_GLOBAL_ORIGIN",
+      "note": "30 to 50 Hz recommended. A VIO node publishing ENU/FLU must convert to PX4's frames. Used from D2; not needed by WO-002.",
+      "status": "proposed",
+      "evidence_url": "https://docs.px4.io/v1.17/en/ros/external_position_estimation.html",
       "evidence_date": "2026-10-31"
     }
   },

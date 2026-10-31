@@ -1,6 +1,6 @@
 # SOURCES-D0.md — sources added by WO-001
 
-All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-identical with `vishwaroop` and is left unchanged until this repository migrates to `ironclad` (`ledgers/approvals.jsonl`), so WO-001's additions are here. They are documentation and supplier statements, not evidence that anything works in this project. Supplier links for each price are in `docs/BOM_WORKSHEET.md`.
+All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-identical with `vishwaroop` and is left unchanged until this repository migrates to `ironclad` (`ledgers/approvals.jsonl`), so WO-001's additions are here. They are documentation and supplier statements, not evidence that anything works in this project. Supplier links for prices are in `docs/BOM_WORKSHEET.md`.
 
 ## Recheck of [S1]–[S5], read directly on 2026-10-31
 | Source | What the page says | Page's own date |
@@ -27,6 +27,8 @@ All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-ident
 - [D23] PX4 parameter source at v1.17.0: `COM_OF_LOSS_T` default 1.0 s; `COM_OBL_RC_ACT` values. https://raw.githubusercontent.com/PX4/PX4-Autopilot/v1.17.0/src/modules/commander/commander_params.c
 - [D24] PX4 v1.17 parameter reference: velocity, acceleration, jerk, geofence, failsafe defaults. https://docs.px4.io/v1.17/en/advanced_config/parameter_reference.html
 - [D25] PX4 v1.17 Safety: geofence, kill switch, position loss. https://docs.px4.io/v1.17/en/config/safety.html
+- [D43] PX4 v1.17 external vision: `vehicle_visual_odometry`, 30–50 Hz, `EKF2_EV_CTRL`, `EKF2_EV_DELAY`, `SET_GPS_GLOBAL_ORIGIN`. https://docs.px4.io/v1.17/en/ros/external_position_estimation.html
+- [D44] PX4 v1.17 Hold: flying vehicles need global position. https://docs.px4.io/v1.17/en/flight_modes_mc/hold.html
 
 ## Airframes and parts
 - [D12] Holybro X500 V2 kit, contents and price. https://holybro.com/products/px4-development-kit-x500-v2
@@ -34,13 +36,14 @@ All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-ident
 - [D14] ModalAI Starling 2 datasheet. https://docs.modalai.com/starling-2-datasheet/
 - [D15] NVIDIA Orin Nano dev kit carrier board specification, v1.3: 0.175 kg, DC jack 9–20 V. The document does not name the Super. https://developer.nvidia.com/downloads/assets/embedded/secure/jetson/orin_nano/docs/jetson_orin_nano_devkit_carrier_board_specification_sp.pdf
 - [D18] PX4 RC receivers: ExpressLRS with CRSF validated. https://docs.px4.io/main/en/getting_started/rc_transmitter_receiver.html
-- [D19] PX4 CRSF telemetry: needs custom firmware. https://docs.px4.io/main/en/telemetry/crsf_telemetry.html
+- [D19] PX4 CRSF: not in default firmware; a custom build must include `crsf_rc`. https://docs.px4.io/v1.17/en/telemetry/crsf_telemetry.html
 
 ## VIO and sensors
 - [D16] Isaac ROS Visual SLAM, release 4.6: Jazzy; Jetson Orin or x86 with an NVIDIA GPU; 30 Hz minimum; stereo offset ±100 µs. https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_visual_slam/index.html
+- [D46] Isaac ROS 4.6 getting started: Jetson Orin on JetPack 7.2 with a 128 GB or larger NVMe drive. https://nvidia-isaac-ros.github.io/v/release-4.6/getting_started/index.html
 - [D17] cuVSLAM licence: NVIDIA Community License, NVIDIA systems only. https://raw.githubusercontent.com/nvidia-isaac/cuVSLAM/main/LICENSE
 - [D20] ROS 2 Jazzy package index and status: `depthai_ros_v3` 3.2.1-1; `realsense2_camera` 4.58.4-1 in the main apt repository. https://raw.githubusercontent.com/ros/rosdistro/master/jazzy/distribution.yaml and http://repo.ros2.org/status_page/ros_jazzy_default.html
-- [D21] Luxonis OAK-D Pro: OV9282 global-shutter stereo, BNO086, up to 15 W. https://docs.luxonis.com/hardware/products/OAK-D%20Pro
+- [D21] Luxonis OAK-D Pro: 91 g; OV9282 global-shutter stereo; BNO086; ideal depth about 0.8–12 m; up to 15 W. https://docs.luxonis.com/hardware/products/OAK-D%20Pro
 - [D26] RealSense D400 datasheet, March 2026: D435i 75 g, IMU BMI055 or BMI085, 50 µs IMU timestamp accuracy. https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf
 - [D27] OpenVINS: GPL-3.0; last release v2.7 in 2023; Jazzy pull requests still open. https://github.com/rpng/open_vins and https://github.com/rpng/open_vins/pull/558
 - [D30] Luxonis BasaltVIO: stereo with IMU, early access. https://docs.luxonis.com/software-v3/depthai/examples/vslam/basalt_vio_rtab.md
@@ -58,6 +61,8 @@ All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-ident
 - [D36] Tello AprilTag study: 184 mm tag, 3–5.5% error at 3–7 m. https://arxiv.org/pdf/2305.05673v1
 - [D37] AprilTag user guide: recommends `tagStandard41h12`. https://github.com/AprilRobotics/apriltag/wiki/AprilTag-User-Guide
 - [D38] Webcam sync by timestamps, about 13.3 ms average; a bachelor's thesis poster, not peer reviewed. https://lup.lub.lu.se/student-papers/record/9236101/file/9236107.pdf
-- [D39] US Netting drone netting article and panels. https://www.usnetting.com/articles/2026/03/16/drone-containment-netting-solutions/ and https://www.usnetting.com/drone-netting/panels
+- [D39] US Netting drone netting article and panels. https://www.usnetting.com/articles/2026/03/16/drone-containment-netting-solutions/ and https://www.usnetting.com/drone-netting/
 - [D40] PX4 First Flight Guidelines: open space, no people within 100 m, as a rule of thumb. https://docs.px4.io/main/en/flying/first_flight_guidelines.html
 - [D41] Tether review naming entanglement and impulsive forces; no procedures. https://scholarcommons.sc.edu/emec_facpub/968
+- [D42] Iturralde et al., ISARC 2023: 200 mm tags, full-frame camera, several photos; 2–9 mm at 2.8–8.9 m. https://www.iaarc.org/publications/fulltext/077_ISARC%202023_Paper_175.pdf
+- [D45] AprilTag generated images: `tagStandard41h12` is 9 × 9 modules. https://github.com/AprilRobotics/apriltag-imgs
