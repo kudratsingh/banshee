@@ -2,13 +2,13 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 07:51 UTC · ledger records: 5
+Generated: 2026-10-31 09:07 UTC · ledger records: 8
 
 ## Phases
 
 | Phase | Name | State | Exit tests (passed / frozen / total) | Prerequisites | Work orders |
 |---|---|---|---|---|---|
-| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **not_started** | 0 / 0 / 6 | — | WO-001, WO-003 |
+| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **not_started** | 0 / 0 / 6 | — | WO-001, WO-003, WO-007 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
 | D3 | Optional outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
@@ -65,4 +65,5 @@ Generated: 2026-10-31 07:51 UTC · ledger records: 5
 | WO-003 | Supervised resource and spend enforcement (local, no paid execution) | D0 | **created** | 2026-10-31T07:51:52.125269Z | — |
 | WO-004 | D1 fault matrix in simulation and the freshness gate in the command loop | D1 | **created** | 2026-10-31T07:51:52.172244Z | — |
 | WO-005 | D2 props-off sensor, localization and reference checkout | D2 | **created** | 2026-10-31T07:51:52.215726Z | — |
+| WO-007 | Designate the private GitHub remote and create the repository | D0 | **in_progress** | 2026-10-31T09:07:48.921985Z | — |
 
