@@ -3,7 +3,7 @@
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "const": "1.0.0"
+      "const": "2.0.0"
     },
     "episode_id": {
       "type": "string",
@@ -272,7 +272,7 @@
     "context"
   ],
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:omni-world:trajectory:transition:1.0.0",
+  "$id": "urn:omni-world:trajectory:transition:2.0.0",
   "$defs": {
     "artifact": {
       "type": "object",

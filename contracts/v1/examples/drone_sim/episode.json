@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "episode_id": "fixture-drone-001",
   "producer": "banshee",
   "created_at": "2026-10-30T20:52:00-07:00",
@@ -149,7 +149,7 @@
     "record_count": 2,
     "transitions_artifact": {
       "path": "transitions.jsonl",
-      "sha256": "703e4b2af62e0c0349c5882b9a818dcbd6daf125fe6daddf71e1bf3c234be9ac"
+      "sha256": "4c48f9823d5094a598822012115df3e75ce4f0d5474d66b75f0712fee99f1f0b"
     }
   }
 }

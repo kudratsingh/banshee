@@ -1,42 +1,53 @@
 # ADR-0003 — Project names: `banshee` and `vishwaroop`
 
-**Date:** 2026-10-31 · **Status:** accepted · **Work order:** WO-006 in `banshee`; the next free work-order id in `vishwaroop` · **Program link:** PROGRAM §5, §11, §14
+**Date:** 2026-10-31 · **Status:** accepted · **Work order:** WO-006 in `banshee`; WO-007 in `vishwaroop` · **Program link:** PROGRAM §5, §11, §14
 
 ## Context
-The owner decided the project names on 2026-10-31. The Omni Drone repository and Python package are `banshee`; the World Model & Planner repository and Python package are `vishwaroop`. Both starter kits still carry the old identifiers, including in three places that must stay byte-identical across the repositories: `PROGRAM.md`, the shared `AGENTS.md` core (sections 1–12), and `contracts/v1/`. The episode schema's `producer` enum and two fabricated example episodes are among them, so this is a contract change (`AGENTS.md §2.3, §11`) and needs a program-level ADR.
+The owner decided the project names on 2026-10-31. Both starter kits still carried the old identifiers, including in files that must stay byte-identical across the repositories: `PROGRAM.md`, the shared `AGENTS.md` core (sections 1–12) and `contracts/v1/`. The episode schema's `producer` enum and two fabricated example episodes are among them, so this is a contract change (`AGENTS.md §2.3, §11`) and needs a program-level ADR.
 
 ## Decision
-1. **Names.** Repository paths, package imports, `config/phases.json#project` and contract `producer` values use `banshee` and `vishwaroop`. The descriptive names "Omni Drone", "World Model & Planner", "the drone project" and "the world-model project" stay valid in prose and docs. "Omni" keeps its recorded meaning of broad mission capability.
-2. **Contract.** The `producer` enum becomes `arm`, `banshee`, `vishwaroop`, and the `drone_sim` and `imagined_arm` fixtures use the new values. `RELEASE.json` names the new consumers and the release label becomes `1.0.0+kit.2026-10-31.names`.
-3. **`schema_version` stays `1.0.0`, and the path stays `contracts/v1/`.** Removing an enum value is breaking under `AGENTS.md §11.3`, which would normally mean a new major release with a migration. This change does not take that path because the owner directed an in-place change, and because nothing needs migrating: the only records under the old values are the fabricated fixtures changed here, and no real episode, export or pinned external consumer exists yet. After the first real episode is exported, §11.3 applies in full.
-4. **The contract's own name stays.** `omni-world trajectory contract` and the `urn:omni-world:...` schema ids name the contract, not a repository or package. They are outside the owner's list and do not change.
-5. **Documents.** `PROGRAM.md` becomes version 1.1 with dated rows in §11 and §14. The `AGENTS.md` core changes its repository names only, so no rule changes and the policy version stays 1.0.
-6. **ADR numbers.** This program ADR takes ADR-0003 in both repositories. Planned project ADRs move up one: in `banshee`, the D0 airframe and stack ADR becomes ADR-0004 and the D1 frame and timebase ADR becomes ADR-0005; in `vishwaroop`, the M0 task-choice ADR becomes ADR-0004.
+1. **Names and meanings.**
+   - **`banshee`** is the Omni Drone repository and Python package: the spirit whose wail forewarns a death, and the sound a quadrotor makes.
+   - **`vishwaroop`** is the World Model & Planner repository and Python package: Sanskrit *viśvarūpa*, the universal form Krishna shows Arjuna, all of creation seen at once. A world model sees everything and is trusted only as far as it has earned.
+2. **Where the short names apply.** Repository paths, package imports, `config/phases.json#project` and contract `producer` values use them. "Omni Drone" and "World Model & Planner" stay valid in prose and docs.
+3. **Contract.** The `producer` enum becomes `arm`, `banshee`, `vishwaroop`, and the `drone_sim` and `imagined_arm` fixtures use the new values. `RELEASE.json` names the new consumers.
+4. **Contract version.** This is major release `2.0.0` (`schema_version` 2.0.0, release `2.0.0+kit.2026-10-31`). The owner's instruction was to keep 1.0.0 unless the contract README prescribes a different step. Its change-control section says breaking changes are a new major release, and removing enum values rejects records that were valid before. No episode data exists outside the fixtures, so no adapter is needed; all three fixtures are migrated in this change, including their pinned transition hashes.
+5. **What stays.** The directory stays `contracts/v1/`, because the owner's instruction names that path and the tools hardcode it; the name is a path, not the version. `omni-world trajectory contract` and the `urn:omni-world:...` schema ids keep that name, with only their version suffix changing.
+6. **`PROGRAM.md`** becomes version 1.1: §5.1 and §5.2 state the repository and package names, and §11 and §14 gain dated rows.
+7. **`AGENTS.md` core** becomes policy version 1.1 and gains a Names paragraph after the policy header. Nothing else in the core changes, on the owner's instruction, so the header sentence about the core being byte-identical keeps its original repository names; the Names paragraph governs.
+8. **ADR numbers.** This program ADR takes ADR-0003 in both repositories. Planned project ADRs move up one: in `banshee`, the D0 airframe and stack ADR becomes ADR-0004 and the D1 frame and timebase ADR becomes ADR-0005; in `vishwaroop`, the M0 task-choice ADR becomes ADR-0004.
 
-## Shared bytes
-These files must match byte for byte in both repositories: `PROGRAM.md`, everything under `contracts/v1/`, `config/contract-lock.json`, `config/program-lock.json`, this ADR, and `AGENTS.md` up to but not including the `## 13.` heading.
+## Shared files changed
+`banshee` is the single source. `vishwaroop` copies these byte for byte from the `banshee` commit and authors nothing shared:
+- `PROGRAM.md`
+- `AGENTS.md`, bytes before the `## 13.` heading
+- everything under `contracts/v1/`
+- `config/contract-lock.json`
+- `config/program-lock.json`
+- `docs/adr/ADR-0003-PROGRAM-project-names.md` (this file)
 
-To avoid two independently worded versions, the repository that applies this change second copies these bytes from the first and does not re-author them. It then confirms these values:
-
+## Hash table
 | Item | sha256 |
 |---|---|
-| `contracts/v1/SHA256SUMS.json` | `9c0b9347be3758b359c7c7e9fdf7eb7798086167fb1162112fcc9d22bd5a61c3` |
-| `PROGRAM.md` (version 1.1) | `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` |
-| `AGENTS.md` core (bytes before `## 13.`) | `9b442240b95c6b6f94d6e99d0c597561689c2dbdbe74f202cfbc7ae99f40364e` |
+| `PROGRAM.md` | `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` |
+| `config/program-lock.json` | `6c6e8cf7ddfb8434754b223d12e1d12a23023be7da2a41e6f118f964c0f77e17` |
+| `contracts/v1/SHA256SUMS.json` | `df69f9a1b0dc371a61ae7687b9e5264ac85fec075d39900e0c184b60fee54110` |
+| `config/contract-lock.json` | `c9e242f40cd943bf1dd899d4c65163f050ae3ce8e15341db550884780c32b839` |
+| `AGENTS.md` core (bytes before `## 13.`) | `6eb29cd33effa2ab6d76e17cb80a10f8ed1eb1d74407f90fb8d8884683afe6ad` |
 
 ## Alternatives considered
 | Option | Why not |
 |---|---|
-| Keep `omni_drone` and `world_model` as `producer` values and rename only repositories and packages | contradicts the owner's decision; contract records would name projects that no longer exist under those names |
-| New major contract release (`schema_version` 2.0.0, `contracts/v2/`) | the owner directed a change to `contracts/v1/`; a migration for fixtures alone adds a version with nothing to migrate |
+| Keep the old `producer` values and rename only repositories and packages | contradicts the owner's decision; contract records would name projects that no longer exist under those names |
+| Keep `schema_version` 1.0.0 | the owner made it conditional on the contract README, which requires a major release for a breaking change |
+| Move the contract to `contracts/v2/` | the owner's instruction names `contracts/v1/`, and the locks and tools use that path |
 | Accept both old and new `producer` values | keeps retired names in the contract permanently, and no record needs them |
-| Rename the contract and its URNs too | outside the owner's list, and it changes every schema id for no functional gain |
 
 ## Consequences
-- Any record using `producer: omni_drone` or `producer: world_model` now fails validation. None exists outside the fixtures changed here.
-- The change is not complete until both repositories carry the same bytes and each one's `make check` is green. Neither repository's change merges to `main` until the shared hashes are confirmed in both, or until the owner records why not (`AGENTS.md §11.3`).
+- Any record using a retired `producer` value or `schema_version` 1.0.0 now fails validation. None exists outside the fixtures changed here.
+- The change is complete only when both repositories carry the same bytes and each one's `make check` is green. Neither repository's change merges to `main` until the hashes above are confirmed in both, or until the owner records why not (`AGENTS.md §11.3`).
 - The owner's Claude Project copy of `PROGRAM.md` must be updated to version 1.1.
 - This decision authorizes no remote, purchase or hardware action.
 
 ## Reversibility
-Low cost while no real records exist: revert the rename commits in both repositories. After real episodes exist, changing `producer` values again would be a breaking contract release under `AGENTS.md §11.3`.
+Low cost while no real records exist: revert the rename commits in both repositories. After real episodes exist, changing `producer` values again would be another breaking contract release under `AGENTS.md §11.3`.

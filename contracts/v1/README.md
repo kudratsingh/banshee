@@ -1,4 +1,4 @@
-# Shared trajectory contract v1.0.0 (kit release 2026-10-31)
+# Shared trajectory contract v2.0.0 (kit release 2026-10-31)
 
 One contract release consumed by three producers: the arm export adapter (future, owner-provided; `producer: arm`), Omni Drone (`producer: banshee`), and World Model & Planner (`producer: vishwaroop`). The several schemas here are parts of one release, not extra projects or live services. It is the **only** shared technical boundary between the two repositories (`AGENTS.md §11`).
 

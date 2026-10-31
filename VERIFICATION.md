@@ -7,30 +7,38 @@
 Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins in `requirements-dev.txt`. The baseline `make check` on the unmodified import, also measured here, passed before any edit.
 
 ### Identity
-- `contracts/v1/SHA256SUMS.json` sha256: `9c0b9347be3758b359c7c7e9fdf7eb7798086167fb1162112fcc9d22bd5a61c3` (pinned in `config/contract-lock.json`)
+- `contracts/v1/SHA256SUMS.json` sha256: `df69f9a1b0dc371a61ae7687b9e5264ac85fec075d39900e0c184b60fee54110` (pinned in `config/contract-lock.json`)
 - `PROGRAM.md` version 1.1 sha256: `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` (pinned in `config/program-lock.json`)
-- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `9b442240b95c6b6f94d6e99d0c597561689c2dbdbe74f202cfbc7ae99f40364e`
+- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `6eb29cd33effa2ab6d76e17cb80a10f8ed1eb1d74407f90fb8d8884683afe6ad`
 
 ### Measured
 | Check | Result |
 |---|---|
 | `make check` (lint, types, tests, hash locks, secrets, links) | passed; 87 tests |
-| `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone; run in this repository before the commit, it compares `main` with itself and proves nothing |
+| `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
 | `contracts/v1/audit_splits.py` on all three fixtures | exit 0 |
-| Negative test: `drone_sim` with `producer: omni_drone` | rejected, exit 2 |
+| Negative test: `drone_sim` with the retired drone `producer` value | rejected, exit 2 |
+| Negative test: `drone_sim` with `schema_version` 1.0.0 | rejected, exit 2 |
+| `grep -rn` for the old underscore package name, outside `.git` | no hits |
 
 ### Cross-repository check
-**Real repository, measured read-only on 2026-10-31 at 09:07 UTC.** The `vishwaroop` checkout's contract tree, contract manifest, `PROGRAM.md`, both lock files, ADR-0003 and `AGENTS.md` core all match this repository byte for byte. Its working tree held these bytes on branch `wo/WO-007-program-rename`, but that branch had not committed them yet, so this confirms matching files and not matching commits. An earlier read at about 08:58 UTC, before it adopted them, showed the old hashes.
+**Real repository, measured read-only on 2026-10-31 at 09:11 UTC. Not confirmed yet.** `PROGRAM.md` and `config/program-lock.json` match. The contract manifest, `config/contract-lock.json`, ADR-0003 and the `AGENTS.md` core do not: the `vishwaroop` working tree held an earlier uncommitted draft of them (contract manifest `9c0b9347...`, `AGENTS.md` core `9b442240...`), and it has to copy the final bytes from this commit. Compare against the hash table in ADR-0003.
 
-**Scratch copy.** The shared bytes except ADR-0003 (`PROGRAM.md`, `contracts/v1/`, both lock files, the `AGENTS.md` core) were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (82 tests) and those files matched this repository. ADR-0003 was not copied or compared in that run. This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+**Scratch copy.** All the shared files in ADR-0003 were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (82 tests) and every copied file matched this repository. This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+
+### Remote (WO-007)
+- `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
+- `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
+- GitHub accepted protection on `main`, read back from the API: pull requests required with 0 approvals, both `cpu-tier` checks required, administrators included, force-push and deletion disallowed.
+- This rename branch is committed locally and not pushed, because the owner's final rename instruction says to commit locally. CI on this rename is **not run**.
 
 ### Old names left on purpose
 - `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.
 - `omni-drone` in this file's title and in the rename notes in `CHANGES.md`, which record where the repository came from.
 - `omni-world` in `contracts/v1/RELEASE.json` and the schema `$id` URNs, the contract's own name, and in ADR-0003 and WO-006, which say it stays.
-- `omni_drone` and `world_model` in ADR-0003 and this file, and `omni_drone` in `work_orders/WO-006-program-rename-banshee.md`, where they name the retired values or the old package path.
+- `omni-drone` and `world-model` on line 3 of `AGENTS.md`, because the owner limited core edits to the policy version and the Names paragraph (ADR-0003).
 - "Omni Drone", "World Model & Planner", "world model" and "world-model" as descriptive prose, which the owner's decision keeps valid.
 
 ### Record notes
@@ -38,7 +46,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
 
 ### Not run
-No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
+No simulator and no hardware. Contract tests were updated only for the new version value. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
 
 ## Packaging record (before the rename)
 
