@@ -1,4 +1,78 @@
-# VERIFICATION.md — omni-drone starter kit
+# VERIFICATION.md — banshee (Omni Drone), imported from the omni-drone starter kit
+
+## Post-rename verification (2026-10-31, branch `wo/WO-006-program-rename`)
+
+**These are the current hashes.** The packaging record further down is kept as history and shows the values before the rename.
+
+Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins in `requirements-dev.txt`. The baseline `make check` on the unmodified import, also measured here, passed before any edit.
+
+### Identity
+- `contracts/v1/SHA256SUMS.json` sha256: `9c0b9347be3758b359c7c7e9fdf7eb7798086167fb1162112fcc9d22bd5a61c3` (pinned in `config/contract-lock.json`)
+- `PROGRAM.md` version 1.1 sha256: `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` (pinned in `config/program-lock.json`)
+- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `8f174fdc05d6184675491181d91a9a8921f7678b22006378f696ec27847659b6`
+
+### Measured
+| Check | Result |
+|---|---|
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 109 tests |
+| `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
+| `tools/check_hashes.py --verify-kit-manifest` | passed |
+| `contracts/v1/validate.py` on all three fixtures | exit 0 |
+| `contracts/v1/audit_splits.py` on all three fixtures | exit 0 |
+| Negative test: `drone_sim` with the retired drone `producer` value | rejected, exit 2 |
+| `grep -rn` for the old underscore package name, outside `.git` | no hits |
+
+### Cross-repository check
+**Real repository, measured read-only on 2026-10-31 at 09:28 UTC. Confirmed for the shared files.** At `vishwaroop` commit `b42d391`, `PROGRAM.md`, `config/program-lock.json`, `contracts/v1/SHA256SUMS.json`, `config/contract-lock.json`, ADR-0003, the `AGENTS.md` core and the `contracts/v1` tree match this repository's commit byte for byte. WO-008 is not fully matched: `.gitignore`, `tools/status_board.py` and `tests/test_tools.py` there predate the follow-up commit `e412aea` here.
+
+**Scratch copy.** All the shared files in ADR-0003, plus the WO-008 files, were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (85 tests). This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+
+### WO-008 checks
+| Check | Result |
+|---|---|
+| New status board tests against the old `tools/status_board.py` | 2 failed, as they should |
+| `--append --phase D0 --event ready` and `--append --et ET-D0-1 --event frozen`, scratch copy | accepted, exit 0 |
+| `--append --event ready` with no id, scratch copy | refused, exit 2 |
+| `git init && git add -A`, scratch copy | `tools/scan_secrets.py` tracked |
+| `git ls-files -ci --exclude-standard` | no tracked file is ignored |
+| `--phase` with `--et` in one call, scratch copy | refused, exit 2 |
+| `git check-ignore` on `secret.json`, `api_secret.txt`, `my-secret.env`, `client_secrets.yaml` | all ignored; `tools/scan_secrets.py` is not |
+| A real file in `reports/`, scratch copy | `tests/test_project_consistency.py` passes |
+| `ruff format --check` | now covers 26 files, including `tools/scan_secrets.py` |
+
+### WO-009 checks
+| Check | Result |
+|---|---|
+| New tests against the old tools | 4 failed, as they should |
+| `--append --wo WO-007 --event created`, scratch copy | refused, exit 2 |
+| A first ordinary event for an untouched work order, scratch copy | accepted, exit 0 |
+| Hugging Face token in a file with no extension, scratch copy | scan exits 1 |
+| RunPod key in a `.md` file, scratch copy | scan exits 1 |
+| A status line appended by hand, then an edit to the frozen work order | `tools/check_immutable.py` still reports it |
+| Frozen work order and a ledger replaced by symlinks | `tools/check_immutable.py` reports both |
+| Tokens after percent-encoding or a JSON `\n` escape | flagged |
+| `git check-ignore` on `secret_prod.env`, `mysecret`, `secretkey`, with the broad `*secret*` rule restored | all ignored; `tools/scan_secrets.py` is not |
+
+### Remote (WO-007)
+- `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
+- `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
+- GitHub accepted protection on `main`, read back from the API: pull requests required with 0 approvals, both `cpu-tier` checks required, administrators included, force-push and deletion disallowed.
+- The owner approved one push of this branch and one pull request to `main`. It merges only on the owner's explicit approval, given after both repositories are verified. CI results for this branch are on the pull request, because this file is part of the commit under test.
+
+### Old names left on purpose
+- `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.
+- `omni-drone` in this file's title and in the rename notes in `CHANGES.md`, which record where the repository came from.
+- `omni-world` in `contracts/v1/RELEASE.json` and the schema `$id` URNs, the contract's own name, and in ADR-0003 and WO-006, which say it stays.
+- "Omni Drone", "World Model & Planner", "world model" and "world-model" as descriptive prose, which the owner's decision keeps valid.
+
+### Record notes
+- The rename edits were applied to the uncommitted working tree at 08:53:22Z, before the approval, `ready` and `in_progress` records were appended at 08:55:03Z. `docs/WORKFLOW.md §1` puts those records first. The owner's decision itself predates the edits.
+- During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
+
+### Not run
+No simulator and no hardware.
+
+## Packaging record (before the rename)
 
 Packaging run: 2026-10-31 07:51 UTC. Everything below was executed on the assembled kit before zipping; nothing is copied from the reference bundle's reports.
 

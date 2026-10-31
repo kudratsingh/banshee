@@ -1,4 +1,4 @@
-"""Omni Drone — a general-purpose aerial autonomy platform built conventionally first.
+"""Banshee (Omni Drone) — a general-purpose aerial autonomy platform built conventionally first.
 
 Implemented in this starter: ``core`` (append-only record helpers), ``freshness`` (the
 setpoint-freshness and estimator-validity gate, pure logic), ``interfaces`` (typed Protocols for the

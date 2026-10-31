@@ -1,5 +1,5 @@
 [project]
-name = "omni-drone"
+name = "banshee"
 version = "0.0.1"
 description = "Omni Drone: a general-purpose aerial autonomy platform built conventionally first"
 requires-python = ">=3.12"
@@ -17,7 +17,7 @@ where = ["src"]
 testpaths = ["tests", "contracts/v1/tests"]
 pythonpath = ["src", "contracts/v1", "tools"]
 addopts = "-q -p no:cacheprovider"
-filterwarnings = ["error::DeprecationWarning:omni_drone.*"]
+filterwarnings = ["error::DeprecationWarning:banshee.*"]
 
 [tool.ruff]
 line-length = 100

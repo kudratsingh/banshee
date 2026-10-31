@@ -1,6 +1,8 @@
 # AGENTS.md — rules for every agent working in this repository
 
-**Policy version 1.0 — 2026-10-31.** This file is the **single authoritative source of rules** for this repository. `CLAUDE.md` only points here. Sections 1–12 are the shared core, byte-identical across the `omni-drone` and `world-model` repositories (sha256 recorded in `VERIFICATION.md`); section 13 is project-specific. Change the core only through a program-level ADR applied to both repositories.
+**Policy version 1.1 — 2026-10-31.** This file is the **single authoritative source of rules** for this repository. `CLAUDE.md` only points here. Sections 1–12 are the shared core, byte-identical across the `banshee` and `vishwaroop` repositories (sha256 recorded in `VERIFICATION.md`); section 13 is project-specific. Change the core only through a program-level ADR applied to both repositories.
+
+**Names.** The Omni Drone repository and Python package are `banshee`; the World Model & Planner repository and Python package are `vishwaroop`. Repository paths, package imports, contract `producer` values and `config/phases.json#project` use the short names.
 
 Reading order for a new session: `PROGRAM.md` (why and where) → this file (rules) → `START_HERE.md` (what to do now) → the active work order.
 
@@ -140,13 +142,13 @@ Escalation message format: what was attempted, what happened (with evidence), wh
 
 ## 13. Project-specific rules
 
-These rules apply to the `omni-drone` repository in addition to the shared core above.
+These rules apply to the `banshee` repository in addition to the shared core above.
 
 13.1 **Three states, always separate.** *Code merged*, *simulation passed*, and *flight-ready* are reported as different things. A SITL pass is never described as flight readiness. A hand-carried (props-off) pass is never reused as flight qualification.
 
 13.2 **Hardware and flight gates.** Connecting to a physical flight controller (even with propellers removed), arming, any motor spin, any flight, and any link-cut test on real hardware each require a dated owner approval in `ledgers/approvals.jsonl` naming the stage and the test configuration (`§2.3`). In D0 and D1 no physical endpoint may be present; its presence is a stop condition.
 
-13.3 **Command authority.** Only this project's command gate (`src/omni_drone/interfaces.py: CommandGate`, using `freshness.assess`) and PX4 may command the aircraft. World-model outputs are proposals consumed through exported model manifests with `command_authority: false`; the gate may reject every proposal and the drone must fly without them. Learned components reach the loop only through held-out logs → shadow mode → controlled closed-loop comparison with a kill switch and drone-owned acceptance (ET-D7-2).
+13.3 **Command authority.** Only this project's command gate (`src/banshee/interfaces.py: CommandGate`, using `freshness.assess`) and PX4 may command the aircraft. World-model outputs are proposals consumed through exported model manifests with `command_authority: false`; the gate may reject every proposal and the drone must fly without them. Learned components reach the loop only through held-out logs → shadow mode → controlled closed-loop comparison with a kill switch and drone-owned acceptance (ET-D7-2).
 
 13.4 **Freshness and failsafes.** Setpoint freshness, sensor age and estimator validity are checked independently of the ROS 2 offboard heartbeat. Expired setpoints are never sent. The response to a fault depends on which estimates remain valid (hold vs land); there is no universal hover rule. Loss handling must work without the laptop: PX4's offboard-loss failsafe is configured and tested on the actual link (D2, D4).
 

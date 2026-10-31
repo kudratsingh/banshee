@@ -7,7 +7,7 @@ Nominal hover and waypoint route; frame-sign and unit errors (injected); stale s
 
 ## 2. Timing and command freshness
 - Log capture, receive, decision, transmit and known application times; unavailable times are `null`, never guessed; monotonic mapped time with clock-alignment evidence (`contracts/v1`).
-- `src/omni_drone/freshness.py` decides from sensor age, estimator validity and setpoint age, independently of the heartbeat. Bounds are frozen in `evals/D1-exit-tests.json` from the measured operating envelope before flight. *Proposed defaults:* max setpoint age 200 ms; max sensor age 150 ms; estimator gap 100 ms — justify or replace with measurements.
+- `src/banshee/freshness.py` decides from sensor age, estimator validity and setpoint age, independently of the heartbeat. Bounds are frozen in `evals/D1-exit-tests.json` from the measured operating envelope before flight. *Proposed defaults:* max setpoint age 200 ms; max sensor age 150 ms; estimator gap 100 ms — justify or replace with measurements.
 - Response depends on valid estimates: hold when position is valid and only the planner is stale; land when localization is lost; always allow operator takeover. No generic hover-on-every-fault rule.
 
 ## 3. Physical progression
