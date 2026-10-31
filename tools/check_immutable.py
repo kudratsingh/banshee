@@ -9,7 +9,7 @@ fails on:
 - any modification under ``data/``, ``runs/``, ``artifacts/manifests/`` (write-once);
 - a modification of a ledger (``ledgers/*.jsonl``, ``work_orders/STATUS.jsonl``) or a report
   (``reports/*.md``) that is not a pure append (old content must be a byte prefix of new content);
-- any modification of a work order with an ``accepted`` status event anywhere in the ledger (frozen).
+- any modification of a work order with an ``accepted`` event anywhere in the ledger (frozen).
 
 Derived files (``docs/STATUS_BOARD.md``, ``reports/INDEX.md``) and the READMEs inside protected
 directories are exempt because they are regenerated or documentary.
@@ -46,7 +46,7 @@ def git(*args: str, cwd: Path = ROOT, check: bool = True) -> str:
 
 
 def accepted_work_orders(status_text: str) -> set[str]:
-    """WO ids with an ``accepted`` status event anywhere in the ledger; a later line cannot undo it."""
+    """WO ids with an ``accepted`` event anywhere in the ledger; a later line cannot undo it."""
     accepted: set[str] = set()
     for line in status_text.splitlines():
         if not line.strip():

@@ -100,7 +100,7 @@
   "tests/test_tools.py": "55fb7686822289462c388ec00cce67b3147f6f3bf1fa6ac81ecade3e58d40072",
   "tools/budget_preflight.py": "cd148772ccbdd8a8100c481248cf618c3d607d22e5675420d536fb6e130c9b9c",
   "tools/check_hashes.py": "ea4cd91cd577fb17eed49e42be5f486e70a3bea2b66ba043a5c7e558a48ef0aa",
-  "tools/check_immutable.py": "ec7e2231566448c59e93d6c8fe3a1b28b9eacb268dffdef6f812a008d244d90a",
+  "tools/check_immutable.py": "4fbfb0a6add6fca787ff96deca30cacc2250457b1e39f779bce6337e60ca606a",
   "tools/check_links.py": "48999e2966b2886b9bfa7bca888c01f055743e4009927fe497a3e99706e05b67",
   "tools/scan_secrets.py": "d7b89f05c3970809999ca7513119dcb6f56a403c3be07d35bbe0bf8ed0ec9f34",
   "tools/status_board.py": "29dbf04a132c04d02a0584d450d64878e4332e2e8ddcd515a949d21ba2aa1507",
