@@ -12,7 +12,7 @@ Serves `PROGRAM §10`. The defects came with the starter kit; the rename did not
 Make the documented first-session steps work as written.
 
 ## Scope
-1. `.gitignore`: `*secret*` matches `tools/scan_secrets.py`. A fresh `git add -A` silently drops it, and `ruff` skips it inside a git checkout. Replace it with specific patterns plus `!tools/scan_secrets.py`.
+1. `.gitignore`: `*secret*` matches `tools/scan_secrets.py`. A fresh `git add -A` silently drops it, and `ruff` skips it inside a git checkout. Add `!tools/scan_secrets.py`; WO-009 settled the final patterns.
 2. `tools/status_board.py`: `--phase` and `--et` appends are always refused, because the record carries `"wo": null` and takes the work-order branch. Drop unset fields before `append()`, make `current_states` test keys by `.get()` truthiness, refuse a record naming more than one id, and add CLI-level tests.
 3. `tests/test_project_consistency.py::test_no_fixture_claims_in_reports` fails on any file in `reports/`, so it blocks every real report. Delete it, on the owner's instruction.
 

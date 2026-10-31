@@ -166,10 +166,30 @@ def test_current_states_ignores_null_keys_in_older_records() -> None:
     assert set(wos) == {"WO-001"} and set(phases) == {"D0"} and set(ets) == {"ET-D0-1"}
 
 
-def test_gitignore_keeps_the_secret_scanner_tracked(root: Path) -> None:
-    lines = (root / ".gitignore").read_text().splitlines()
-    assert "*secret*" not in lines
-    assert "!tools/scan_secrets.py" in lines
+def _gitignore_ignores(tmp_path: Path, root: Path, name: str) -> bool:
+    repo = tmp_path / "ignore-repo"
+    repo.mkdir()
+    shutil.copy(root / ".gitignore", repo / ".gitignore")
+    _git(repo, "init", "-q")
+    result = subprocess.run(
+        ["git", "check-ignore", "-q", "--no-index", name],
+        cwd=repo,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode in {0, 1}, result.stderr
+    return result.returncode == 0
+
+
+def test_gitignore_keeps_the_secret_scanner_tracked(tmp_path: Path, root: Path) -> None:
+    assert not _gitignore_ignores(tmp_path, root, "tools/scan_secrets.py")
+
+
+@pytest.mark.parametrize(
+    "name", ["secret_prod.env", "mysecret", "secretkey", "secrets/key.txt", ".secrets.json"]
+)
+def test_gitignore_ignores_secret_file_names(tmp_path: Path, root: Path, name: str) -> None:
+    assert _gitignore_ignores(tmp_path, root, name)
 
 
 def test_render_on_real_repo_config(root: Path) -> None:

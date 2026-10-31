@@ -14,7 +14,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Measured
 | Check | Result |
 |---|---|
-| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 103 tests |
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 108 tests |
 | `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
@@ -51,6 +51,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | A status line appended by hand, then an edit to the frozen work order | `tools/check_immutable.py` still reports it |
 | Frozen work order and a ledger replaced by symlinks | `tools/check_immutable.py` reports both |
 | Tokens after percent-encoding or a JSON `\n` escape | flagged |
+| `git check-ignore` on `secret_prod.env`, `mysecret`, `secretkey`, with the broad `*secret*` rule restored | all ignored; `tools/scan_secrets.py` is not |
 
 ### Remote (WO-007)
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
