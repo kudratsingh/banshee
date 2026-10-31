@@ -185,6 +185,19 @@ def test_gitignore_keeps_the_secret_scanner_tracked(tmp_path: Path, root: Path) 
     assert not _gitignore_ignores(tmp_path, root, "tools/scan_secrets.py")
 
 
+def test_no_tracked_file_is_ignored(root: Path) -> None:
+    if not (root / ".git").exists():
+        pytest.skip("not a git checkout")
+    result = subprocess.run(
+        ["git", "ls-files", "-ci", "--exclude-standard"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert result.stdout == ""
+
+
 @pytest.mark.parametrize(
     "name", ["secret_prod.env", "mysecret", "secretkey", "secrets/key.txt", ".secrets.json"]
 )

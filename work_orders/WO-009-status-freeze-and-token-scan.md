@@ -41,4 +41,4 @@ No exit test closes here. Accepted when these checks pass on the merged commit.
 A fix would touch shared bytes, or a scan pattern would flag text that is not a credential and cannot be narrowed.
 
 ## Report
-`reports/WO-009-status-freeze-and-secret-scan.md`, written at acceptance, once this work order has merged. Until then the fixes are logged in `CHANGES.md`.
+`reports/WO-009-status-freeze-and-token-scan.md`, written at acceptance, once this work order has merged. Until then the fixes are logged in `CHANGES.md`.

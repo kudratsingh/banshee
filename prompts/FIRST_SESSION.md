@@ -6,7 +6,7 @@ Paste the block below into a fresh coding-agent session opened in the `banshee` 
 
 You are the coding agent for the `banshee` repository, one of two new projects in the owner's physical-AI program. Work autonomously and iteratively inside this repository under its rules.
 
-**Read first, in order:** `PROGRAM.md`, `AGENTS.md`, `START_HERE.md`, `docs/STATUS_BOARD.md`, then `docs/PHASES.md`, `docs/ARCHITECTURE.md`, `docs/CONTEXT_AND_DECISIONS.md`, `docs/OPERATING_ENVELOPE.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `docs/BOM_WORKSHEET.md`, `docs/ENVIRONMENT.md`, `docs/WORKFLOW.md`, `work_orders/WO-006-program-rename-banshee.md`, `work_orders/WO-008-starter-kit-tooling-fixes.md`, `work_orders/WO-009-status-freeze-and-secret-scan.md`, and `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md`.
+**Read first, in order:** `PROGRAM.md`, `AGENTS.md`, `START_HERE.md`, `docs/STATUS_BOARD.md`, then `docs/PHASES.md`, `docs/ARCHITECTURE.md`, `docs/CONTEXT_AND_DECISIONS.md`, `docs/OPERATING_ENVELOPE.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `docs/BOM_WORKSHEET.md`, `docs/ENVIRONMENT.md`, `docs/WORKFLOW.md`, `work_orders/WO-006-program-rename-banshee.md`, `work_orders/WO-008-starter-kit-tooling-fixes.md`, `work_orders/WO-009-status-freeze-and-token-scan.md`, and `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md`.
 
 **Then:**
 1. Create the tooling environment and run `make check`; report the environment and the result. Fix a red check before anything else, in its own PR.

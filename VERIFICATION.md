@@ -14,7 +14,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Measured
 | Check | Result |
 |---|---|
-| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 108 tests |
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 109 tests |
 | `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
