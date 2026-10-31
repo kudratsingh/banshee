@@ -55,3 +55,6 @@ Pull request 1 merged at `292d368` on the owner's approval, after both repositor
 
 ## After import: merge and review rule (2026-10-31)
 On the owner's instruction, agents merge their own pull requests when all required checks are green, and owner approval is only for the authorization matrix. `AGENTS.md §13.9` now requires a full review first for milestone exit tests, RL-loop and evaluator work orders, and anything touching the contract; everything else merges on CI alone. This replaces the per-pull-request approval wording in `START_HERE.md`, `prompts/FIRST_SESSION.md` and WO-001. The shared `AGENTS.md` core did not change.
+
+## After import: WO-011 and WO-012 superseded (2026-10-31)
+On the owner's instruction, the shared material is being built by its own agent in `ironclad`, from `main` at `9f77ea7`. WO-011 and WO-012 were never started. Each has a short file so the status ledger can name it. This repository authors no program ADR or policy text from now on.
