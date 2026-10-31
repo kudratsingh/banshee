@@ -37,13 +37,14 @@ No SITL, offboard bridge, export adapter, fault harness, reference pipeline, mis
 The starter kit shipped as `omni-drone`. The repository and package are now `banshee`, and the sibling project is `vishwaroop`. Paths in this file were updated so they still resolve. The contract `producer` enum and fixtures, `PROGRAM.md` (version 1.1), the shared `AGENTS.md` core (policy version 1.1), manifests and locks changed with it. The one behaviour change: the validator now rejects the retired `producer` values and accepts the new ones. `schema_version` stays 1.0.0 because the rename predates any data. No other behaviour, threshold or authorization changed. Planned ADR numbers moved up one (`docs/adr/ADR-0003-PROGRAM-project-names.md`).
 
 ## After import: starter-kit defects fixed (2026-10-31, WO-008)
-The rename did not cause these. They are in the same work order and commit, on the owner's instruction.
+The rename did not cause these. They are in WO-008, in commits `95f7a34` and `e412aea`, separate from the rename, on the owner's instruction.
 - **`tools/status_board.py`:** `--phase` and `--et` appends were always refused, because the record carried `"wo": null` and took the work-order path. The command line now drops unset fields before `append()`, and `current_states` tests its keys by `.get()` truthiness. `tests/test_tools.py` adds tests for these appends through the command line. A record naming more than one of `--wo`, `--phase` and `--et` is now refused: the fix had otherwise let a combined call mark a phase as passed without recording the exit test.
 - **`tests/test_project_consistency.py`:** deleted `test_no_fixture_claims_in_reports` on the owner's instruction. It failed on any file in `reports/`, so it blocked every real work-order report.
 - **`.gitignore`:** replaced `*secret*`, which silently dropped `tools/scan_secrets.py` from `git add -A` and hid it from `ruff`, with specific patterns covering the realistic names it used to catch (`secret.json`, `api_secret.txt`, `my-secrets.env`), plus `!tools/scan_secrets.py`. `tests/test_tools.py` adds a test for this.
 
 ## After import: accepted work orders and secret scan (2026-10-31, WO-009)
 These also came with the starter kit, and the owner asked for them before WO-001.
-- **`tools/status_board.py`:** a `created` event is refused for any work order that already has a ledger record, so an accepted work order and its freeze cannot be reset.
+- **`tools/status_board.py`:** a `created` event is refused for any work order that already has a ledger record, so the tool cannot reset an accepted work order.
+- **`tools/check_immutable.py`:** the freeze now holds once any `accepted` event exists, so a line appended by hand cannot lift it, and replacing a protected file with a symlink is rejected. This goes beyond the tool the owner named, because the owner's stated goal was that the freeze cannot be reset.
 - **`tools/scan_secrets.py`:** adds Hugging Face (`hf_`) and RunPod (`rpa_`) patterns, each requiring 30 or more alphanumerics, and now scans files with no extension. One consequence: a local `.env`, though ignored by git, is scanned too, so a real key in it makes `make secrets` fail.
-- **`tests/test_tools.py`:** adds tests for both, with token literals built at runtime.
+- **`tests/test_tools.py`:** adds tests for all of these, with token literals built at runtime.

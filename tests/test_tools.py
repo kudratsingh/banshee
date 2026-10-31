@@ -255,6 +255,29 @@ def test_append_only_rejects_rename_of_protected_path(tmp_path: Path) -> None:
     assert any("renamed" in v for v in violations)
 
 
+def test_append_only_freeze_survives_a_later_status_line(tmp_path: Path) -> None:
+    repo = _git_repo(tmp_path)
+    with (repo / "work_orders" / "STATUS.jsonl").open("a") as ledger:
+        ledger.write('{"wo":"WO-001","event":"created"}\n')
+    (repo / "work_orders" / "WO-001-demo.md").write_text("# WO-001 | edited\n")
+    _git(repo, "add", "-A")
+    _git(repo, "commit", "-qm", "try to unfreeze")
+    violations = check_immutable.evaluate("main", cwd=repo)
+    assert any("WO-001-demo.md" in v and "frozen" in v for v in violations)
+
+
+def test_append_only_rejects_replacing_protected_files_with_symlinks(tmp_path: Path) -> None:
+    repo = _git_repo(tmp_path)
+    for path in (repo / "work_orders" / "WO-001-demo.md", repo / "ledgers" / "runs.jsonl"):
+        path.unlink()
+        path.symlink_to(repo / "free.txt")
+    _git(repo, "add", "-A")
+    _git(repo, "commit", "-qm", "swap for symlinks")
+    violations = check_immutable.evaluate("main", cwd=repo)
+    assert any("WO-001-demo.md" in v and "file type changed" in v for v in violations)
+    assert any("runs.jsonl" in v and "file type changed" in v for v in violations)
+
+
 # ----------------------------------------------------------------------------- secrets and paths
 
 
@@ -278,9 +301,15 @@ def test_secret_scan_flags_ml_service_tokens(tmp_path: Path, prefix: str, label:
     token = prefix + "aB3" * 10
     (tmp_path / "notes.md").write_text(f"export KEY={token}\n")
     (tmp_path / "too_short.md").write_text(f"{prefix}{'aB3' * 9}\n")
-    (tmp_path / "embedded.md").write_text(f"x{token}\n")
     hits = scan_secrets.scan(tmp_path)
     assert hits == [f"notes.md:1: {label}"]
+
+
+@pytest.mark.parametrize("wrap", ["Bearer%20{}", "token%3D{}", 'note {{"text": "line1\\n{}"}}'])
+@pytest.mark.parametrize("prefix", ["hf_", "rpa_"])
+def test_secret_scan_flags_tokens_after_encoding(tmp_path: Path, wrap: str, prefix: str) -> None:
+    (tmp_path / "record.jsonl").write_text(wrap.format(prefix + "aB3" * 10) + "\n")
+    assert len(scan_secrets.scan(tmp_path)) == 1
 
 
 def test_secret_scan_reads_files_with_no_extension(tmp_path: Path) -> None:

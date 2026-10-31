@@ -42,8 +42,8 @@ TEXT_NAMES = {"Makefile", "Dockerfile", ".gitignore", ".editorconfig", ".env.exa
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("AWS access key id", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
     ("GitHub token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b")),
-    ("Hugging Face token", re.compile(r"(?<![A-Za-z0-9])hf_[A-Za-z0-9]{30,}")),
-    ("RunPod API key", re.compile(r"(?<![A-Za-z0-9])rpa_[A-Za-z0-9]{30,}")),
+    ("Hugging Face token", re.compile(r"hf_[A-Za-z0-9]{30,}")),
+    ("RunPod API key", re.compile(r"rpa_[A-Za-z0-9]{30,}")),
     ("OpenAI-style key", re.compile(r"\bsk-[A-Za-z0-9_-]{32,}\b")),
     ("Slack token", re.compile(r"\bxox[abprs]-[A-Za-z0-9-]{10,}\b")),
     ("private key block", re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----")),
