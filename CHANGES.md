@@ -52,3 +52,6 @@ These also came with the starter kit, and the owner asked for them before WO-001
 
 ## After import: rename merged and accepted (2026-10-31)
 Pull request 1 merged at `292d368` on the owner's approval, after both repositories were verified. WO-006, WO-008 and WO-009 are `accepted`, each with a report in `reports/`. `START_HERE.md` no longer says the rename is waiting; a later pull request still needs its own owner approval.
+
+## After import: merge and review rule (2026-10-31)
+On the owner's instruction, agents merge their own pull requests when all required checks are green, and owner approval is only for the authorization matrix. `AGENTS.md §13.9` now requires a full review first for milestone exit tests, RL-loop and evaluator work orders, and anything touching the contract; everything else merges on CI alone. This replaces the per-pull-request approval wording in `START_HERE.md`, `prompts/FIRST_SESSION.md` and WO-001. The shared `AGENTS.md` core did not change.
