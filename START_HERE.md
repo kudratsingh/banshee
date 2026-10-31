@@ -15,7 +15,7 @@ python3 -m venv .venv && . .venv/bin/activate && python -m pip install -r requir
 make check && make board
 git status   # if this is not yet a git repository: git init -b main && git add -A && git commit -m "Starter kit import"
 ```
-`make check` must be green. If it is not, fixing it is the first task and gets its own PR.
+`make check` must be green. If it is not, fixing it is the first task and gets its own PR, once the owner approves that PR.
 
 ## 3. Status today (2026-10-31)
 - Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are the current work. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
@@ -33,7 +33,7 @@ Finish `work_orders/WO-006-program-rename-banshee.md` (it waits on the matching 
 Do not start WO-001 until the rename pull request is merged and WO-006, WO-008 and WO-009 are `accepted`. If it is still waiting, report that to the owner. Then branch from the updated `main`.
 1. `make check` green → `python tools/status_board.py --append --wo WO-001 --event ready`, then `--event in_progress`; `--phase D0 --event ready`, then `in_progress`.
 2. Branch `wo/WO-001-d0`; fill `docs/OPERATING_ENVELOPE.md` and `docs/BOM_WORKSHEET.md` (both airframe options, sourced and dated); write `config/stack-lock.proposed.json` with every pin labelled `proposed` and an evidence URL; write ADR-0004; draft `evals/D1-exit-tests.json`.
-3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request; open the PR; merge per `AGENTS.md §4.6`.
+3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request; then stop and ask the owner. Open the PR and merge it only on the owner's separate approval, recorded in `ledgers/approvals.jsonl`, and only when `AGENTS.md §4.6` also holds.
 4. When the owner records a decision or deferral in `ledgers/approvals.jsonl`, append `accepted`; `make board`; continue to WO-002 (software only).
 
 The first-session prompt the owner pastes into a fresh agent is `prompts/FIRST_SESSION.md`.

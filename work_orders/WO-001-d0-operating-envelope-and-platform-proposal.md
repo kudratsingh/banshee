@@ -3,7 +3,7 @@
 **Exit tests advanced:** ET-D0-1, ET-D0-2, ET-D0-3, ET-D0-4, ET-D0-5, ET-D0-6
 **Size:** M
 **Prerequisites:** the rename pull request merged, and WO-006, WO-008 and WO-009 `accepted` (status ledger). Entirely desk work: documents, sourced prices, documentation reading. No hardware, no purchase, no flight-stack installation required (installation is WO-002).
-**Authorization:** AGENTS §2.1 only. Purchasing is a §2.3 owner action and is **not** part of this WO.
+**Authorization:** AGENTS §2.1 only. Purchasing is a §2.3 owner action and is **not** part of this WO. Its pull request needs a separate owner approval (`ledgers/approvals.jsonl`).
 **Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0004-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`.
 
 ## Objective
@@ -30,7 +30,7 @@ The five documents above completed; ADR-0004; report with the owner decision req
 3. Price both BOM options; fill compatibility evidence; compute landed totals.
 4. Fill the envelope, derive limits, write the compliance and reference/containment sections.
 5. Write ADR-0004 and the D1 verification plan; draft `evals/D1-exit-tests.json`.
-6. Write the report with the owner decision request; open the PR; merge per `AGENTS.md §4.6`.
+6. Write the report with the owner decision request; then stop and ask the owner. Open the PR and merge it only on the owner's separate approval, recorded in `ledgers/approvals.jsonl`, and only when `AGENTS.md §4.6` also holds.
 7. When the owner records a decision or deferral, append it to `ledgers/approvals.jsonl`, append `accepted` for WO-001 with report and commit, `make board`, and continue to WO-002 (software only; no purchase needed).
 
 ## Verification
