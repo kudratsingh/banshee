@@ -33,4 +33,4 @@ WO-001 proposes and WO-002 tests. Proposed starting point (**proposed, not teste
 Own ROS 2 domain id (`ROS_DOMAIN_ID`) and uXRCE-DDS/MAVLink ports per instance; own `runs/`; never kill processes you did not start (`AGENTS.md §1.3`). Never connect to a physical flight controller during D0–D1 (`AGENTS.md §13`).
 
 ## 7. Unverified at packaging time (2026-10-31)
-Current PX4 stable release and its tested Gazebo/ROS 2 pairing; bridge versions; VIO package choice and its PX4 external-vision integration; sensor driver status on Jazzy. WO-001 resolves and records these with dates and evidence.
+WO-001 proposes these with dates and evidence in `config/stack-lock.proposed.json` and ADR-0007. None is tested. PX4 v1.17's guide states Humble on Ubuntu 22.04, so the Jazzy pairing in section 3 is what WO-002 tests first.

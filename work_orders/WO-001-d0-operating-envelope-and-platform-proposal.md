@@ -4,7 +4,7 @@
 **Size:** M
 **Prerequisites:** the rename pull request merged, and WO-006, WO-008 and WO-009 `accepted` (status ledger). Entirely desk work: documents, sourced prices, documentation reading. No hardware, no purchase, no flight-stack installation required (installation is WO-002).
 **Authorization:** AGENTS §2.1 only. Purchasing is a §2.3 owner action and is **not** part of this WO. It closes milestone exit tests, so it needs a full review before merging (`AGENTS.md §13.9`).
-**Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`.
+**Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`, `docs/SOURCES-D0.md`, `docs/ENVIRONMENT.md`.
 
 ## Objective
 Give the owner a one-page, numerically justified operating envelope and a priced, sourced comparison of at least two compatible platforms, with a proposed (not tested) stack version matrix and a compliance plan — so the purchase decision is made on evidence and D1 can start on pinned software.
@@ -26,7 +26,7 @@ The five documents above completed; ADR-0007; report with the owner decision req
 
 ## Steps
 1. `make check` green; status WO-001 `ready` → `in_progress`; phase D0 `ready` → `in_progress`.
-2. Read the PX4 offboard and external-vision documentation for the proposed release; record URLs and dates in the stack matrix and `docs/SOURCES.md` (append new sources with dates).
+2. Read the PX4 offboard and external-vision documentation for the proposed release; record URLs and dates in the stack matrix and `docs/SOURCES-D0.md` (new sources with dates; `docs/SOURCES.md` is a shared file and stays unchanged).
 3. Price both BOM options; fill compatibility evidence; compute landed totals.
 4. Fill the envelope, derive limits, write the compliance and reference/containment sections.
 5. Write ADR-0007 and the D1 verification plan; draft `evals/D1-exit-tests.json`.

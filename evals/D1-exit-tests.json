@@ -1,0 +1,34 @@
+{
+  "phase": "D1",
+  "status": "draft",
+  "status_note": "Proposed by WO-001 on 2026-10-31. Frozen only after the owner has not objected and before WO-002 runs them (AGENTS.md section 5.2). Every number is estimated; none is measured.",
+  "freshness_bounds": {
+    "consumer": "src/banshee/freshness.py FreshnessBounds",
+    "max_setpoint_age_ns": 200000000,
+    "max_sensor_age_ns": 150000000,
+    "max_estimator_age_ns": 100000000,
+    "justification": {
+      "max_setpoint_age_ns": "A 20 Hz command stream may miss three setpoints. At the 1.0 m/s indoor limit this is 0.2 m of travel, counted in the clearance arithmetic in docs/OPERATING_ENVELOPE.md.",
+      "max_sensor_age_ns": "Over four frames at 30 Hz, the minimum rate Isaac ROS Visual SLAM states. Counted in the same arithmetic.",
+      "max_estimator_age_ns": "PX4 recommends external vision at 30 to 50 Hz; 100 ms allows about three missed updates at 30 Hz. To be replaced with measurements."
+    }
+  },
+  "px4_parameters_under_test": {
+    "COM_OF_LOSS_T_s": 1.0,
+    "COM_OBL_RC_ACT": 5,
+    "NAV_RCL_ACT": 3,
+    "offboard_stream_min_hz": 2,
+    "offboard_stream_before_switch_s": 1.0
+  },
+  "sim_limits": {
+    "max_horizontal_speed_m_s": 1.0,
+    "note": "The garage limit. Requires the command gate to enforce it, as PX4's cruise parameters have a 3 m/s floor."
+  },
+  "exit_tests": {
+    "ET-D1-1": { "threshold": "2/2 clean launches report identical versions; zero null pins" },
+    "ET-D1-2": { "threshold": "10/10 nominal runs reach every waypoint within 0.5 m, checked by independent code from logged state" },
+    "ET-D1-3": { "threshold": "100% of runs contract_valid under contracts/v1/validate.py" },
+    "ET-D1-4": { "threshold": "every listed fault case executed and logged; any deviation from specification reported; configured and tested behaviour recorded separately" },
+    "ET-D1-5": { "threshold": "freshness gate tests green with the bounds above; heartbeat continuity never counts as setpoint freshness" }
+  }
+}
