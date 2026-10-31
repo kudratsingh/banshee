@@ -13,14 +13,14 @@ Make the documented first-session steps work as written.
 
 ## Scope
 1. `.gitignore`: `*secret*` matches `tools/scan_secrets.py`. A fresh `git add -A` silently drops it, and `ruff` skips it inside a git checkout. Replace it with specific patterns plus `!tools/scan_secrets.py`.
-2. `tools/status_board.py`: `--phase` and `--et` appends are always refused, because the record carries `"wo": null` and takes the work-order branch. Drop unset fields before `append()`, make `current_states` test keys by `.get()` truthiness, and add CLI-level tests.
+2. `tools/status_board.py`: `--phase` and `--et` appends are always refused, because the record carries `"wo": null` and takes the work-order branch. Drop unset fields before `append()`, make `current_states` test keys by `.get()` truthiness, refuse a record naming more than one id, and add CLI-level tests.
 3. `tests/test_project_consistency.py::test_no_fixture_claims_in_reports` fails on any file in `reports/`, so it blocks every real report. Delete it, on the owner's instruction.
 
 ## Out of scope
 Anything in `contracts/v1/`, `PROGRAM.md` or the `AGENTS.md` core; any other behaviour change; any other weakening of a check.
 
 ## Deliverables
-The three fixes in one separate commit, with tests, each logged in `CHANGES.md`.
+The three fixes in a commit separate from the rename, with tests, each logged in `CHANGES.md`. A follow-up commit closes a regression and a pattern gap that the review of that commit found.
 
 ## Steps
 Apply the three fixes in one commit on the WO-006 branch. Run `make check` before committing. Regenerate `SHA256SUMS.json` last.

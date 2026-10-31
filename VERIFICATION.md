@@ -14,7 +14,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Measured
 | Check | Result |
 |---|---|
-| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 90 tests |
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 91 tests |
 | `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
@@ -35,6 +35,8 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | `--append --event ready` with no id, scratch copy | refused, exit 2 |
 | `git init && git add -A`, scratch copy | `tools/scan_secrets.py` tracked |
 | `git ls-files -ci --exclude-standard` | no tracked file is ignored |
+| `--phase` with `--et` in one call, scratch copy | refused, exit 2 |
+| `git check-ignore` on `secret.json`, `api_secret.txt`, `my-secret.env`, `client_secrets.yaml` | all ignored; `tools/scan_secrets.py` is not |
 | A real file in `reports/`, scratch copy | `tests/test_project_consistency.py` passes |
 | `ruff format --check` | now covers 26 files, including `tools/scan_secrets.py` |
 
@@ -53,6 +55,10 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Record notes
 - The rename edits were applied to the uncommitted working tree at 08:53:22Z, before the approval, `ready` and `in_progress` records were appended at 08:55:03Z. `docs/WORKFLOW.md §1` puts those records first. The owner's decision itself predates the edits.
 - During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
+
+### Known and open
+- `tools/status_board.py` always allows a `created` event, so appending one can undo an `accepted` work order and its freeze. This came with the starter kit, and no work order owns it yet.
+- `tools/scan_secrets.py` has no pattern for Hugging Face or RunPod tokens and skips files with no extension. `.gitignore` is the only guard for those.
 
 ### Not run
 No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
