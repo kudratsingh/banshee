@@ -18,16 +18,16 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 `make check` must be green. If it is not, fixing it is the first task and gets its own PR.
 
 ## 3. Status today (2026-10-31)
-- Every stage `not_started`; WO-006 (the program-wide rename, ADR-0003) is `in_progress` and every other work order is `created`. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
-- `config/repo.json`: no remote designated → local git only.
+- Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003) and WO-008 (starter-kit tooling fixes) are the current work. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
+- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The branch `wo/WO-006-program-rename` stays local until the owner approves its push and pull request.
 - `config/budget.json`: $0 approved. Hardware purchase is an owner action that follows D0 and D1.
 - The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
 
 ## 4. First work order
-Finish `work_orders/WO-006-program-rename-banshee.md` first (it waits on the matching `vishwaroop` change). Then `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 (budget enforcement) can run in parallel in its own worktree.
+Finish `work_orders/WO-006-program-rename-banshee.md` (it waits on the matching `vishwaroop` change) and `work_orders/WO-008-starter-kit-tooling-fixes.md` first. Then `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 (budget enforcement) can run in parallel in its own worktree.
 
 ## 5. Unresolved owner decisions you may hit
-`docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`: test space; airframe; companion computer and depth camera; stack pins; frame convention; remote repository. Take the recorded default, write the assumption into the report, and continue — stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**
+`docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`: test space; airframe; companion computer and depth camera; stack pins; frame convention. Take the recorded default, write the assumption into the report, and continue — stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**
 
 ## 6. Exact next actions
 Do not start WO-001 until WO-006 and WO-008 are `accepted`. If WO-006 is still waiting on `vishwaroop`, report that to the owner. Once both are merged, branch from the updated `main`.

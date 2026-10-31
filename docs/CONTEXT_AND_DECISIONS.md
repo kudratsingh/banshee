@@ -40,7 +40,7 @@ Fast, autonomous iteration through bounded work orders; continue to the next rea
 | 3 | Companion computer and depth camera | Orin Nano Super 8 GB; OAK-D Pro |
 | 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001, tested in WO-002 |
 | 5 | Frame convention ADR | ROS ENU/FLU internally, convert at the PX4 boundary |
-| 6 | Remote repository | none; local git only |
+| 6 | Remote repository | decided: `kudratsingh/banshee`, private (ADR-0006) |
 
 ## 6. Contradictions found while consolidating
 | Conflict | Resolution |
