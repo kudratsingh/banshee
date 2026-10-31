@@ -1,0 +1,25 @@
+{
+  "status": "unresolved_do_not_claim_reproducible",
+  "resolved_by": "WO-001 writes config/stack-lock.proposed.json (every entry proposed, with evidence URL and date); WO-002 writes config/stack-lock.resolved.json with entries marked tested after SITL runs",
+  "tooling_test_environment": {
+    "python": "3.13.18",
+    "jsonschema": "4.26.0",
+    "pytest": "9.1.1",
+    "ruff": "0.16.9",
+    "mypy": "2.3.1",
+    "note": "Tested at packaging time (2026-10-31) for the CPU tier only; not a flight-stack environment."
+  },
+  "flight_stack": {
+    "os_image_digest_or_distro": null,
+    "px4_release_or_commit": null,
+    "ros2_distribution": null,
+    "ros2_package_lock": null,
+    "gazebo_version": null,
+    "px4_ros2_bridge_commit": null,
+    "qgroundcontrol_version": null,
+    "vio_package_and_version": null,
+    "sensor_driver_commits": null,
+    "flight_controller_firmware_target": null
+  },
+  "rule": "null is a blocker to resolve in WO-001/WO-002, never permission to use latest."
+}

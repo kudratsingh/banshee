@@ -1,0 +1,113 @@
+{
+  "project": "omni-drone",
+  "version": "1.0.0",
+  "notes": "Machine-readable mission ladder. docs/PHASES.md is the narrative; a test keeps the two consistent. Thresholds marked 'proposed default' must be frozen in evals/<phase>-exit-tests.json before the phase moves to ready (AGENTS.md section 5.2). Safety and failure-mode checks are inside each stage's exit tests, not separate workstreams. Code merged, simulation passed and flight-ready are three different states.",
+  "phases": [
+    {
+      "id": "D0",
+      "name": "Operating envelope, platform proposal, compliance plan (no purchase)",
+      "program_link": "PROGRAM section 5.1, 9",
+      "deliverable": "A one-page operating envelope; a priced BOM with dated sources for at least two compatible airframe options; a proposed (not tested) stack version matrix with a D1 verification plan; a compliance plan; a reference and containment plan; an owner decision on test space and airframe candidate. No purchase is implied.",
+      "prerequisites": [],
+      "exit_tests": [
+        {"id": "ET-D0-1", "statement": "The operating envelope page is complete: mission/site, airframe class, speed/height/clearance limits with justification, sensors, compute, energy, reference, containment, human control, compliance, data/privacy.", "evidence": "docs/OPERATING_ENVELOPE.md filled; owner questions listed", "threshold": "zero empty fields; every unknown is a named owner question"},
+        {"id": "ET-D0-2", "statement": "A priced BOM with dated sources covers at least two compatible airframe options (a 500 mm class kit and a 3-5 inch indoor frame) with landed cost including shipping, tax, spares, batteries, compliance, reference equipment and compute.", "evidence": "docs/BOM_WORKSHEET.md rows with source URL and date", "threshold": "every line has a source and a date; totals per option; no purchase"},
+        {"id": "ET-D0-3", "statement": "A compatible stack version matrix (PX4, ROS 2, Gazebo, bridge, QGroundControl, sensor drivers) is proposed with each pin labelled proposed or tested, and a D1 verification plan is written.", "evidence": "config/stack-lock.proposed.json; ADR", "threshold": "no latest-by-default pins; every entry labelled"},
+        {"id": "ET-D0-4", "statement": "The compliance plan covers the Part 107 path, registration, Remote ID route, indoor-only applicability, site permission and visual-line-of-sight limits, with sources.", "evidence": "docs/OPERATING_ENVELOPE.md compliance section with [S1]-[S5] citations", "threshold": "complete and sourced; recheck dates recorded"},
+        {"id": "ET-D0-5", "statement": "The outside-in reference qualification plan (accuracy target, coverage, synchronization, session check) and the airframe-specific containment method are written.", "evidence": "docs/REFERENCE_AND_SENSING.md plan section; envelope containment field", "threshold": "accuracy target stated numerically; containment chosen per airframe/test configuration"},
+        {"id": "ET-D0-6", "statement": "The owner has recorded a decision (or an explicit deferral) on test space and airframe candidate.", "evidence": "ledgers/approvals.jsonl line or a dated deferral record", "threshold": "one recorded decision or deferral"}
+      ]
+    },
+    {
+      "id": "D1",
+      "name": "PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix",
+      "program_link": "PROGRAM section 5.1, 6",
+      "deliverable": "A reproducible software-in-the-loop setup with pinned versions; a waypoint mission through the bounded velocity/yaw-rate offboard interface; trajectory exports that validate against contract v1; the simulated fault matrix executed and logged; a tested setpoint-freshness module in the command path.",
+      "prerequisites": ["D0"],
+      "exit_tests": [
+        {"id": "ET-D1-1", "statement": "SITL launches reproducibly from a script with a version manifest.", "evidence": "config/stack-lock.resolved.json; two launches on a clean machine with identical reported versions", "threshold": "2/2 launches identical versions; zero null pins"},
+        {"id": "ET-D1-2", "statement": "A waypoint mission completes through the offboard velocity/yaw-rate interface and its outcome is checked by independent code from the logged state.", "evidence": "mission logs; outcome code hash", "threshold": "proposed default: 10/10 nominal runs reach every waypoint within 0.5 m; freeze before running"},
+        {"id": "ET-D1-3", "statement": "Each run is exported through contracts/v1/writer.py with correct frames and timebase (capture, receive, decision, sent times) and validates.", "evidence": "validate.py output per episode; frame-convention ADR", "threshold": "100% contract_valid"},
+        {"id": "ET-D1-4", "statement": "The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished.", "evidence": "fault-matrix report with one log per case", "threshold": "all listed cases executed; any deviation from spec is reported, not hidden"},
+        {"id": "ET-D1-5", "statement": "A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness.", "evidence": "src/omni_drone/freshness.py tests; bounds in evals/D1-exit-tests.json", "threshold": "tests green; bounds documented with their justification"}
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "Props-off sensor and localization walkthrough",
+      "program_link": "PROGRAM section 5.1",
+      "deliverable": "With propellers removed, the intended camera/IMU setup carried through the test volume: timestamps, frames, latency, estimator resets and tracking loss measured; the outside-in reference qualified; the real connection-loss behaviour exercised on the actual command path.",
+      "prerequisites": ["D1"],
+      "exit_tests": [
+        {"id": "ET-D2-1", "statement": "Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried.", "evidence": "measurement report with intervals", "threshold": "offset estimate with CI; frame check passes; latency distribution reported"},
+        {"id": "ET-D2-2", "statement": "VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference.", "evidence": "tracking log; comparison table", "threshold": "proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported"},
+        {"id": "ET-D2-3", "statement": "The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure.", "evidence": "docs/REFERENCE_AND_SENSING.md qualification record", "threshold": "proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass"},
+        {"id": "ET-D2-4", "statement": "With motors disarmed, the actual link is cut and the PX4 offboard-loss failsafe plus the project's freshness gate behave as specified independently of the laptop.", "evidence": "3 trials logged", "threshold": "3/3 trials match the specified behaviour"}
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "Optional outdoor GPS-assisted checkout",
+      "program_link": "PROGRAM section 5.1",
+      "deliverable": "Manual and GPS position-hold checkout at a permitted outdoor site under the applicable compliance path. Optional: not a prerequisite for an indoor airframe.",
+      "prerequisites": ["D2"],
+      "exit_tests": [
+        {"id": "ET-D3-1", "statement": "Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission.", "evidence": "compliance record", "threshold": "all applicable items recorded with dates"},
+        {"id": "ET-D3-2", "statement": "Manual flight checkout and GPS position hold within the frozen tolerance.", "evidence": "flight logs", "threshold": "proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights"},
+        {"id": "ET-D3-3", "statement": "Emergency procedures (RTL, land, kill) are rehearsed and logged.", "evidence": "checklist and logs", "threshold": "each procedure exercised once"}
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "Indoor VIO position hold in a controlled setup",
+      "program_link": "PROGRAM section 5.1",
+      "deliverable": "First armed indoor flights: VIO-based position hold inside the chosen containment, operator takeover and offboard-loss behaviour tested in flight, VIO revalidated under vibration.",
+      "prerequisites": ["D2"],
+      "exit_tests": [
+        {"id": "ET-D4-1", "statement": "Containment, checklists, roles and emergency procedures are in place and signed off for the airframe and test configuration.", "evidence": "pre-flight record", "threshold": "complete before first arm"},
+        {"id": "ET-D4-2", "statement": "VIO position hold error against the outside-in reference stays within the frozen bound over repeated flights.", "evidence": "paired onboard/reference logs", "threshold": "proposed default: RMS <= 0.3 m over 60 s on 5/5 flights"},
+        {"id": "ET-D4-3", "statement": "Operator takeover works in flight.", "evidence": "logs", "threshold": "3/3 takeovers succeed"},
+        {"id": "ET-D4-4", "statement": "Offboard loss in flight triggers the specified behaviour (hold or land depending on estimator validity).", "evidence": "logs", "threshold": "3/3 trials match spec"},
+        {"id": "ET-D4-5", "statement": "VIO health under flight vibration is revalidated; hand-carry results are not reused as flight qualification.", "evidence": "in-flight tracking statistics", "threshold": "loss/recovery counts and drift reported under flight conditions"}
+      ]
+    },
+    {
+      "id": "D5",
+      "name": "GPS-denied known route",
+      "program_link": "PROGRAM section 5.1, 8.2",
+      "deliverable": "Autonomous flight of a known route indoors without GPS, with independent reference comparison, setpoint freshness and degraded modes exercised in flight, clearance, latency and energy reported.",
+      "prerequisites": ["D4"],
+      "exit_tests": [
+        {"id": "ET-D5-1", "statement": "Route completion rate and path error against the reference meet the frozen bounds.", "evidence": "paired logs", "threshold": "proposed default: >= 8/10 completions with path error RMS <= 0.5 m"},
+        {"id": "ET-D5-2", "statement": "Degraded modes are exercised in flight (stale planner output, localization loss) and the drone responds as specified.", "evidence": "logs per case", "threshold": "every listed case executed; outcomes match spec"},
+        {"id": "ET-D5-3", "statement": "Minimum clearance to obstacles stays above the frozen bound.", "evidence": "reference and depth logs", "threshold": "proposed default: >= 0.5 m on all completed runs"},
+        {"id": "ET-D5-4", "statement": "Planning latency quantiles, deadline misses and command expiries are reported.", "evidence": "timing tables", "threshold": "reported; frozen bounds on p95 latency and expiry rate"},
+        {"id": "ET-D5-5", "statement": "Energy reserve at landing is at or above the frozen reserve.", "evidence": "battery logs", "threshold": "proposed default: >= 25% remaining on every run"}
+      ]
+    },
+    {
+      "id": "D6",
+      "name": "Fixed-target inspection from N declared viewpoints and return",
+      "program_link": "PROGRAM section 3 stage 3, 5.1",
+      "deliverable": "The first complete mission: inspect a fixed target from N declared viewpoints with a visibility/dwell/image-quality criterion, return to the start region, under a full rubric with independent review and failure cases.",
+      "prerequisites": ["D5"],
+      "exit_tests": [
+        {"id": "ET-D6-1", "statement": "Mission rubric declared before flight (N viewpoints, coverage/visibility, dwell or image quality, target identity, start/return region, permitted route, timeout, reserve); completion requires every component.", "evidence": "evals/D6-protocol.md hash", "threshold": "proposed default: >= 7/10 complete missions"},
+        {"id": "ET-D6-2", "statement": "Independent review of reference, log and video evidence confirms completions; a waypoint list alone is not success.", "evidence": "review record", "threshold": "reviewer agrees on 100% of claimed completions"},
+        {"id": "ET-D6-3", "statement": "Failure cases (occluded target, localization loss mid-mission, low energy) are handled as specified.", "evidence": "logs per case", "threshold": "each case executed; behaviour matches spec"},
+        {"id": "ET-D6-4", "statement": "Cost per mission attempt and per flight hour is reported.", "evidence": "ledgers/costs.jsonl", "threshold": "reported"}
+      ]
+    },
+    {
+      "id": "D7",
+      "name": "Further missions one at a time; learned-component integration gates",
+      "program_link": "PROGRAM section 5.1, 6, 8.2",
+      "deliverable": "Each new mission (object search, mapping an unknown room, onboard autonomy on the companion computer) gets its own rubric, frozen thresholds and degradation tests before flight. Learned components (e.g. the world-model residual dynamics) enter only through held-out logs, then shadow mode, then a controlled closed-loop comparison with drone-owned acceptance and a kill switch. Milestone-level; detailed when next.",
+      "prerequisites": ["D6"],
+      "exit_tests": [
+        {"id": "ET-D7-1", "statement": "Each mission is defined with a rubric and frozen thresholds before flight, and its degradation tests are listed.", "evidence": "evals/D7-<mission>-protocol.md", "threshold": "to be frozen per mission when it becomes next"},
+        {"id": "ET-D7-2", "statement": "A learned component is integrated only after held-out log evaluation, shadow-mode logging, and a controlled closed-loop comparison against the conventional baseline, with a kill switch and drone-owned acceptance.", "evidence": "integration report", "threshold": "to be frozen when a learned component is proposed; the uncertainty-gated trust question from PROGRAM section 8.2 is the first candidate"}
+      ]
+    }
+  ]
+}
