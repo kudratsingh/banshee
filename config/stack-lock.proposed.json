@@ -71,7 +71,7 @@
     },
     "sensor_driver_commits": {
       "value": "depthai_ros_v3 3.2.1-1 (tag v3.2.1-jazzy) for OAK-D Pro; realsense2_camera 4.58.4-1 for D435i",
-      "note": "All in the Jazzy apt main repository on this date. realsense2_camera 4.59.1-1 is in building and testing only. Luxonis's install instructions add the testing apt source. Exact commits are recorded when a camera is chosen.",
+      "note": "All in the Jazzy apt main repository on this date. realsense2_camera 4.59.1-1 is in building and testing only. Luxonis's install instructions (https://docs.luxonis.com/software-v3/depthai/ros/driver) add the testing apt source. Exact commits are recorded when a camera is chosen.",
       "status": "proposed",
       "evidence_url": "http://repo.ros2.org/status_page/ros_jazzy_default.html",
       "evidence_date": "2026-10-31"

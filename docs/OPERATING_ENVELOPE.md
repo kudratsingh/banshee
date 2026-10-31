@@ -7,14 +7,14 @@
 | Mission and site | First mission (D6): fixed-target inspection from N viewpoints and return. Site unknown (Q1) | Same; site unknown (Q1) | Same; site unknown (Q1) |
 | Airframe | 3–5 in guarded frame: no candidate fully qualifies yet (Q2, `docs/BOM_WORKSHEET.md`); or an X500 if the floor allows | Holybro X500 V2, about 1 kg payload [D13] | Holybro X500 V2 |
 | Horizontal speed | ≤ 0.5 m/s | ≤ 0.5 m/s; ≤ 1.0 m/s only on a floor of at least 8.05 m square | ≤ 2.5 m/s |
-| Vertical speed | ≤ 0.5 m/s up; landing at PX4's 0.7 m/s | Same | Same |
+| Vertical speed | ≤ 0.5 m/s up and down, enforced by the command gate; landing at PX4's 0.7 m/s | Same | Same |
 | Clearance to any obstacle or net | ≥ 1.5 m hold (D4); ≥ 1.9 m moving (D5–D6) | Same at 0.5 m/s; ≥ 2.5 m and ≥ 2.9 m at 1.0 m/s | ≥ 7.5 m |
-| Height | ≤ ceiling − 1.2 m, and ≤ 2.5 m | Same | ≤ 30 m AGL |
-| Minimum ceiling | 2.2 m, for a 1.0 m hover | 2.2 m | none |
-| Minimum clear floor (1.5 m flight box) | small frame, span about 0.45 m: 4.95 m (D4), 5.75 m (D5–D6); X500: 5.25 m, 6.05 m | X500 at 0.5 m/s: 5.25 m (D4), 6.05 m (D5–D6); at 1.0 m/s: 8.05 m | set at the site |
+| Height | ≥ 1.2 m; ≤ ceiling − 1.4 m (small frame) or − 1.5 m (X500); ≤ 2.5 m | Same | ≤ 30 m AGL |
+| Minimum ceiling | 2.6 m (small frame); 2.7 m (X500) | 2.7 m | none |
+| Minimum clear floor (1.5 m flight box; add about 1 m on one side for the operator bay) | small frame, span about 0.45 m: 4.95 m (D4), 5.75 m (D5–D6); X500: 5.25 m, 6.05 m | X500 at 0.5 m/s: 5.25 m (D4), 6.05 m (D5–D6); at 1.0 m/s: 8.05 m | set at the site |
 | Containment | Net between the aircraft and the operator bay, doors, windows and anything not to be hit. 1-3/4 in mesh [D39]. Guards do not replace it | Same; no X500 guards were found | People excluded to 100 m, PX4's rule of thumb [D40]; geofence below |
 | Sensors | OAK-D Lite, 61 g; stereo global shutter, IMU | OAK-D Pro (default, Q4) or D435i; stereo global shutter, IMU [D21][D26] | Same, plus M10 GPS |
-| Compute | Hand-carried D2 on a laptop; **flying VIO needs onboard compute** (Q3) | Same; Jetson Orin Nano Super from D2 proposed (Q3) | Same |
+| Compute | Jetson Orin Nano Super from D2 proposed (Q3). If later, D2 is hand-carried on a laptop, which rules out the first VIO candidate. **Flying VIO needs onboard compute** | Same | Same |
 | Energy | 4S 2300 mAh × 3 (B-1); land at ≥ 25%; endurance has no published basis | 4S 5200 mAh × 3; land at ≥ 25% | Same as garage |
 | Human control | Trained operator on an independent RC link, behind the net, with kill switch and mode switch assigned; observer. Takeover tested props off (D2), then in flight (D4) | Same | Same, within visual line of sight |
 | Reference (evaluation only) | Two fixed cameras, tag box on the aircraft, independent clock; static RMS target ≤ 2 cm (`docs/REFERENCE_AND_SENSING.md`) | Same | Not used for D3 |
@@ -33,15 +33,15 @@ Required clearance = reaction distance + braking distance + peak position error.
 | 1.0 m/s | 1.35 m | 0.50 m | **2.45 m** | **2.85 m** | 2.35 m |
 | 2.5 m/s (GPS) | 3.38 m | 1.98 m | — | **7.35 m** | — |
 
-Minimum floor = flight box + aircraft span + 2 × clearance. **The earlier default of ≤ 1.0 m/s with ≥ 0.5 m clearance fails this arithmetic by a wide margin, and many rooms and garages are too small at these limits (Q1).** ET-D5-3's proposed ≥ 0.5 m must be re-proposed at no less than this clearance when D5 is frozen (`AGENTS.md §13.5`).
+Minimum floor = flight box + aircraft span + 2 × clearance, plus about 1 m (*estimated*) on one side where the operator and observer stand behind the net. **The earlier default of ≤ 1.0 m/s with ≥ 0.5 m clearance fails this arithmetic by a wide margin, and many rooms and garages are too small at these limits (Q1).** ET-D5-3's proposed ≥ 0.5 m must be re-proposed at no less than this clearance when D5 is frozen (`AGENTS.md §13.5`).
 
-**Vertical.** At 0.5 m/s: 0.68 m reaction + 0.18 m braking + 0.3 m error (*estimated*; no exit test bounds it) = 1.15 m, so height ≤ ceiling − 1.2 m. The 2.5 m cap is carried over: no mission through D6 needs more indoors, and lower flight limits a fall. The 30 m field cap is a choice well inside the 400 ft limit [D29], enough for D3's checkout and easy to keep in unaided sight.
+**Vertical.** At 0.5 m/s, either way: 0.68 m reaction + 0.18 m braking + 0.3 m error (*estimated*; no exit test bounds it) = 1.15 m. Toward the floor that gives a hover of at least 1.2 m. Toward the ceiling, add what stands above the position reference: about 0.35 m on an X500 with its tag box and 0.2 m on a small frame (*estimated*), so 1.5 m and 1.4 m. The minimum ceiling is the sum of the two margins, 2.7 m and 2.6 m, **which rules out a typical 2.44 m garage ceiling**. Setting `COM_OF_LOSS_T` to 0.5 s would bring an X500's minimum to 2.15 m, if D1 confirms it. The command gate holds commanded descent to 0.5 m/s, because PX4's `MPC_Z_VEL_MAX_DN` of 0.7 m/s applies to every climb-rate mode. The 2.5 m cap is carried over: no mission through D6 needs more indoors, and lower flight limits a fall. The 30 m field cap is a choice well inside the 400 ft limit [D29], enough for D3's checkout and easy to keep in unaided sight.
 
 **Sensing range does not set these limits yet.** No stage through D6 uses depth to avoid obstacles while moving, and routes are declared in advance. At 0.5 m/s the stopping distance is well inside the OAK-D Pro's ideal 0.8–12 m range [D21]. A stage that plans from depth must add this term.
 
 **This excludes loss of the estimator,** which the table assumes is good. If VIO fails, the gate's sensor-age check trips within 150 ms and inertial drift follows, by an amount not known. If the Jetson fails, the setpoint stream stops too and offboard loss fires. Solid walls and the net bound both cases. D1 tests both.
 
-**Net layout.** People are excluded from the volume, so a solid wall with no door or window counts as containment. Nets go between the aircraft and the operator bay and across every door, window or open side, floor to ceiling. Two 10 × 20 ft panels are priced. A space with no solid walls needs four. The ceiling must be solid, or the space counts as outdoors. No source gives net strength for a drone (the supplier's tensile field is blank), so a net hit is tested only after D4's first hold. **Whether doors stay closed decides the rest; see Compliance.**
+**Net layout.** People are excluded from the volume, so a solid wall with no door or window counts as containment. Nets go between the aircraft and the operator bay and across every door, window or open side, floor to ceiling. Panel height follows the ceiling: 10 ft panels up to 3.05 m, 15 ft above that. Panel count is the open length divided by 20 ft, rounded up. Two 10 × 20 ft panels are priced. A space with no solid walls needs four on a floor up to 6.1 m square and six at 8.05 m (`docs/BOM_WORKSHEET.md`). The ceiling must be solid, or the space counts as outdoors. No source gives net strength for a drone (the supplier's tensile field is blank), so a net hit is tested only after D4's first hold. **Whether doors stay closed decides the rest; see Compliance.**
 
 ## Failsafes and controls to configure and test in D1 (proposed values)
 | Parameter | PX4 default [D23][D24] | Proposed | Why |
@@ -58,7 +58,7 @@ Minimum floor = flight box + aircraft span + 2 × clearance. **The earlier defau
 | `COM_LOW_BAT_ACT` | 0 Warning | 2 Land | with the defaults, nothing enforces the reserve |
 | `BAT_LOW_THR`, `BAT_CRIT_THR` | 0.15, 0.07 | 0.30, 0.25 | Land fires at critical, so critical sits at the 25% reserve |
 | `EKF2_NOAID_TOUT` | 5 s | 1 s | a shorter time on drift; test for false triggers |
-| `COM_POS_FS_EPH` | 5 m | 0.5 m | 5 m exceeds any room. PX4 applies a 2.5 factor, about 1.25 m |
+| `COM_POS_FS_EPH` | 5 m | 0.5 m indoors on vision; 5 m on GPS, in SITL and in D3 until measured | 5 m exceeds any room. Position becomes valid below this value and is lost at 2.5 times it, here 1.25 m. It is too tight for GPS, which ET-D3-2 allows 1.0 m RMS. D1 measures EPH and may change it |
 | `COM_FAIL_ACT_T` | 5.0 s | test it | the aircraft waits in Hold first, and stick override is not available then. If Hold persists, the operator takes over or uses the kill switch |
 | `GF_MAX_HOR_DIST`, `GF_MAX_VER_DIST`, `GF_ACTION` | 0, 0 (off), 2 | 40 m, 30 m, 5 Land; D3 on GPS only | enforces the field cap, and acts only after a breach [D25]. Indoors the net is the containment, because the fence on vision-only position is unverified |
 

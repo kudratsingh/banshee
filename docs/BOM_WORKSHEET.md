@@ -44,7 +44,7 @@
 
 **The kit itself.** [Holybro](https://holybro.com/products/px4-development-kit-x500-v2) lists it at $609.00 (SKU 30189), sold out in all four variants. [NewBeeDrone](https://newbeedrone.com/products/holybro-x500-v2-full-kit-pixhawk-6c915mhz-telemetry-radio) lists $584.99, not available. [Kilitronic](https://kilitronic.com/products/holybro-drone-development-kit-x500-v2) lists $999.00, in stock, shipped from the USA with free UPS Ground (SKU 30189X). The lines above buy the same named parts from one US seller for $796.63. That they equal the kit is an inference, and Holybro's documentation page and store disagree on the GPS and power module, so confirm with the seller.
 
-**Payload correction.** Holybro's documentation says about 1 kg with 4S 5000 mAh at 70% throttle [D13]. The 1.5 kg recorded earlier from the store page is not used here. Estimated payload: Jetson 175 g, camera 91 g (Luxonis; weigh on receipt), Remote ID 17 g, mount and tag box about 90 g (*estimated*), about 370 g in all.
+**Payload correction.** Holybro's documentation says about 1 kg with 4S 5000 mAh at 70% throttle [D13]. The 1.5 kg recorded earlier from the store page is not used here. Estimated payload: Jetson 175 g, camera 91 g (Luxonis; weigh on receipt), Remote ID 17 g, mount and tag box about 120 g (*estimated*), about 400 g in all.
 
 **Ways to reduce it (planning total after each change, *estimated*):**
 | Change | Total | Cost of the change |
@@ -55,7 +55,7 @@
 | No SiK radio, if the licence question goes that way (Q6) | 3,932 | Wi-Fi only; a kit purchase would include one anyway |
 | Jetson later | 3,543 | D2 hand-carried on a laptop, which rules out the first VIO candidate (it needs NVIDIA hardware), leaving BasaltVIO or nothing; D4 cannot fly VIO without onboard compute |
 
-**Adds to it:** if no solid walls bound the space, a full four-sided net needs two more panels, 842 more on the same basis.
+**Adds to it, on the same basis.** The two panels fit a ceiling up to 3.05 m and open sides up to 12.2 m in all. A taller ceiling needs [15 × 20 ft panels at $469.97](https://www.usnetting.com/drone-netting/), 276 more for two. A space with no solid walls needs four panels on a floor up to 6.1 m square, 842 more, and six on the 8.05 m floor that 1.0 m/s needs, 1,685 more.
 
 ## Option B — 3–5 inch guarded indoor frame (room-scale test space)
 **No candidate read today has all four of: full guards, a current PX4 target, a published payload that carries camera and computer, and stock.** B-1 is priced because it fails only on guards.
@@ -91,11 +91,11 @@ Estimated mass: 347.2 + 42.4 + 270 (battery) + 61 (camera) + 175 (Jetson) = 895.
 |---|---|
 | ModalAI Starling 2 | [its store page redirects](https://www.modalai.com/products/starling-2) to one listing only the Max, so it is **not listed as of 2026-10-31**. The $2,949.99 is a launch-price figure from a comparison table that also shows the Max at $2,999.99 while selling it at $4,199.99. No current price, so no total. It would need a quote. It runs PX4 and OpenVINS onboard; payload is about 85 g per a [staff estimate](https://forum.modalai.com/topic/5202/starling-2-payload); no first-party guards |
 | [Holybro Kopis CineWhoop PNP](https://www.myfpvstore.com/brands/holybro/), $195.00 | ducted and in stock, but its Kakute F7 is discontinued in PX4's documentation (last published in v1.17), and no payload is published |
-| GEPRC [CineLog35](https://www.myfpvstore.com/88rc) + Kakute H7 Mini, about $167 plus £86.80 and €98.36 | guards and a current PX4 target, but the [motor](https://www.rotorama.com/product/geprc-speedx2-2105-5-2650kv-m5) is "on the way" for Nov 12, 2026, one [ESC](https://www.flyingtech.co.uk/product/holybro-tekko32-f4-mini-4-in-1-50a-esc-am32/) is left, hole fit is unverified, and no payload figure exists |
+| GEPRC [CineLog35](https://www.myfpvstore.com/88rc), $61.99, + [Kakute H7 Mini](https://holybro.com/products/kakute-h7-mini), $82.00 | guards and a current PX4 target, but the [motor](https://www.rotorama.com/product/geprc-speedx2-2105-5-2650kv-m5) is "on the way" for Nov 12, 2026, one [ESC](https://www.flyingtech.co.uk/product/holybro-tekko32-f4-mini-4-in-1-50a-esc-am32/) is left, hole fit is unverified, and no payload figure exists |
 | [Starling 2 Max](https://www.modalai.com/products/starling-2-max), $4,199.99 without a battery | 180 mm props are outside the size range |
 
 ## Not priced, covered by contingency
-Cells for the radio (18650), XT60 charge lead, net hanging hardware, tag box and its mount, reference camera mounts, tape or laser measure, onboard power regulator for the Jetson, a 128 GB or larger NVMe drive (Isaac ROS 4.6 lists one for Jetson Orin [D16]), guards and spares for Option B-1. The contingency is an estimate; none of these has a quote.
+Cells for the radio (18650), XT60 charge lead, net hanging hardware, tag box and its mount, reference camera mounts, tape or laser measure, onboard power regulator for the Jetson, a 128 GB or larger NVMe drive (Isaac ROS 4.6 lists one for Jetson Orin [D16]), guards and spares for Option B-1 (no spares source was read for it). The contingency is an estimate; none of these has a quote.
 
 ## Rules for completing this worksheet
 - Every line: supplier URL, date observed, unit price, shipping/tax estimate, and the compatibility evidence (a documentation page, not a forum post).

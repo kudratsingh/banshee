@@ -11,7 +11,7 @@ Each default is reversible until something is bought.
 
 | # | Decision | Reversible default | Why it matters |
 |---|---|---|---|
-| Q1 | **Test space:** room, garage, warehouse or field? Floor size, ceiling height, solid walls or not, doors and windows, who else uses it, and whose permission. Will it be fully enclosed with doors closed? If doors must stay open, does it count as outdoors? | none; each set of limits is written. An open space counts as outdoors | decides the airframe. An X500 at 0.5 m/s needs 5.25 m square to hold and 6.05 m to move, with a 2.2 m ceiling. Many rooms and garages are too small |
+| Q1 | **Test space:** room, garage, warehouse or field? Floor size, ceiling height, solid walls or not, doors and windows, who else uses it, and whose permission. Will it be fully enclosed with doors closed? If doors must stay open, does it count as outdoors? | none; each set of limits is written. An open space counts as outdoors | decides the airframe. An X500 at 0.5 m/s needs 5.25 m square to hold and 6.05 m to move, plus about 1 m for the operator, with a 2.7 m ceiling. Many rooms and garages are too small; a typical 2.44 m garage ceiling is too low unless D1 supports a shorter `COM_OF_LOSS_T` |
 | Q2 | **Airframe:** X500 V2, or the QAV250 build. Who verifies a guard for the QAV250, or do you accept it unguarded behind the net as a named exception? | X500 V2 if the space allows; otherwise QAV250 once a guard is verified | the costly one to reverse. No room-scale candidate fully qualifies, and ET-D0-2 stays partial until this is answered |
 | Q3 | **Companion computer:** Jetson from D2, or later | Jetson from D2, bought after D1 | the earlier plan said D7, but D4 cannot fly VIO without onboard compute. Later also rules out the first VIO candidate in D2 |
 | Q4 | **Depth camera:** OAK-D Pro or D435i on an X500; OAK-D Lite on the QAV250 | OAK-D Pro; OAK-D Lite on the QAV250 | the D435i is [on backorder with a tariff surcharge of unstated size](https://store.realsenseai.com/buy-realsense-depth-camera-d435i.html) |
@@ -22,7 +22,7 @@ Each default is reversible until something is bought.
 **Also for your review:**
 - The freshness bounds in `evals/D1-exit-tests.json` freeze before WO-002 unless you object.
 - The indoor limits are much stricter than the starter kit's, because its limits fail the arithmetic.
-- The 2 cm reference target may not be reachable with webcams. It stays as written and could make D2's VIO evaluation inconclusive. The QAV250's smaller tag box reaches only about 2.1 m.
+- The 2 cm reference target may not be reachable with webcams. It stays as written and could make D2's VIO evaluation inconclusive. The X500 needs a 27 cm tag box to reach the far corner, whose fit is unverified. The QAV250's smaller box reaches only about 2.1 m against 3.3–3.7 m.
 - ET-D5-3's proposed ≥ 0.5 m clearance is below these limits. Re-propose it when D5 is frozen.
 
 ## 1. Claim and scope
@@ -47,11 +47,12 @@ All *estimated* or read from documentation. Nothing about the aircraft is measur
 | A: X500 V2 | $4,018 | $3,174.81 | +$1,718 |
 | B-1: QAV250 + 6C Mini (no verified guards) | $2,836 | $2,340.94 | +$536 |
 
-| Limit | Room or garage | Warehouse, floor ≥ 8.05 m | Field |
+| Limit | Floor under 8.05 m | Garage or warehouse, floor ≥ 8.05 m | Field |
 |---|---:|---:|---:|
 | Horizontal speed | 0.5 m/s | 1.0 m/s | 2.5 m/s |
 | Clearance, hold / moving | 1.5 m / 1.9 m | 2.5 m / 2.9 m | 7.5 m |
-| Height | ceiling − 1.2 m, ≤ 2.5 m | same | ≤ 30 m AGL |
+| Height | ≥ 1.2 m; ceiling − 1.5 m (X500), − 1.4 m (small frame); ≤ 2.5 m | same | ≤ 30 m AGL |
+| Minimum ceiling | 2.7 m (X500), 2.6 m (small frame) | same | none |
 
 ## 5. Failure analysis
 What the research and the review contradicted in the starter kit, and in this work order's first draft:
@@ -63,8 +64,9 @@ What the research and the review contradicted in the starter kit, and in this wo
 - **Battery reserve:** nothing in PX4's defaults enforces the 25% reserve.
 - **Payload:** Holybro's documentation says about 1 kg, not the 1.5 kg recorded earlier.
 - **Compute:** laptop-first does not work in flight.
-- **Containment:** one panel cannot form an enclosure. The plan relies on solid walls plus nets at open sides and the operator bay, at $707.94, against $60–150 planned. No solid walls costs about $842 more.
-- **Reference:** tag sizes must count the printed ring, and a top plate is edge-on to the cameras. The cheap global-shutter camera cannot reach.
+- **Containment:** one panel cannot form an enclosure. The plan relies on solid walls plus nets at open sides and the operator bay, at $707.94, against $60–150 planned. A taller ceiling or no solid walls costs more, from about $276 to $1,685 (`docs/BOM_WORKSHEET.md`).
+- **Reference:** tag sizes must count the printed ring, and a top plate is edge-on to the cameras. The X500 needs a 27 cm tag box to reach its far corner, and the cheap global-shutter camera cannot reach.
+- **Vertical:** a stale descent needs a 1.2 m hover, and aircraft height counts toward the ceiling, so the minimum ceiling is 2.7 m on an X500.
 - **Option B:** the Starling 2 is not listed in ModalAI's store, so it was removed from the priced options.
 
 Gaps that stay open:
@@ -84,7 +86,7 @@ None.
 | Exit test | Threshold (frozen) | Result | Evidence | Pass? |
 |---|---|---|---|---|
 | ET-D0-1 | zero empty fields; every unknown a named owner question | filled for each space; site unknowns go to Q1 | `docs/OPERATING_ENVELOPE.md` | claimed; passes on merge |
-| ET-D0-2 | every line has a source and a date; totals per option; no purchase | Option A met. Option B-1 is priced, but lacks verified guards, so it is not yet a compatible guarded option | `docs/BOM_WORKSHEET.md` | **partial**; needs Q2 |
+| ET-D0-2 | every line has a source and a date; totals per option; no purchase | Option A met. Option B-1 is priced, but lacks verified guards, so it is not yet a compatible guarded option, and its spares are covered only by contingency | `docs/BOM_WORKSHEET.md` | **partial**; needs Q2 |
 | ET-D0-3 | no latest-by-default pins; every entry labelled | all proposed, with evidence URLs; two nulls, each with its question | `config/stack-lock.proposed.json`, ADR-0007 | claimed; passes on merge |
 | ET-D0-4 | complete and sourced; recheck dates recorded | [S1]–[S5] read 2026-10-31; recheck column filled; site permission is a project rule, labelled as such | `docs/OPERATING_ENVELOPE.md` | claimed; passes on merge |
 | ET-D0-5 | accuracy target numeric; containment per airframe | ≤ 2 cm static RMS; nets, tag box per airframe | `docs/REFERENCE_AND_SENSING.md`, envelope | claimed; passes on merge |

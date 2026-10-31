@@ -46,6 +46,7 @@ All read on 2026-10-31. These are banshee's own. `docs/SOURCES.md` is byte-ident
 - [D21] Luxonis OAK-D Pro: 91 g; OV9282 global-shutter stereo; BNO086; ideal depth about 0.8–12 m; up to 15 W. https://docs.luxonis.com/hardware/products/OAK-D%20Pro
 - [D26] RealSense D400 datasheet, March 2026: D435i 75 g, IMU BMI055 or BMI085, 50 µs IMU timestamp accuracy. https://www.realsenseai.com/wp-content/uploads/2026/03/RealSense-D400-Series-Datasheet-Mar-2026.pdf
 - [D27] OpenVINS: GPL-3.0; last release v2.7 in 2023; Jazzy pull requests still open. https://github.com/rpng/open_vins and https://github.com/rpng/open_vins/pull/558
+- [D47] Luxonis ROS driver install: Humble and Jazzy add the testing apt source. https://docs.luxonis.com/software-v3/depthai/ros/driver
 - [D30] Luxonis BasaltVIO: stereo with IMU, early access. https://docs.luxonis.com/software-v3/depthai/examples/vslam/basalt_vio_rtab.md
 
 ## Compliance
