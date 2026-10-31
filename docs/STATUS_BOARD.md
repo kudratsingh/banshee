@@ -2,13 +2,13 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 23:56 UTC · ledger records: 33
+Generated: 2026-10-31 23:58 UTC · ledger records: 37
 
 ## Phases
 
 | Phase | Name | State | Exit tests (passed / frozen / total) | Prerequisites | Work orders |
 |---|---|---|---|---|---|
-| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **in_progress** | 0 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
+| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **in_progress** | 4 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
 | D3 | Optional outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
@@ -21,11 +21,11 @@ Generated: 2026-10-31 23:56 UTC · ledger records: 33
 
 | Exit test | Phase | Statement | Threshold | State | Report |
 |---|---|---|---|---|---|
-| ET-D0-1 | D0 | The operating envelope page is complete: mission/site, airframe class, speed/height/clearance limits with justification, sensors, compute, energy, reference, containment, human control, compliance, data/privacy. | zero empty fields; every unknown is a named owner question | frozen | — |
+| ET-D0-1 | D0 | The operating envelope page is complete: mission/site, airframe class, speed/height/clearance limits with justification, sensors, compute, energy, reference, containment, human control, compliance, data/privacy. | zero empty fields; every unknown is a named owner question | passed | reports/WO-001-d0-operating-envelope-and-platform-proposal.md |
 | ET-D0-2 | D0 | A priced BOM with dated sources covers at least two compatible airframe options (a 500 mm class kit and a 3-5 inch indoor frame) with landed cost including shipping, tax, spares, batteries, compliance, reference equipment and compute. | every line has a source and a date; totals per option; no purchase | frozen | — |
-| ET-D0-3 | D0 | A compatible stack version matrix (PX4, ROS 2, Gazebo, bridge, QGroundControl, sensor drivers) is proposed with each pin labelled proposed or tested, and a D1 verification plan is written. | no latest-by-default pins; every entry labelled | frozen | — |
-| ET-D0-4 | D0 | The compliance plan covers the Part 107 path, registration, Remote ID route, indoor-only applicability, site permission and visual-line-of-sight limits, with sources. | complete and sourced; recheck dates recorded | frozen | — |
-| ET-D0-5 | D0 | The outside-in reference qualification plan (accuracy target, coverage, synchronization, session check) and the airframe-specific containment method are written. | accuracy target stated numerically; containment chosen per airframe/test configuration | frozen | — |
+| ET-D0-3 | D0 | A compatible stack version matrix (PX4, ROS 2, Gazebo, bridge, QGroundControl, sensor drivers) is proposed with each pin labelled proposed or tested, and a D1 verification plan is written. | no latest-by-default pins; every entry labelled | passed | reports/WO-001-d0-operating-envelope-and-platform-proposal.md |
+| ET-D0-4 | D0 | The compliance plan covers the Part 107 path, registration, Remote ID route, indoor-only applicability, site permission and visual-line-of-sight limits, with sources. | complete and sourced; recheck dates recorded | passed | reports/WO-001-d0-operating-envelope-and-platform-proposal.md |
+| ET-D0-5 | D0 | The outside-in reference qualification plan (accuracy target, coverage, synchronization, session check) and the airframe-specific containment method are written. | accuracy target stated numerically; containment chosen per airframe/test configuration | passed | reports/WO-001-d0-operating-envelope-and-platform-proposal.md |
 | ET-D0-6 | D0 | The owner has recorded a decision (or an explicit deferral) on test space and airframe candidate. | one recorded decision or deferral | frozen | — |
 | ET-D1-1 | D1 | SITL launches reproducibly from a script with a version manifest. | 2/2 launches identical versions; zero null pins | not_run | — |
 | ET-D1-2 | D1 | A waypoint mission completes through the offboard velocity/yaw-rate interface and its outcome is checked by independent code from the logged state. | proposed default: 10/10 nominal runs reach every waypoint within 0.5 m; freeze before running | not_run | — |
