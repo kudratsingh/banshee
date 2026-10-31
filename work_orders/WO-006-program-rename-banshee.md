@@ -30,8 +30,8 @@ ADR-0003 with its hash table; the renamed package; `PROGRAM.md` version 1.1; `AG
 1. Import the starter kit on `main` and record a green baseline `make check`.
 2. Apply the rename on branch `wo/WO-006-program-rename`.
 3. Regenerate manifests and locks, then run the verification below.
-4. Hand the shared bytes and hashes in ADR-0003 to the `vishwaroop` session. Merge once the owner has seen the pull request and both repositories match.
-5. Owner action: replace the Claude Project copy of `PROGRAM.md` with version 1.1. Agents cannot do this from the repository.
+4. Hand the shared bytes and hashes in ADR-0003 to the `vishwaroop` session. Merge only on the owner's explicit approval, given after both repositories are verified.
+5. Owner action, reported done on 2026-10-31: replace the Claude Project copy of `PROGRAM.md` with version 1.1.
 
 ## Verification
 ```bash

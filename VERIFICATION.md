@@ -57,7 +57,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
 - `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
 - GitHub accepted protection on `main`, read back from the API: pull requests required with 0 approvals, both `cpu-tier` checks required, administrators included, force-push and deletion disallowed.
-- The owner approved one push of this branch and one pull request to `main`. It does not merge until the owner has seen the pull request and `vishwaroop` confirms its hashes match. CI results for this branch are on the pull request, because this file is part of the commit under test.
+- The owner approved one push of this branch and one pull request to `main`. It merges only on the owner's explicit approval, given after both repositories are verified. CI results for this branch are on the pull request, because this file is part of the commit under test.
 
 ### Old names left on purpose
 - `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.
@@ -70,7 +70,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
 
 ### Not run
-No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
+No simulator and no hardware.
 
 ## Packaging record (before the rename)
 

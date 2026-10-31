@@ -19,7 +19,7 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 
 ## 3. Status today (2026-10-31)
 - Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are the current work. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
-- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The branch `wo/WO-006-program-rename` has an open pull request to `main`, which waits for the owner to see it and for `vishwaroop` to confirm its hashes match.
+- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The branch `wo/WO-006-program-rename` has an open pull request to `main`, which merges only on the owner's explicit approval, given after both repositories are verified. Nothing beyond that pull request is pre-approved.
 - `config/budget.json`: $0 approved. Hardware purchase is an owner action that follows D0 and D1.
 - The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
 
