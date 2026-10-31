@@ -35,3 +35,9 @@ No SITL, offboard bridge, export adapter, fault harness, reference pipeline, mis
 
 ## After import: program-wide rename (2026-10-31, ADR-0003, WO-006)
 The starter kit shipped as `omni-drone`. The repository and package are now `banshee`, and the sibling project is `vishwaroop`. Paths in this file were updated so they still resolve. The contract `producer` enum and fixtures, `PROGRAM.md` (version 1.1), the shared `AGENTS.md` core (policy version 1.1), manifests and locks changed with it. The one behaviour change: the validator now rejects the retired `producer` values and accepts the new ones. `schema_version` stays 1.0.0 because the rename predates any data. No other behaviour, threshold or authorization changed. Planned ADR numbers moved up one (`docs/adr/ADR-0003-PROGRAM-project-names.md`).
+
+## After import: starter-kit defects fixed (2026-10-31, WO-008)
+The rename did not cause these. They are in the same work order and commit, on the owner's instruction.
+- **`tools/status_board.py`:** `--phase` and `--et` appends were always refused, because the record carried `"wo": null` and took the work-order path. The command line now drops unset fields before `append()`, and `current_states` tests its keys by `.get()` truthiness. `tests/test_tools.py` adds tests for these appends through the command line.
+- **`tests/test_project_consistency.py`:** deleted `test_no_fixture_claims_in_reports` on the owner's instruction. It failed on any file in `reports/`, so it blocked every real work-order report.
+- **`.gitignore`:** replaced `*secret*`, which silently dropped `tools/scan_secrets.py` from `git add -A` and hid it from `ruff`, with specific patterns plus `!tools/scan_secrets.py`. `tests/test_tools.py` adds a test for this.

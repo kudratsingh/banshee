@@ -57,4 +57,4 @@ No exit test closes here. This WO is accepted when the checks are green on the m
 Any change beyond names; a shared-byte mismatch with `vishwaroop` that cannot be resolved by copying; any need for a remote, purchase or hardware action.
 
 ## Report
-`VERIFICATION.md`, section "Post-rename verification". A file under `reports/` is not possible yet: `tests/test_project_consistency.py::test_no_fixture_claims_in_reports` fails on any report in that directory. Fixing that test belongs in its own change (`AGENTS.md §4.9`), tracked as WO-008.
+`VERIFICATION.md`, section "Post-rename verification". A report under `reports/` is written at acceptance, now that WO-008 has removed the test that blocked it.

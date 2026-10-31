@@ -14,7 +14,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Measured
 | Check | Result |
 |---|---|
-| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 87 tests |
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 90 tests |
 | `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
@@ -23,9 +23,20 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | `grep -rn` for the old underscore package name, outside `.git` | no hits |
 
 ### Cross-repository check
-**Real repository, measured read-only on 2026-10-31 at 09:11 UTC. Not confirmed yet.** `PROGRAM.md` and `config/program-lock.json` match. The contract manifest, `config/contract-lock.json`, ADR-0003 and the `AGENTS.md` core do not: the `vishwaroop` working tree held an earlier uncommitted draft of them (contract manifest `9c0b9347...`, `AGENTS.md` core `9b442240...`), and it has to copy the final bytes from this commit. Compare against the hash table in ADR-0003.
+**Real repository, measured read-only on 2026-10-31 at 09:18 UTC. Not confirmed yet.** `PROGRAM.md`, `config/program-lock.json`, `contracts/v1/SHA256SUMS.json` and `config/contract-lock.json` match. ADR-0003 and the `AGENTS.md` core do not: the `vishwaroop` working tree, which had not committed the rename, held an earlier draft of both (`AGENTS.md` core `9b442240...`). It has to copy the final bytes from this branch. Compare against the hash table in ADR-0003.
 
-**Scratch copy.** All the shared files in ADR-0003 were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (82 tests) and every copied file matched this repository. This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+**Scratch copy.** All the shared files in ADR-0003, plus the WO-008 files, were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (85 tests). This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+
+### WO-008 checks
+| Check | Result |
+|---|---|
+| New status board tests against the old `tools/status_board.py` | 2 failed, as they should |
+| `--append --phase D0 --event ready` and `--append --et ET-D0-1 --event frozen`, scratch copy | accepted, exit 0 |
+| `--append --event ready` with no id, scratch copy | refused, exit 2 |
+| `git init && git add -A`, scratch copy | `tools/scan_secrets.py` tracked |
+| `git ls-files -ci --exclude-standard` | no tracked file is ignored |
+| A real file in `reports/`, scratch copy | `tests/test_project_consistency.py` passes |
+| `ruff format --check` | now covers 26 files, including `tools/scan_secrets.py` |
 
 ### Remote (WO-007)
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.

@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 09:17 UTC · ledger records: 13
+Generated: 2026-10-31 09:19 UTC · ledger records: 15
 
 ## Phases
 
@@ -67,5 +67,5 @@ Generated: 2026-10-31 09:17 UTC · ledger records: 13
 | WO-005 | D2 props-off sensor, localization and reference checkout | D2 | **created** | 2026-10-31T07:51:52.215726Z | — |
 | WO-006 | Program-wide rename of this repository and package to banshee | D0 | **in_progress** | 2026-10-31T08:55:03.480014Z | — |
 | WO-007 | Designate the private GitHub remote and create the repository | D0 | **accepted** | 2026-10-31T09:11:55.829902Z | VERIFICATION.md |
-| WO-008 | Fix three starter-kit tooling defects found during the rename review | D0 | **created** | 2026-10-31T09:06:40.432991Z | — |
+| WO-008 | Fix three starter-kit tooling defects found during the rename review | D0 | **in_progress** | 2026-10-31T09:18:32.721508Z | — |
 

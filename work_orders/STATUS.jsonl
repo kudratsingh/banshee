@@ -11,3 +11,5 @@
 {"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-006-program-rename","record_id":"status-20261031T085503480014Z-59c22f","ts":"2026-10-31T08:55:03.480014Z","wo":"WO-006"}
 {"actor":"claude-code-banshee","event":"created","note":"defects found in rename review; not caused by the rename","record_id":"status-20261031T090640432991Z-0d3305","ts":"2026-10-31T09:06:40.432991Z","wo":"WO-008"}
 {"actor":"claude-code-banshee","commit":"ef55cc4","event":"accepted","note":"repository private; CI run 41187438262 green on ef55cc4; protection applied","record_id":"status-20261031T091155829902Z-6c7628","report":"VERIFICATION.md","ts":"2026-10-31T09:11:55.829902Z","wo":"WO-007"}
+{"actor":"claude-code-banshee","event":"ready","note":"owner instruction 2026-10-31: fix now, before WO-001","record_id":"status-20261031T091832693792Z-ad1635","ts":"2026-10-31T09:18:32.693792Z","wo":"WO-008"}
+{"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-006-program-rename, separate commit, on owner instruction","record_id":"status-20261031T091832721508Z-d00665","ts":"2026-10-31T09:18:32.721508Z","wo":"WO-008"}
