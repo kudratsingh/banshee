@@ -32,7 +32,7 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 ## 6. Exact next actions
 Branch from the updated `main`.
 1. `make check` green → `python tools/status_board.py --append --wo WO-001 --event ready`, then `--event in_progress`; `--phase D0 --event ready`, then `in_progress`.
-2. Branch `wo/WO-001-d0`; fill `docs/OPERATING_ENVELOPE.md` and `docs/BOM_WORKSHEET.md` (both airframe options, sourced and dated); write `config/stack-lock.proposed.json` with every pin labelled `proposed` and an evidence URL; write ADR-0004; draft `evals/D1-exit-tests.json`.
+2. Branch `wo/WO-001-d0`; fill `docs/OPERATING_ENVELOPE.md` and `docs/BOM_WORKSHEET.md` (both airframe options, sourced and dated); write `config/stack-lock.proposed.json` with every pin labelled `proposed` and an evidence URL; write ADR-0007; draft `evals/D1-exit-tests.json`.
 3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request. This work order closes milestone exit tests, so run the full review (`AGENTS.md §13.9`); then open the PR and merge it when `AGENTS.md §4.6` holds. Then ask the owner for the decision.
 4. When the owner records a decision or deferral in `ledgers/approvals.jsonl`, append `accepted`; `make board`; continue to WO-002 (software only).
 

@@ -1,0 +1,103 @@
+{
+  "status": "proposed_not_tested",
+  "date": "2026-10-31",
+  "written_by": "WO-001",
+  "tested_by": "WO-002 writes config/stack-lock.resolved.json after SITL runs",
+  "warning": "PX4 v1.17 documentation states ROS 2 Humble on Ubuntu 22.04 and does not state this Jazzy on 24.04 combination. Each part is documented separately. Nothing here has been installed or run. See docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md.",
+  "flight_stack": {
+    "os_image_digest_or_distro": {
+      "value": "ubuntu-24.04",
+      "digest": null,
+      "digest_question": "recorded by WO-002 if a container is used",
+      "status": "proposed",
+      "evidence_url": "https://docs.px4.io/v1.17/en/dev_setup/dev_env_linux_ubuntu.html",
+      "evidence_date": "2026-10-31"
+    },
+    "px4_release_or_commit": {
+      "value": "v1.17.0",
+      "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+      "note": "Latest stable. v1.18.0-rc1 is a pre-release. The release/1.17 branch is 13 commits ahead, one adding LSM6DSV16X support on fmu-v6c; recheck against the actual Pixhawk 6C at hardware time.",
+      "status": "proposed",
+      "evidence_url": "https://github.com/PX4/PX4-Autopilot/releases/tag/v1.17.0",
+      "evidence_date": "2026-10-31"
+    },
+    "ros2_distribution": {
+      "value": "jazzy",
+      "note": "End of life May 2029. Humble ends May 2027. PX4 v1.17's CI builds its translation node on Jazzy but does not run SITL there.",
+      "status": "proposed",
+      "evidence_url": "https://raw.githubusercontent.com/ros-infrastructure/rep/master/rep-2000.rst",
+      "evidence_date": "2026-10-31"
+    },
+    "ros2_package_lock": {
+      "value": null,
+      "question": "cannot be sourced before install; WO-002 records the exact package versions it installs",
+      "status": "proposed",
+      "evidence_url": "https://raw.githubusercontent.com/ros/rosdistro/master/jazzy/distribution.yaml",
+      "evidence_date": "2026-10-31"
+    },
+    "gazebo_version": {
+      "value": "harmonic",
+      "note": "PX4 v1.17 calls Harmonic the supported, CI-tested version. Gazebo recommends it with Jazzy.",
+      "status": "proposed",
+      "evidence_url": "https://gazebosim.org/docs/harmonic/ros_installation/",
+      "evidence_date": "2026-10-31"
+    },
+    "px4_ros2_bridge_commit": {
+      "value": "Micro-XRCE-DDS-Agent v2.4.3 with px4_msgs release/1.17",
+      "agent_commit": "73622810d984349b80bbac0ef55fc0b694d62222",
+      "px4_msgs_commit": "86d8239e962f6939e05c3737784f60c02fa884db",
+      "note": "Agent v3.x is not compatible, though the agent repository marks v3.0.2 as latest. The px4_msgs match to PX4 v1.17.0 is inferred from commit history; WO-002 diffs msg/.",
+      "status": "proposed",
+      "evidence_url": "https://docs.px4.io/v1.17/en/middleware/uxrce_dds.html",
+      "evidence_date": "2026-10-31"
+    },
+    "qgroundcontrol_version": {
+      "value": "v5.1.5",
+      "commit": "3a67d31f0c36bf3fe38ec52970d250a89d0aaf67",
+      "note": "AppImage supports Ubuntu 24.04 and 26.04; 22.04 needs a self-build.",
+      "status": "proposed",
+      "evidence_url": "https://docs.qgroundcontrol.com/Stable_V5.1/en/qgc-user-guide/getting_started/download_and_install.html",
+      "evidence_date": "2026-10-31"
+    },
+    "vio_package_and_version": {
+      "value": "isaac_ros_visual_slam 4.6.0",
+      "tag": "v4.6-0",
+      "commit_short": "6e23c6c",
+      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install.",
+      "status": "proposed",
+      "evidence_url": "https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_visual_slam/index.html",
+      "evidence_date": "2026-10-31",
+      "jetpack": "7.2"
+    },
+    "sensor_driver_commits": {
+      "value": "depthai_ros_v3 3.2.1-1 (tag v3.2.1-jazzy) for OAK-D Pro; realsense2_camera 4.58.4-1 for D435i",
+      "note": "All in the Jazzy apt main repository on this date. realsense2_camera 4.59.1-1 is in building and testing only. Luxonis's install instructions (https://docs.luxonis.com/software-v3/depthai/ros/driver) add the testing apt source. Exact commits are recorded when a camera is chosen.",
+      "status": "proposed",
+      "evidence_url": "http://repo.ros2.org/status_page/ros_jazzy_default.html",
+      "evidence_date": "2026-10-31"
+    },
+    "flight_controller_firmware_target": {
+      "value": "px4_fmu-v6c_default",
+      "note": "Pixhawk 6C and Pixhawk 6C Mini. WO-002 uses SITL: make px4_sitl gz_x500, and no hardware is connected in D0 or D1. For hardware, RC input from the proposed ELRS receiver needs a custom board configuration of this target with crsf_rc enabled, because the default build does not include it; pin that configuration when hardware is bought (ADR-0007).",
+      "status": "proposed",
+      "evidence_url": "https://docs.px4.io/v1.17/en/flight_controller/pixhawk6c.html",
+      "evidence_date": "2026-10-31"
+    },
+    "px4_external_vision_interface": {
+      "value": "/fmu/in/vehicle_visual_odometry (px4_msgs VehicleOdometry), EKF2_EV_CTRL, EKF2_HGT_REF 3 (vision), global origin set with SET_GPS_GLOBAL_ORIGIN",
+      "note": "30 to 50 Hz recommended. A VIO node publishing ENU/FLU must convert to PX4's frames. Used from D2; not needed by WO-002.",
+      "status": "proposed",
+      "evidence_url": "https://docs.px4.io/v1.17/en/ros/external_position_estimation.html",
+      "evidence_date": "2026-10-31"
+    }
+  },
+  "fallback_pairing": {
+    "use_if": "WO-002 cannot run the proposed pairing",
+    "value": "Ubuntu 22.04, ROS 2 Humble, Gazebo Harmonic, PX4 v1.17.0, Micro-XRCE-DDS-Agent v2.4.2",
+    "why_not_first": "It is the pairing the v1.17 guide states, but Humble ends in May 2027, Gazebo marks Humble with Harmonic 'use with caution', and QGroundControl v5.1 has no 22.04 AppImage.",
+    "status": "proposed",
+    "evidence_url": "https://docs.px4.io/v1.17/en/ros2/user_guide.html",
+    "evidence_date": "2026-10-31"
+  },
+  "rule": "Every entry is proposed. A null is a question for WO-002, never permission to use latest."
+}
