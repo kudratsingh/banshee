@@ -76,7 +76,7 @@
   "docs/adr/README.md": "e2bea2fdba655455148236555fce88632c9f16596e66cca3d06faff4e95ed5de",
   "evals/README.md": "3cb5dd81fd76ffb6aa2d2525a6cf0b2bb1b35b4928be3f4b0e8db6652b50ed33",
   "ledgers/README.md": "6c5700bafc0974c941b6b933ce86147a0d59283856dc44afede041bfe268dd1e",
-  "ledgers/approvals.jsonl": "85a5021ed50ef4a27b78f0430313d7107d9dfa88606be15eb56cb1fa16a37934",
+  "ledgers/approvals.jsonl": "38f84951ac9c9cea6621942da86cf44aa2b140b9b84ae45ca84bd49e374c68c4",
   "ledgers/corrections.jsonl": "e11543a4dc93e2ebb4caaed21db66d8233587ac2ee77f542b8473cdd9a8dc3d1",
   "prompts/FIRST_SESSION.md": "cc1e1f6b9eb6f20e18fe3df158f5951926116097e98211f9cdd37d2b7199e5f0",
   "pyproject.toml": "a8e8aaf02916cf0ef6fc27f1bf670ddf8dc52e01692861d33dc7ad32406d6dc9",
