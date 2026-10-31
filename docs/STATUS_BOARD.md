@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 10:23 UTC · ledger records: 18
+Generated: 2026-10-31 22:15 UTC · ledger records: 21
 
 ## Phases
 
@@ -65,8 +65,8 @@ Generated: 2026-10-31 10:23 UTC · ledger records: 18
 | WO-003 | Supervised resource and spend enforcement (local, no paid execution) | D0 | **created** | 2026-10-31T07:51:52.125269Z | — |
 | WO-004 | D1 fault matrix in simulation and the freshness gate in the command loop | D1 | **created** | 2026-10-31T07:51:52.172244Z | — |
 | WO-005 | D2 props-off sensor, localization and reference checkout | D2 | **created** | 2026-10-31T07:51:52.215726Z | — |
-| WO-006 | Program-wide rename of this repository and package to banshee | D0 | **in_progress** | 2026-10-31T08:55:03.480014Z | — |
+| WO-006 | Program-wide rename of this repository and package to banshee | D0 | **accepted** | 2026-10-31T22:15:35.944907Z | reports/WO-006-program-rename-banshee.md |
 | WO-007 | Designate the private GitHub remote and create the repository | D0 | **accepted** | 2026-10-31T09:11:55.829902Z | VERIFICATION.md |
-| WO-008 | Fix three starter-kit tooling defects found during the rename review | D0 | **in_progress** | 2026-10-31T09:18:32.721508Z | — |
-| WO-009 | Protect accepted work orders and widen the secret scan | D0 | **in_progress** | 2026-10-31T10:06:28.983959Z | — |
+| WO-008 | Fix three starter-kit tooling defects found during the rename review | D0 | **accepted** | 2026-10-31T22:15:35.975976Z | reports/WO-008-starter-kit-tooling-fixes.md |
+| WO-009 | Protect accepted work orders and widen the secret scan | D0 | **accepted** | 2026-10-31T22:15:36.002410Z | reports/WO-009-status-freeze-and-token-scan.md |
 

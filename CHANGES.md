@@ -49,3 +49,6 @@ These also came with the starter kit, and the owner asked for them before WO-001
 - **`tools/scan_secrets.py`:** adds Hugging Face (`hf_`) and RunPod (`rpa_`) patterns, each requiring 30 or more alphanumerics, and now scans files with no extension. One consequence: a local `.env`, though ignored by git, is scanned too, so a real key in it makes `make secrets` fail.
 - **`.gitignore`:** back to the broad `*secret*` rule plus `!tools/scan_secrets.py`, keeping `secrets/` and `.secrets*`, on the owner's instruction. The specific-pattern list left names like `secret_prod.env`, `mysecret` and `secretkey` trackable. The WO-009 file was renamed to `...-token-scan.md`, because the broad rule would have ignored its old name and its report, and a new test fails if any tracked file is ignored.
 - **`tests/test_tools.py`:** adds tests for all of these, with token literals built at runtime.
+
+## After import: rename merged and accepted (2026-10-31)
+Pull request 1 merged at `292d368` on the owner's approval, after both repositories were verified. WO-006, WO-008 and WO-009 are `accepted`, each with a report in `reports/`. `START_HERE.md` no longer says the rename is waiting; a later pull request still needs its own owner approval.
