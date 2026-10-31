@@ -3,6 +3,9 @@
 {"actor":"starter-kit-packager","event":"created","note":"starter kit","record_id":"status-20261031T075152125269Z-58680f","ts":"2026-10-31T07:51:52.125269Z","wo":"WO-003"}
 {"actor":"starter-kit-packager","event":"created","note":"starter kit","record_id":"status-20261031T075152172244Z-f443f2","ts":"2026-10-31T07:51:52.172244Z","wo":"WO-004"}
 {"actor":"starter-kit-packager","event":"created","note":"starter kit","record_id":"status-20261031T075152215726Z-b20f0e","ts":"2026-10-31T07:51:52.215726Z","wo":"WO-005"}
+{"actor":"claude-code-banshee","event":"created","note":"owner request 2026-10-31; ADR-0006","record_id":"status-20261031T090748864668Z-409cf9","ts":"2026-10-31T09:07:48.864668Z","wo":"WO-007"}
+{"actor":"claude-code-banshee","event":"ready","note":"approval recorded in ledgers/approvals.jsonl","record_id":"status-20261031T090748891762Z-bea916","ts":"2026-10-31T09:07:48.891762Z","wo":"WO-007"}
+{"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-007-designate-remote","record_id":"status-20261031T090748921985Z-09ab6d","ts":"2026-10-31T09:07:48.921985Z","wo":"WO-007"}
 {"actor":"claude-code-banshee","event":"created","note":"owner name decision 2026-10-31; ADR-0003","record_id":"status-20261031T085503414207Z-9334d7","ts":"2026-10-31T08:55:03.414207Z","wo":"WO-006"}
 {"actor":"claude-code-banshee","event":"ready","note":"approval recorded in ledgers/approvals.jsonl","record_id":"status-20261031T085503447620Z-b60ecb","ts":"2026-10-31T08:55:03.447620Z","wo":"WO-006"}
 {"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-006-program-rename","record_id":"status-20261031T085503480014Z-59c22f","ts":"2026-10-31T08:55:03.480014Z","wo":"WO-006"}
