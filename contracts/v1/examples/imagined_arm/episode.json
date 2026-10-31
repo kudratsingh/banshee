@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "1.0.0",
   "episode_id": "fixture-imagined-001",
   "producer": "vishwaroop",
   "created_at": "2026-10-30T20:52:00-07:00",
@@ -132,7 +132,7 @@
     "record_count": 2,
     "transitions_artifact": {
       "path": "transitions.jsonl",
-      "sha256": "580c9dd99b0573d14159db71a55f6f7a71289f7b33758d1e985c3bf3eae27a5d"
+      "sha256": "135db948116746291c3c1fd3b27b5a10b47ccef12825f1e2b934e868e7ef7ab3"
     }
   }
 }

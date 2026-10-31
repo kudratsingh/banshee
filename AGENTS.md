@@ -1,6 +1,6 @@
 # AGENTS.md — rules for every agent working in this repository
 
-**Policy version 1.1 — 2026-10-31.** This file is the **single authoritative source of rules** for this repository. `CLAUDE.md` only points here. Sections 1–12 are the shared core, byte-identical across the `omni-drone` and `world-model` repositories (sha256 recorded in `VERIFICATION.md`); section 13 is project-specific. Change the core only through a program-level ADR applied to both repositories.
+**Policy version 1.1 — 2026-10-31.** This file is the **single authoritative source of rules** for this repository. `CLAUDE.md` only points here. Sections 1–12 are the shared core, byte-identical across the `banshee` and `vishwaroop` repositories (sha256 recorded in `VERIFICATION.md`); section 13 is project-specific. Change the core only through a program-level ADR applied to both repositories.
 
 **Names.** The Omni Drone repository and Python package are `banshee`; the World Model & Planner repository and Python package are `vishwaroop`. Repository paths, package imports, contract `producer` values and `config/phases.json#project` use the short names.
 

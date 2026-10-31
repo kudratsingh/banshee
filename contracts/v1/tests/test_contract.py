@@ -253,7 +253,7 @@ def _ledger_line(tmp_path: Path, episode_id: str, status: str, kind: str, assess
     evidence_file = tmp_path / "replay-report.json"
     evidence_file.write_text('{"fabricated": true, "note": "test evidence only"}')
     record = {
-        "schema_version": "2.0.0",
+        "schema_version": "1.0.0",
         "record_id": "ledger-test-0001",
         "ts": "2026-10-31T00:00:00Z",
         "episode_id": episode_id,

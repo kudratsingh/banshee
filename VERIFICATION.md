@@ -7,9 +7,9 @@
 Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins in `requirements-dev.txt`. The baseline `make check` on the unmodified import, also measured here, passed before any edit.
 
 ### Identity
-- `contracts/v1/SHA256SUMS.json` sha256: `df69f9a1b0dc371a61ae7687b9e5264ac85fec075d39900e0c184b60fee54110` (pinned in `config/contract-lock.json`)
+- `contracts/v1/SHA256SUMS.json` sha256: `9c0b9347be3758b359c7c7e9fdf7eb7798086167fb1162112fcc9d22bd5a61c3` (pinned in `config/contract-lock.json`)
 - `PROGRAM.md` version 1.1 sha256: `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` (pinned in `config/program-lock.json`)
-- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `6eb29cd33effa2ab6d76e17cb80a10f8ed1eb1d74407f90fb8d8884683afe6ad`
+- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `8f174fdc05d6184675491181d91a9a8921f7678b22006378f696ec27847659b6`
 
 ### Measured
 | Check | Result |
@@ -20,7 +20,6 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
 | `contracts/v1/audit_splits.py` on all three fixtures | exit 0 |
 | Negative test: `drone_sim` with the retired drone `producer` value | rejected, exit 2 |
-| Negative test: `drone_sim` with `schema_version` 1.0.0 | rejected, exit 2 |
 | `grep -rn` for the old underscore package name, outside `.git` | no hits |
 
 ### Cross-repository check
@@ -32,13 +31,12 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
 - `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
 - GitHub accepted protection on `main`, read back from the API: pull requests required with 0 approvals, both `cpu-tier` checks required, administrators included, force-push and deletion disallowed.
-- This rename branch is committed locally and not pushed, because the owner's final rename instruction says to commit locally. CI on this rename is **not run**.
+- This rename branch is committed locally and not pushed. It stays local until the owner approves the push and pull request separately. CI on this rename is **not run**.
 
 ### Old names left on purpose
 - `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.
 - `omni-drone` in this file's title and in the rename notes in `CHANGES.md`, which record where the repository came from.
 - `omni-world` in `contracts/v1/RELEASE.json` and the schema `$id` URNs, the contract's own name, and in ADR-0003 and WO-006, which say it stays.
-- `omni-drone` and `world-model` on line 3 of `AGENTS.md`, because the owner limited core edits to the policy version and the Names paragraph (ADR-0003).
 - "Omni Drone", "World Model & Planner", "world model" and "world-model" as descriptive prose, which the owner's decision keeps valid.
 
 ### Record notes
@@ -46,7 +44,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
 
 ### Not run
-No simulator and no hardware. Contract tests were updated only for the new version value. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
+No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
 
 ## Packaging record (before the rename)
 

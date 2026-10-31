@@ -21,7 +21,7 @@ from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker
 
 HERE = Path(__file__).resolve().parent
-SCHEMA_VERSION = "2.0.0"
+SCHEMA_VERSION = "1.0.0"
 
 
 class ContractError(ValueError):

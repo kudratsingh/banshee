@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "1.0.0",
   "episode_id": "fixture-arm-001",
   "producer": "arm",
   "created_at": "2026-10-30T20:52:00-07:00",
@@ -139,7 +139,7 @@
     "record_count": 2,
     "transitions_artifact": {
       "path": "transitions.jsonl",
-      "sha256": "0e1ac9a36e7f010a3b656158663c6cb96a7670cc4f0838d70501a399343ffe95"
+      "sha256": "55b623861eb4dc33680b6d4987e8e957f2a9a535297f55d6c80b743f445d0f09"
     }
   }
 }

@@ -13,7 +13,7 @@ Apply the owner's name decision in this repository under ADR-0003, and author th
 
 ## Scope
 - Rename the package to `banshee` and update packaging, tests, `config/phases.json`, the README, `START_HERE.md`, prompts and work orders.
-- Change the contract `producer` enum and fixtures as major release 2.0.0, the `PROGRAM.md` version and rows, and the shared `AGENTS.md` core (policy version 1.1 and a Names paragraph, nothing else), all through ADR-0003. This repository is the single source of these shared files.
+- Change the contract `producer` enum and fixtures with `schema_version` kept at 1.0.0, the `PROGRAM.md` version and rows, and the shared `AGENTS.md` core (policy version 1.1, a Names paragraph and the repository names in its header), all through ADR-0003. This repository is the single source of these shared files.
 - Regenerate the contract manifest, contract and program locks, and the repository manifest.
 
 ## Out of scope
@@ -24,7 +24,7 @@ Apply the owner's name decision in this repository under ADR-0003, and author th
 - Changing the contract's own name or its `urn:omni-world:...` schema ids (ADR-0003).
 
 ## Deliverables
-ADR-0003 with its hash table; the renamed package; `PROGRAM.md` version 1.1; `AGENTS.md` policy version 1.1; contract release 2.0.0; regenerated manifests and locks; an approval record; a post-rename section in `VERIFICATION.md`.
+ADR-0003 with its hash table; the renamed package; `PROGRAM.md` version 1.1; `AGENTS.md` policy version 1.1; regenerated manifests and locks; an approval record; a post-rename section in `VERIFICATION.md`.
 
 ## Steps
 1. Import the starter kit on `main` and record a green baseline `make check`.
