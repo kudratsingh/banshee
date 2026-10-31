@@ -23,7 +23,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | `grep -rn` for the old underscore package name, outside `.git` | no hits |
 
 ### Cross-repository check
-**Real repository, measured read-only on 2026-10-31 at 09:18 UTC. Not confirmed yet.** `PROGRAM.md`, `config/program-lock.json`, `contracts/v1/SHA256SUMS.json` and `config/contract-lock.json` match. ADR-0003 and the `AGENTS.md` core do not: the `vishwaroop` working tree, which had not committed the rename, held an earlier draft of both (`AGENTS.md` core `9b442240...`). It has to copy the final bytes from this branch. Compare against the hash table in ADR-0003.
+**Real repository, measured read-only on 2026-10-31 at 09:28 UTC. Confirmed for the shared files.** At `vishwaroop` commit `b42d391`, `PROGRAM.md`, `config/program-lock.json`, `contracts/v1/SHA256SUMS.json`, `config/contract-lock.json`, ADR-0003, the `AGENTS.md` core and the `contracts/v1` tree match this repository's commit byte for byte. WO-008 is not fully matched: `.gitignore`, `tools/status_board.py` and `tests/test_tools.py` there predate the follow-up commit `e412aea` here.
 
 **Scratch copy.** All the shared files in ADR-0003, plus the WO-008 files, were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (85 tests). This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
 
