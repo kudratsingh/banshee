@@ -18,19 +18,19 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 `make check` must be green. If it is not, fixing it is the first task and gets its own PR, once the owner approves that PR.
 
 ## 3. Status today (2026-10-31)
-- Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are the current work. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
-- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The branch `wo/WO-006-program-rename` has an open pull request to `main`, which merges only on the owner's explicit approval, given after both repositories are verified. Nothing beyond that pull request is pre-approved.
+- Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are accepted, and WO-001 is next. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
+- `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. The rename pull request merged to `main` at `292d368` on the owner's explicit approval. Each later pull request still needs its own owner approval (`ledgers/approvals.jsonl`).
 - `config/budget.json`: $0 approved. Hardware purchase is an owner action that follows D0 and D1.
 - The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
 
 ## 4. First work order
-Finish `work_orders/WO-006-program-rename-banshee.md` (it waits on the matching `vishwaroop` change), `work_orders/WO-008-starter-kit-tooling-fixes.md` and `work_orders/WO-009-status-freeze-and-token-scan.md` first. Then `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 (budget enforcement) can run in parallel in its own worktree.
+`work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 (budget enforcement) can run in parallel in its own worktree.
 
 ## 5. Unresolved owner decisions you may hit
 `docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`: test space; airframe; companion computer and depth camera; stack pins; frame convention. Take the recorded default, write the assumption into the report, and continue — stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**
 
 ## 6. Exact next actions
-Do not start WO-001 until the rename pull request is merged and WO-006, WO-008 and WO-009 are `accepted`. If it is still waiting, report that to the owner. Then branch from the updated `main`.
+Branch from the updated `main`.
 1. `make check` green → `python tools/status_board.py --append --wo WO-001 --event ready`, then `--event in_progress`; `--phase D0 --event ready`, then `in_progress`.
 2. Branch `wo/WO-001-d0`; fill `docs/OPERATING_ENVELOPE.md` and `docs/BOM_WORKSHEET.md` (both airframe options, sourced and dated); write `config/stack-lock.proposed.json` with every pin labelled `proposed` and an evidence URL; write ADR-0004; draft `evals/D1-exit-tests.json`.
 3. Write `reports/WO-001-d0-operating-envelope-and-platform-proposal.md` with the owner decision request; then stop and ask the owner. Open the PR and merge it only on the owner's separate approval, recorded in `ledgers/approvals.jsonl`, and only when `AGENTS.md §4.6` also holds.
