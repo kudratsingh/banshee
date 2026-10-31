@@ -23,7 +23,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 |---|---|---|---|
 | Mission executive | this project | explicit state machine (reuses the Incident Commander pattern: deterministic guards, independent success detector, bounded recovery) | an LLM may interpret requests into subgoals; spatial facts always come from the estimator and map |
 | Local planner / skills | this project | conventional route planning and avoidance on the map | learned residual dynamics inside MPC, **gated by calibrated uncertainty** (the research question) |
-| Command gate | this project | `src/omni_drone/freshness.py` + limits + clearance + operator override | never learned |
+| Command gate | this project | `src/banshee/freshness.py` + limits + clearance + operator override | never learned |
 | Flight control | PX4 | stock firmware, pinned | never |
 | State estimation | this project (configuration) | PX4 EKF2 with external VIO input | never in the loop; the world model may consume logs offline |
 | Reference (evaluation only) | this project | outside-in cameras + AprilTags, independent clocks | — |
@@ -44,16 +44,16 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 
 | Module | Path | Status |
 |---|---|---|
-| Core record helpers (append-only ledgers, artifact store, run dirs, logs, config) | `src/omni_drone/core/` | implemented, tested |
-| Setpoint freshness / estimator validity gate (pure logic) | `src/omni_drone/freshness.py` | implemented, tested; bounds to be frozen in D1 |
-| Typed interfaces (estimator, gate, mission executive, skill, learned-proposal adapter) | `src/omni_drone/interfaces.py` | implemented as Protocols |
-| SITL launch + version manifest | `src/omni_drone/sitl/` | **not implemented** (WO-002) |
-| Offboard velocity bridge + mission runner | `src/omni_drone/offboard/` | **not implemented** (WO-002) |
-| Contract export of flight logs | `src/omni_drone/export/` | **not implemented** (WO-002) |
-| Fault-matrix harness | `src/omni_drone/faults/` | **not implemented** (WO-004) |
-| Outside-in reference pipeline | `src/omni_drone/reference/` | **not implemented** (D2) |
-| Mission executive | `src/omni_drone/mission/` | **not implemented** (D5–D6) |
-| World-model adapter (manifest consumer; shadow only) | `src/omni_drone/learned/` | **not implemented** (D7+) |
+| Core record helpers (append-only ledgers, artifact store, run dirs, logs, config) | `src/banshee/core/` | implemented, tested |
+| Setpoint freshness / estimator validity gate (pure logic) | `src/banshee/freshness.py` | implemented, tested; bounds to be frozen in D1 |
+| Typed interfaces (estimator, gate, mission executive, skill, learned-proposal adapter) | `src/banshee/interfaces.py` | implemented as Protocols |
+| SITL launch + version manifest | `src/banshee/sitl/` | **not implemented** (WO-002) |
+| Offboard velocity bridge + mission runner | `src/banshee/offboard/` | **not implemented** (WO-002) |
+| Contract export of flight logs | `src/banshee/export/` | **not implemented** (WO-002) |
+| Fault-matrix harness | `src/banshee/faults/` | **not implemented** (WO-004) |
+| Outside-in reference pipeline | `src/banshee/reference/` | **not implemented** (D2) |
+| Mission executive | `src/banshee/mission/` | **not implemented** (D5–D6) |
+| World-model adapter (manifest consumer; shadow only) | `src/banshee/learned/` | **not implemented** (D7+) |
 
 ## 6. Compute placement
 Laptop-based autonomy over Wi-Fi for D1–D4 (prototype); onboard companion computer (Jetson class) once a mission works and latency demands it (D7+). Either way the aircraft's loss response never depends on the laptop.

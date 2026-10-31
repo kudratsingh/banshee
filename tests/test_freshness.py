@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from omni_drone.freshness import BoundsError, FreshnessBounds, GateInputs, assess
+from banshee.freshness import BoundsError, FreshnessBounds, GateInputs, assess
 
 MS = 1_000_000
 BOUNDS = FreshnessBounds(

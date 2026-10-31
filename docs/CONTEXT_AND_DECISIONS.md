@@ -5,6 +5,7 @@ What an agent needs from the planning conversations (Oct 2026) to make the same 
 ## 1. Why this project exists
 - The owner's goal is a **broadly capable autonomous drone built step by step**, not a single narrow demo; "omni" means broad mission capability. *Confirmed (Oct 30, 2026).*
 - It is kept **separate** from the world model because the sim-to-real gap for a drone is large and the drone must make progress conventionally regardless of ML results. *Confirmed.*
+- The repository and Python package are named **`banshee`**; "Omni Drone" stays the descriptive name in prose. *Confirmed (Oct 31, 2026; ADR-0003).*
 - With the Microduck dropped, the drone is the natural home of the "brain" work: mission executive, success detection, recovery (program Stage 3). *Confirmed.*
 - The owner's interest areas include autonomous and aerial systems and defense; Part 107 is treated as a credential worth having. *Confirmed.*
 

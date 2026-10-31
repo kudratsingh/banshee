@@ -1,5 +1,5 @@
 {
-  "project": "omni-drone",
+  "project": "banshee",
   "version": "1.0.0",
   "notes": "Machine-readable mission ladder. docs/PHASES.md is the narrative; a test keeps the two consistent. Thresholds marked 'proposed default' must be frozen in evals/<phase>-exit-tests.json before the phase moves to ready (AGENTS.md section 5.2). Safety and failure-mode checks are inside each stage's exit tests, not separate workstreams. Code merged, simulation passed and flight-ready are three different states.",
   "phases": [
@@ -29,7 +29,7 @@
         {"id": "ET-D1-2", "statement": "A waypoint mission completes through the offboard velocity/yaw-rate interface and its outcome is checked by independent code from the logged state.", "evidence": "mission logs; outcome code hash", "threshold": "proposed default: 10/10 nominal runs reach every waypoint within 0.5 m; freeze before running"},
         {"id": "ET-D1-3", "statement": "Each run is exported through contracts/v1/writer.py with correct frames and timebase (capture, receive, decision, sent times) and validates.", "evidence": "validate.py output per episode; frame-convention ADR", "threshold": "100% contract_valid"},
         {"id": "ET-D1-4", "statement": "The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished.", "evidence": "fault-matrix report with one log per case", "threshold": "all listed cases executed; any deviation from spec is reported, not hidden"},
-        {"id": "ET-D1-5", "statement": "A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness.", "evidence": "src/omni_drone/freshness.py tests; bounds in evals/D1-exit-tests.json", "threshold": "tests green; bounds documented with their justification"}
+        {"id": "ET-D1-5", "statement": "A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness.", "evidence": "src/banshee/freshness.py tests; bounds in evals/D1-exit-tests.json", "threshold": "tests green; bounds documented with their justification"}
       ]
     },
     {

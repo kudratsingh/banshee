@@ -1,4 +1,46 @@
-# VERIFICATION.md — omni-drone starter kit
+# VERIFICATION.md — banshee (Omni Drone), imported from the omni-drone starter kit
+
+## Post-rename verification (2026-10-31, branch `wo/WO-006-program-rename`)
+
+**These are the current hashes.** The packaging record further down is kept as history and shows the values before the rename.
+
+Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins in `requirements-dev.txt`. The baseline `make check` on the unmodified import, also measured here, passed before any edit.
+
+### Identity
+- `contracts/v1/SHA256SUMS.json` sha256: `9c0b9347be3758b359c7c7e9fdf7eb7798086167fb1162112fcc9d22bd5a61c3` (pinned in `config/contract-lock.json`)
+- `PROGRAM.md` version 1.1 sha256: `58f4c930ca08aaa2fd630826905e9ef9892968e7ceda8e2d920863f5142d02a9` (pinned in `config/program-lock.json`)
+- `AGENTS.md` shared core (bytes before the `## 13.` heading) sha256: `9b442240b95c6b6f94d6e99d0c597561689c2dbdbe74f202cfbc7ae99f40364e`
+
+### Measured
+| Check | Result |
+|---|---|
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 87 tests |
+| `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone; run in this repository before the commit, it compares `main` with itself and proves nothing |
+| `tools/check_hashes.py --verify-kit-manifest` | passed |
+| `contracts/v1/validate.py` on all three fixtures | exit 0 |
+| `contracts/v1/audit_splits.py` on all three fixtures | exit 0 |
+| Negative test: `drone_sim` with `producer: omni_drone` | rejected, exit 2 |
+
+### Cross-repository check
+**Real repository, measured read-only on 2026-10-31 at 09:07 UTC.** The `vishwaroop` checkout's contract tree, contract manifest, `PROGRAM.md`, both lock files, ADR-0003 and `AGENTS.md` core all match this repository byte for byte. Its working tree held these bytes on branch `wo/WO-007-program-rename`, but that branch had not committed them yet, so this confirms matching files and not matching commits. An earlier read at about 08:58 UTC, before it adopted them, showed the old hashes.
+
+**Scratch copy.** The shared bytes except ADR-0003 (`PROGRAM.md`, `contracts/v1/`, both lock files, the `AGENTS.md` core) were copied into a scratch copy of `world-model-starter-kit.zip`, with a minimal package rename for that run only. `make check` passed there (82 tests) and those files matched this repository. ADR-0003 was not copied or compared in that run. This shows the bytes work in the sibling's test suite; it does not confirm the real repository.
+
+### Old names left on purpose
+- `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.
+- `omni-drone` in this file's title and in the rename notes in `CHANGES.md`, which record where the repository came from.
+- `omni-world` in `contracts/v1/RELEASE.json` and the schema `$id` URNs, the contract's own name, and in ADR-0003 and WO-006, which say it stays.
+- `omni_drone` and `world_model` in ADR-0003 and this file, and `omni_drone` in `work_orders/WO-006-program-rename-banshee.md`, where they name the retired values or the old package path.
+- "Omni Drone", "World Model & Planner", "world model" and "world-model" as descriptive prose, which the owner's decision keeps valid.
+
+### Record notes
+- The rename edits were applied to the uncommitted working tree at 08:53:22Z, before the approval, `ready` and `in_progress` records were appended at 08:55:03Z. `docs/WORKFLOW.md §1` puts those records first. The owner's decision itself predates the edits.
+- During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
+
+### Not run
+No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.
+
+## Packaging record (before the rename)
 
 Packaging run: 2026-10-31 07:51 UTC. Everything below was executed on the assembled kit before zipping; nothing is copied from the reference bundle's reports.
 

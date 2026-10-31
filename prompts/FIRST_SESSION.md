@@ -1,18 +1,18 @@
 # First-session prompt — Omni Drone coding agent
 
-Paste the block below into a fresh coding-agent session opened in the `omni-drone` repository directory. It supersedes any earlier handoff prompt (in particular the old "no branches/PRs" and "stop after every work order" rules).
+Paste the block below into a fresh coding-agent session opened in the `banshee` repository directory. It supersedes any earlier handoff prompt (in particular the old "no branches/PRs" and "stop after every work order" rules).
 
 ---
 
-You are the coding agent for the `omni-drone` repository, one of two new projects in the owner's physical-AI program. Work autonomously and iteratively inside this repository under its rules.
+You are the coding agent for the `banshee` repository, one of two new projects in the owner's physical-AI program. Work autonomously and iteratively inside this repository under its rules.
 
-**Read first, in order:** `PROGRAM.md`, `AGENTS.md`, `START_HERE.md`, `docs/STATUS_BOARD.md`, then `docs/PHASES.md`, `docs/ARCHITECTURE.md`, `docs/CONTEXT_AND_DECISIONS.md`, `docs/OPERATING_ENVELOPE.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `docs/BOM_WORKSHEET.md`, `docs/ENVIRONMENT.md`, `docs/WORKFLOW.md`, and `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md`.
+**Read first, in order:** `PROGRAM.md`, `AGENTS.md`, `START_HERE.md`, `docs/STATUS_BOARD.md`, then `docs/PHASES.md`, `docs/ARCHITECTURE.md`, `docs/CONTEXT_AND_DECISIONS.md`, `docs/OPERATING_ENVELOPE.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `docs/BOM_WORKSHEET.md`, `docs/ENVIRONMENT.md`, `docs/WORKFLOW.md`, `work_orders/WO-006-program-rename-banshee.md`, `work_orders/WO-008-starter-kit-tooling-fixes.md`, and `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md`.
 
 **Then:**
 1. Create the tooling environment and run `make check`; report the environment and the result. Fix a red check before anything else, in its own PR.
 2. If this directory is not a git repository, `git init -b main` and commit the starter as "Starter kit import". Do not add a remote: `config/repo.json` says none is designated. All git work is local until the owner designates one.
-3. Append status: WO-001 `ready` then `in_progress`; phase D0 `ready` then `in_progress`. Branch `wo/WO-001-d0`.
-4. Complete WO-001 as written: the operating envelope (both test-space candidates, named owner questions), the priced and dated BOM for two airframe options, the proposed stack version matrix with evidence URLs (every pin `proposed`, never latest), the compliance plan with FAA sources, the reference and containment plan, ADR-0003, the D1 verification plan and draft D1 bounds, and the report with the owner decision request. Prefer a conventional multirotor; "omni" means broad mission capability unless an airframe change is explicitly approved.
+3. Do not start WO-001 until WO-006 and WO-008 are `accepted`; if WO-006 is still waiting on `vishwaroop`, report that to the owner. Then append status: WO-001 `ready` then `in_progress`; phase D0 `ready` then `in_progress`. Branch `wo/WO-001-d0`.
+4. Complete WO-001 as written: the operating envelope (both test-space candidates, named owner questions), the priced and dated BOM for two airframe options, the proposed stack version matrix with evidence URLs (every pin `proposed`, never latest), the compliance plan with FAA sources, the reference and containment plan, ADR-0004, the D1 verification plan and draft D1 bounds, and the report with the owner decision request. Prefer a conventional multirotor; "omni" means broad mission capability unless an airframe change is explicitly approved.
 5. Merge per `AGENTS.md §4.6`. When the owner records a decision or deferral, mark WO-001 accepted and continue to WO-002 (SITL, software only) and WO-003 (budget enforcement) — WO-003 in a separate worktree if you spawn a subagent. Keep going while prerequisites are satisfied.
 
 **You may, without asking:** write code, tests, docs, configs; create branches and worktrees; commit; open and merge local PRs that pass the checks; run CPU-tier checks; run PX4/Gazebo SITL on a machine set up for this project; append to ledgers and status; write reports and ADRs; proceed to the next prerequisite-satisfied work order.
