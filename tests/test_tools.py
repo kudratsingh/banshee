@@ -136,6 +136,25 @@ def test_cli_refuses_records_naming_more_than_one_id(
     assert ledger.read_text() == before
 
 
+def test_created_is_refused_once_a_work_order_has_a_record(tmp_path: Path, root: Path) -> None:
+    repo = _mini_repo(tmp_path, root)
+    ledger = repo / "work_orders" / "STATUS.jsonl"
+    kw = {"ledger": ledger, "phases_path": repo / "config" / "phases.json", "root": repo}
+    status_board.append({"wo": "WO-001", "event": "created"}, **kw)
+    with pytest.raises(status_board.StatusError, match="cannot be created again"):
+        status_board.append({"wo": "WO-001", "event": "created"}, **kw)
+    status_board.append({"wo": "WO-001", "event": "ready"}, **kw)
+    status_board.append({"wo": "WO-001", "event": "in_progress"}, **kw)
+    status_board.append(
+        {"wo": "WO-001", "event": "accepted", "report": "reports/WO-001.md", "commit": "abc"}, **kw
+    )
+    before = ledger.read_text()
+    with pytest.raises(status_board.StatusError, match="cannot be created again"):
+        status_board.append({"wo": "WO-001", "event": "created"}, **kw)
+    assert ledger.read_text() == before
+    assert check_immutable.accepted_work_orders(before) == {"WO-001"}
+
+
 def test_current_states_ignores_null_keys_in_older_records() -> None:
     wos, phases, ets = status_board.current_states(
         [
@@ -250,6 +269,27 @@ def test_secret_scan_flags_patterns_and_paths(tmp_path: Path) -> None:
     assert any("AWS access key id" in h for h in hits)
     assert any("macOS home path" in h for h in hits)
     assert not any(h.startswith("clean.md") for h in hits)
+
+
+@pytest.mark.parametrize(
+    ("prefix", "label"), [("hf_", "Hugging Face token"), ("rpa_", "RunPod API key")]
+)
+def test_secret_scan_flags_ml_service_tokens(tmp_path: Path, prefix: str, label: str) -> None:
+    token = prefix + "aB3" * 10
+    (tmp_path / "notes.md").write_text(f"export KEY={token}\n")
+    (tmp_path / "too_short.md").write_text(f"{prefix}{'aB3' * 9}\n")
+    (tmp_path / "embedded.md").write_text(f"x{token}\n")
+    hits = scan_secrets.scan(tmp_path)
+    assert hits == [f"notes.md:1: {label}"]
+
+
+def test_secret_scan_reads_files_with_no_extension(tmp_path: Path) -> None:
+    token = "hf_" + "aB3" * 10
+    (tmp_path / "credentials").write_text(f"{token}\n")
+    (tmp_path / ".env").write_text(f"{token}\n")
+    (tmp_path / "binary").write_bytes(b"\xff\xfe\x00 not text")
+    hits = scan_secrets.scan(tmp_path)
+    assert sorted(hits) == [".env:1: Hugging Face token", "credentials:1: Hugging Face token"]
 
 
 def test_repository_has_no_secrets_or_machine_paths(root: Path) -> None:

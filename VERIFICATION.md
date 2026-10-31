@@ -14,7 +14,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Measured
 | Check | Result |
 |---|---|
-| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 91 tests |
+| `make check` (lint, types, tests, hash locks, secrets, links) | passed; 95 tests |
 | `make immutable BASE=main` | passed on a scratch commit of this tree in a throwaway clone |
 | `tools/check_hashes.py --verify-kit-manifest` | passed |
 | `contracts/v1/validate.py` on all three fixtures | exit 0 |
@@ -40,6 +40,15 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 | A real file in `reports/`, scratch copy | `tests/test_project_consistency.py` passes |
 | `ruff format --check` | now covers 26 files, including `tools/scan_secrets.py` |
 
+### WO-009 checks
+| Check | Result |
+|---|---|
+| New tests against the old tools | 4 failed, as they should |
+| `--append --wo WO-007 --event created`, scratch copy | refused, exit 2 |
+| A first ordinary event for an untouched work order, scratch copy | accepted, exit 0 |
+| Hugging Face token in a file with no extension, scratch copy | scan exits 1 |
+| RunPod key in a `.md` file, scratch copy | scan exits 1 |
+
 ### Remote (WO-007)
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
 - `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
@@ -55,10 +64,6 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 ### Record notes
 - The rename edits were applied to the uncommitted working tree at 08:53:22Z, before the approval, `ready` and `in_progress` records were appended at 08:55:03Z. `docs/WORKFLOW.md §1` puts those records first. The owner's decision itself predates the edits.
 - During review, a read-only review agent appended a false `accepted` event for WO-006 to the working copy of `work_orders/STATUS.jsonl`. It was never committed. The owner chose to remove it and log it; the full line and the account are in `ledgers/corrections.jsonl`.
-
-### Known and open
-- `tools/status_board.py` always allows a `created` event, so appending one can undo an `accepted` work order and its freeze. This came with the starter kit, and no work order owns it yet.
-- `tools/scan_secrets.py` has no pattern for Hugging Face or RunPod tokens and skips files with no extension. `.gitignore` is the only guard for those.
 
 ### Not run
 No simulator and no hardware. The owner's Claude Project copy of `PROGRAM.md` has not been updated to version 1.1; only the owner can do that.

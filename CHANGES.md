@@ -41,3 +41,9 @@ The rename did not cause these. They are in the same work order and commit, on t
 - **`tools/status_board.py`:** `--phase` and `--et` appends were always refused, because the record carried `"wo": null` and took the work-order path. The command line now drops unset fields before `append()`, and `current_states` tests its keys by `.get()` truthiness. `tests/test_tools.py` adds tests for these appends through the command line. A record naming more than one of `--wo`, `--phase` and `--et` is now refused: the fix had otherwise let a combined call mark a phase as passed without recording the exit test.
 - **`tests/test_project_consistency.py`:** deleted `test_no_fixture_claims_in_reports` on the owner's instruction. It failed on any file in `reports/`, so it blocked every real work-order report.
 - **`.gitignore`:** replaced `*secret*`, which silently dropped `tools/scan_secrets.py` from `git add -A` and hid it from `ruff`, with specific patterns covering the realistic names it used to catch (`secret.json`, `api_secret.txt`, `my-secrets.env`), plus `!tools/scan_secrets.py`. `tests/test_tools.py` adds a test for this.
+
+## After import: accepted work orders and secret scan (2026-10-31, WO-009)
+These also came with the starter kit, and the owner asked for them before WO-001.
+- **`tools/status_board.py`:** a `created` event is refused for any work order that already has a ledger record, so an accepted work order and its freeze cannot be reset.
+- **`tools/scan_secrets.py`:** adds Hugging Face (`hf_`) and RunPod (`rpa_`) patterns, each requiring 30 or more alphanumerics, and now scans files with no extension. One consequence: a local `.env`, though ignored by git, is scanned too, so a real key in it makes `make secrets` fail.
+- **`tests/test_tools.py`:** adds tests for both, with token literals built at runtime.
