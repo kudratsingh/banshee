@@ -40,6 +40,6 @@ docs/        PHASES, ARCHITECTURE, CONTEXT_AND_DECISIONS, OPERATING_ENVELOPE, TE
 src/banshee/      core/, freshness.py, interfaces.py   (sitl/, offboard/, export/, outcome/, faults/, reference/, mission/, learned/ to come)
 tests/       CPU tier;  contracts/v1/tests/  conformance
 tools/       status_board, check_immutable, check_hashes, scan_secrets, check_links, budget_preflight
-work_orders/ WO-001..008 + STATUS.jsonl (append-only)      prompts/FIRST_SESSION.md
+work_orders/ WO-001..009 + STATUS.jsonl (append-only)      prompts/FIRST_SESSION.md
 data/ runs/ ledgers/ artifacts/ reports/ evals/   append-only record locations
 ```

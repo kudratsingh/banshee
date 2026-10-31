@@ -53,7 +53,7 @@ Environment: Python 3.13.5 on macOS 26.5 (Darwin 25.5.0, arm64), with the pins i
 - `kudratsingh/banshee` is private, with default branch `main`, as read back from GitHub. It was created on the owner's request of 2026-10-31.
 - `main` was pushed at `ef55cc4`. CI run 41187438262 passed on that commit: `cpu-tier (3.12)` and `cpu-tier (3.13)` succeeded and the manual simulator job was skipped.
 - GitHub accepted protection on `main`, read back from the API: pull requests required with 0 approvals, both `cpu-tier` checks required, administrators included, force-push and deletion disallowed.
-- This rename branch is committed locally and not pushed. It stays local until the owner approves the push and pull request separately. CI on this rename is **not run**.
+- The owner approved one push of this branch and one pull request to `main`. It does not merge until the owner has seen the pull request and `vishwaroop` confirms its hashes match. CI results for this branch are on the pull request, because this file is part of the commit under test.
 
 ### Old names left on purpose
 - `Omni_Drone_World_Model_Starter_Kits_2026-10-30.zip` in `CHANGES.md` and `world-model-starter-kit.zip` in this file, real file names.

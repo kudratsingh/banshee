@@ -2,7 +2,7 @@
 **Phase:** D0
 **Exit tests advanced:** ET-D0-1, ET-D0-2, ET-D0-3, ET-D0-4, ET-D0-5, ET-D0-6
 **Size:** M
-**Prerequisites:** WO-006 and WO-008 `accepted` (status ledger). Entirely desk work: documents, sourced prices, documentation reading. No hardware, no purchase, no flight-stack installation required (installation is WO-002).
+**Prerequisites:** the rename pull request merged, and WO-006, WO-008 and WO-009 `accepted` (status ledger). Entirely desk work: documents, sourced prices, documentation reading. No hardware, no purchase, no flight-stack installation required (installation is WO-002).
 **Authorization:** AGENTS §2.1 only. Purchasing is a §2.3 owner action and is **not** part of this WO.
 **Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0004-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`.
 

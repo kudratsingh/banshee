@@ -3,7 +3,7 @@
 **Exit tests advanced:** none; this is program housekeeping ahead of WO-001.
 **Size:** S
 **Prerequisites:** none. Owner decision dated 2026-10-31, recorded in `ledgers/approvals.jsonl`.
-**Authorization:** needs §2.3 approval for: contract semantic change (recorded in `ledgers/approvals.jsonl`). This work order does not authorize a remote, a purchase or any hardware action.
+**Authorization:** needs §2.3 approval for: contract semantic change (recorded in `ledgers/approvals.jsonl`). This work order does not authorize a purchase or any hardware action. The owner separately approved one push and one pull request for this branch (`ledgers/approvals.jsonl`).
 **Files:** `src/banshee/` (moved from the old package directory), `pyproject.toml`, `tests/`, `config/`, `contracts/v1/`, `PROGRAM.md`, `AGENTS.md`, `README.md`, `START_HERE.md`, `CHANGES.md`, `REQUIREMENTS_CHECKLIST.md`, `VERIFICATION.md`, `SHA256SUMS.json`, `docs/`, `prompts/`, `work_orders/`, `ledgers/approvals.jsonl`.
 
 Serves `PROGRAM §5.1, §11, §14`.
@@ -19,7 +19,7 @@ Apply the owner's name decision in this repository under ADR-0003, and author th
 ## Out of scope
 - Creating or changing the `vishwaroop` repository, which has its own session and work order.
 - Merging to `main` before the shared hashes are confirmed in both repositories.
-- Any remote (handled in WO-007), purchase, hardware action or stage work (WO-001 onward).
+- Creating a remote (handled in WO-007), purchase, hardware action or stage work (WO-001 onward).
 - Starter-kit defects the rename did not cause (WO-008).
 - Changing the contract's own name or its `urn:omni-world:...` schema ids (ADR-0003).
 
@@ -30,7 +30,7 @@ ADR-0003 with its hash table; the renamed package; `PROGRAM.md` version 1.1; `AG
 1. Import the starter kit on `main` and record a green baseline `make check`.
 2. Apply the rename on branch `wo/WO-006-program-rename`.
 3. Regenerate manifests and locks, then run the verification below.
-4. Hand the shared bytes and hashes in ADR-0003 to the `vishwaroop` session. Merge once both repositories match.
+4. Hand the shared bytes and hashes in ADR-0003 to the `vishwaroop` session. Merge once the owner has seen the pull request and both repositories match.
 5. Owner action: replace the Claude Project copy of `PROGRAM.md` with version 1.1. Agents cannot do this from the repository.
 
 ## Verification
@@ -54,7 +54,7 @@ git grep -nEi 'omni[-_]?drone|world[-_]?model'
 No exit test closes here. This WO is accepted when the checks are green on the merged commit and the `contracts/v1/SHA256SUMS.json` and `PROGRAM.md` hashes are confirmed equal in both repositories.
 
 ## Stop conditions
-Any change beyond names; a shared-byte mismatch with `vishwaroop` that cannot be resolved by copying; any need for a remote, purchase or hardware action.
+Any change beyond names; a shared-byte mismatch with `vishwaroop` that cannot be resolved by copying; any need for another remote or pull request, a purchase or a hardware action.
 
 ## Report
 `VERIFICATION.md`, section "Post-rename verification". A report under `reports/` is written at acceptance, now that WO-008 has removed the test that blocked it.
