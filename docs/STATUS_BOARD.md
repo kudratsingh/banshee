@@ -2,13 +2,13 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 22:15 UTC · ledger records: 21
+Generated: 2026-10-31 22:54 UTC · ledger records: 23
 
 ## Phases
 
 | Phase | Name | State | Exit tests (passed / frozen / total) | Prerequisites | Work orders |
 |---|---|---|---|---|---|
-| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **not_started** | 0 / 0 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009 |
+| D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **not_started** | 0 / 0 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
 | D3 | Optional outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
@@ -69,4 +69,6 @@ Generated: 2026-10-31 22:15 UTC · ledger records: 21
 | WO-007 | Designate the private GitHub remote and create the repository | D0 | **accepted** | 2026-10-31T09:11:55.829902Z | VERIFICATION.md |
 | WO-008 | Fix three starter-kit tooling defects found during the rename review | D0 | **accepted** | 2026-10-31T22:15:35.975976Z | reports/WO-008-starter-kit-tooling-fixes.md |
 | WO-009 | Protect accepted work orders and widen the secret scan | D0 | **accepted** | 2026-10-31T22:15:36.002410Z | reports/WO-009-status-freeze-and-token-scan.md |
+| WO-011 | Lock the shared tooling files (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.820454Z | — |
+| WO-012 | Extract the shared material into ironclad (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.847240Z | — |
 
