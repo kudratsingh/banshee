@@ -40,7 +40,7 @@ from .frames import (
 )
 from .gate import decide, load_frozen
 from .guidance import RouteFollower, load_route
-from .response import NAV_OFFBOARD, TARGET_NAV, Latch, respond
+from .response import NAV_OFFBOARD, TARGET_NAV, Latch, arming_step, respond
 
 TICK_S = 0.05
 STREAM_BEFORE_SWITCH_S = 1.5
@@ -258,9 +258,12 @@ class Mission(Node):  # type: ignore[misc]
             # Disarmed before flight: arming again would override the operator.
             self.stop("disarmed")
         elif self.phase == "stream" and elapsed >= STREAM_BEFORE_SWITCH_S:
-            if repeat and not self.was_armed:
-                self.command(CMD_SET_MODE, MODE_CUSTOM, MODE_OFFBOARD)
-                self.command(CMD_ARM, 1.0)
+            step = arming_step(self.nav_state, self.was_armed)
+            if repeat and step != "none":
+                if step == "mode":
+                    self.command(CMD_SET_MODE, MODE_CUSTOM, MODE_OFFBOARD)
+                else:
+                    self.command(CMD_ARM, 1.0)
                 self.last_command_ns = now
             if self.nav_state == NAV_OFFBOARD and self.arming_state == ARMING_STATE_ARMED:
                 self.set_phase("route", now)

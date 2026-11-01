@@ -35,6 +35,17 @@ class Response:
     pending_from: int = NAV_OFFBOARD
 
 
+def arming_step(nav_state: int, was_armed: bool) -> Literal["none", "mode", "arm"]:
+    """Before flight: offboard first, and arm only from offboard. Nothing after the first arm.
+
+    Sent together, PX4 can accept the arm and refuse the mode, which leaves it armed in Hold. And
+    arming again after a disarm would override the operator.
+    """
+    if was_armed:
+        return "none"
+    return "arm" if nav_state == NAV_OFFBOARD else "mode"
+
+
 def respond(
     latch: Latch,
     mode: Mode,

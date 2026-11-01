@@ -14,7 +14,14 @@ from banshee.faults.case_env import RC_ENV, env_lines, timeline_lines
 from banshee.faults.injection import Injection, Window, from_case
 from banshee.faults.rc_sim import CENTER, channels_at
 from banshee.faults.run_matrix import export_case
-from banshee.offboard.response import NAV_DESCEND, NAV_LAND, NAV_LOITER, NAV_OFFBOARD, respond
+from banshee.offboard.response import (
+    NAV_DESCEND,
+    NAV_LAND,
+    NAV_LOITER,
+    NAV_OFFBOARD,
+    arming_step,
+    respond,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = json.loads((ROOT / "evals/D1-fault-matrix.json").read_text(encoding="utf-8"))
@@ -288,3 +295,10 @@ def test_never_armed_needs_the_command_to_have_been_sent() -> None:
     assert [r["match"] for r in silent] == [False, True]
     asked = check(expect, _tested(ever_armed=False, arm_commands=2), [])
     assert all(r["match"] for r in asked)
+
+
+def test_arming_needs_offboard_first_and_happens_once() -> None:
+    assert arming_step(NAV_LOITER, was_armed=False) == "mode"
+    assert arming_step(NAV_OFFBOARD, was_armed=False) == "arm"
+    assert arming_step(NAV_LOITER, was_armed=True) == "none"
+    assert arming_step(NAV_OFFBOARD, was_armed=True) == "none"
