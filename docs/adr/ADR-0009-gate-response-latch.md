@@ -18,7 +18,7 @@ In the first recording, the node also repeated Land over an operator's Altitude 
 - A takeover needs no acknowledgement from the node, and the node cannot override it.
 - A PX4 failsafe also ends the node's commands, so PX4's choice stands. For example, if the node decides Land and PX4 moves to Hold first, the aircraft follows PX4's sequence.
 - This covers the node only. Commands from PX4 failsafes can still override an operator, and `COM_FAIL_ACT_T` applies there.
-- Before flight, the node still repeats its mode and arm commands in the `stream` phase. Takeover there was not tested.
+- Before flight, the node enters offboard first, repeating the mode command until PX4 accepts. It arms only from offboard, and sends neither after the first arm (`arming_step`). If the vehicle disarms later, the node stops. Takeover before flight was not tested.
 
 ## Evidence
 `reports/WO-004-d1-fault-matrix-and-freshness-gate.md`, `tests/test_faults.py`. Simulation only.
