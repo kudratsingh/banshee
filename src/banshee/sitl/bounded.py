@@ -128,10 +128,16 @@ def parse_df_free_bytes(df_output: str) -> int:
         raise BoundedError(f"unexpected df output: {df_output!r}") from exc
 
 
+def vm_df_command(vm: str) -> list[str]:
+    """``df`` of the VM's own root disk. Not ``.``: Lima starts in the host's working directory, so
+    ``.`` can be a mount of the Mac's disk, which is the wrong volume to check."""
+    return ["limactl", "shell", vm, "--", "df", "-Pk", "/"]
+
+
 def vm_free_bytes(vm: str) -> int:
-    """Free bytes on the home volume of a Lima VM."""
+    """Free bytes on the root disk of a Lima VM."""
     out = subprocess.run(
-        ["limactl", "shell", vm, "--", "df", "-Pk", "."],
+        vm_df_command(vm),
         capture_output=True,
         text=True,
         timeout=60,

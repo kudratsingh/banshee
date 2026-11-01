@@ -21,6 +21,7 @@ from banshee.sitl.bounded import (
     main,
     parse_df_free_bytes,
     run_bounded,
+    vm_df_command,
 )
 
 CAP = 1_000_000
@@ -171,3 +172,7 @@ def test_df_output_is_parsed() -> None:
     assert parse_df_free_bytes(text) == 60 * 1024
     with pytest.raises(BoundedError):
         parse_df_free_bytes("nonsense")
+
+
+def test_vm_check_reads_the_vm_root_disk_not_the_working_directory() -> None:
+    assert vm_df_command("vm")[-3:] == ["df", "-Pk", "/"]
