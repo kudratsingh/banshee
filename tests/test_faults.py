@@ -19,6 +19,7 @@ from banshee.offboard.response import (
     NAV_LAND,
     NAV_LOITER,
     NAV_OFFBOARD,
+    NAV_UNKNOWN,
     arming_step,
     respond,
 )
@@ -298,7 +299,27 @@ def test_never_armed_needs_the_command_to_have_been_sent() -> None:
 
 
 def test_arming_needs_offboard_first_and_happens_once() -> None:
-    assert arming_step(NAV_LOITER, was_armed=False) == "mode"
-    assert arming_step(NAV_OFFBOARD, was_armed=False) == "arm"
-    assert arming_step(NAV_LOITER, was_armed=True) == "none"
-    assert arming_step(NAV_OFFBOARD, was_armed=True) == "none"
+    assert arming_step(NAV_LOITER, was_armed=False, offboard_seen=False) == "mode"
+    assert arming_step(NAV_OFFBOARD, was_armed=False, offboard_seen=False) == "arm"
+    assert arming_step(NAV_OFFBOARD, was_armed=False, offboard_seen=True) == "arm"
+    assert arming_step(NAV_OFFBOARD, was_armed=True, offboard_seen=True) == "none"
+
+
+def test_before_flight_the_node_never_overrides_a_chosen_mode() -> None:
+    position = 2
+    # A mode chosen while disarmed, whether or not the node had reached offboard.
+    assert arming_step(position, was_armed=False, offboard_seen=False) == "yield"
+    assert arming_step(position, was_armed=False, offboard_seen=True) == "yield"
+    # Back to Hold from offboard is also a choice, so the node must not ask for offboard again.
+    assert arming_step(NAV_LOITER, was_armed=False, offboard_seen=True) == "yield"
+    # Armed outside offboard: someone else is in charge.
+    assert arming_step(NAV_LOITER, was_armed=True, offboard_seen=True) == "yield"
+    assert arming_step(position, was_armed=True, offboard_seen=True) == "yield"
+    # No status yet: nothing is known, so nothing is sent.
+    assert arming_step(NAV_UNKNOWN, was_armed=False, offboard_seen=False) == "none"
+
+
+def test_pre_flight_rc_events_are_timed_from_the_start() -> None:
+    pre = [{"t_s": 20, "set": {"5": 2000}}]
+    assert channels_at(CENTER, pre, 19.0)[4] == CENTER[4]  # type: ignore[index]
+    assert channels_at(CENTER, pre, 21.0)[4] == 2000  # type: ignore[index]

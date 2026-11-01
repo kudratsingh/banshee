@@ -1,8 +1,10 @@
 """Simulated manual control inside the VM: RC_CHANNELS_OVERRIDE over the PX4 MAVLink port.
 
 This reaches PX4 as ``input_rc``, so the real RC path runs: mode switch, kill switch, sticks and RC
-loss. Channels are PWM. Events are timed from the trigger. It stops sending at a ``stop`` event,
-which is the RC loss, or at its time limit. Simulation only: it refuses any address not on loopback.
+loss. Channels are PWM. Events are timed from the trigger, and ``rc_pre_events`` from this process's
+start, for an operator acting before flight, when no trigger can fire. It stops sending at a
+``stop`` event, which is the RC loss, or at its time limit. Simulation only: it refuses any address
+not on loopback.
 """
 
 from __future__ import annotations
@@ -43,6 +45,7 @@ def main() -> int:
 
     case = json.loads((args.dir / "case.json").read_text(encoding="utf-8"))
     events = case.get("rc_events", [])
+    pre_events = case.get("rc_pre_events", [])
     link = mavutil.mavlink_connection(ADDRESS, source_system=255, source_component=190)
     start = time.monotonic()
     trigger_seen: float | None = None
@@ -52,7 +55,8 @@ def main() -> int:
         if trigger_seen is None and (args.dir / "trigger.json").exists():
             trigger_seen = now
         since = None if trigger_seen is None else now - trigger_seen
-        channels = channels_at(CENTER, events, since)
+        base = channels_at(CENTER, pre_events, now - start)
+        channels = None if base is None else channels_at(base, events, since)
         if channels is None:
             print(f"rc stopped at {since}")
             return 0

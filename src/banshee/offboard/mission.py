@@ -82,6 +82,7 @@ class Mission(Node):  # type: ignore[misc]
         self.nav_state = -1
         self.arming_state = -1
         self.was_armed = False
+        self.offboard_seen = False
         self.arm_commands = 0
         self.finished = False
         self.result = "timeout"
@@ -164,6 +165,8 @@ class Mission(Node):  # type: ignore[misc]
     def on_status(self, msg: Any) -> None:
         self.nav_state = int(msg.nav_state)
         self.arming_state = int(msg.arming_state)
+        if self.nav_state == NAV_OFFBOARD:
+            self.offboard_seen = True
         if self.arming_state == ARMING_STATE_ARMED:
             self.was_armed = True
 
@@ -257,16 +260,20 @@ class Mission(Node):  # type: ignore[misc]
         elif self.phase == "stream" and self.was_armed and not self.armed:
             # Disarmed before flight: arming again would override the operator.
             self.stop("disarmed")
-        elif self.phase == "stream" and elapsed >= STREAM_BEFORE_SWITCH_S:
-            step = arming_step(self.nav_state, self.was_armed)
-            if repeat and step != "none":
-                if step == "mode":
-                    self.command(CMD_SET_MODE, MODE_CUSTOM, MODE_OFFBOARD)
-                else:
-                    self.command(CMD_ARM, 1.0)
-                self.last_command_ns = now
-            if self.nav_state == NAV_OFFBOARD and self.arming_state == ARMING_STATE_ARMED:
-                self.set_phase("route", now)
+        elif self.phase == "stream":
+            step = arming_step(self.nav_state, self.was_armed, self.offboard_seen)
+            if step == "yield":
+                self.latch = "operator"
+                self.stop("operator")
+            elif elapsed >= (self.fault.stream_before_switch_s or STREAM_BEFORE_SWITCH_S):
+                if repeat and step != "none":
+                    if step == "mode":
+                        self.command(CMD_SET_MODE, MODE_CUSTOM, MODE_OFFBOARD)
+                    else:
+                        self.command(CMD_ARM, 1.0)
+                    self.last_command_ns = now
+                if self.nav_state == NAV_OFFBOARD and self.arming_state == ARMING_STATE_ARMED:
+                    self.set_phase("route", now)
         elif self.phase == "land":
             # Once PX4 has left offboard the landing is PX4's or the operator's, so do not repeat.
             if repeat and self.latch == "none" and self.nav_state == NAV_OFFBOARD:

@@ -632,3 +632,8 @@
 {"note":"5/5","record_id":"runs-20261101T115624382398Z-b06ec35d","run_dir":"runs/20261101T115512Z_52929ef7","run_id":"20261101T115512Z_52929ef7","status":"completed","ts":"2026-11-01T11:56:24.382435Z"}
 {"purpose":"d1_nominal_mission","record_id":"runs-20261101T115624408788Z-40a3fd57","run_dir":"runs/20261101T115624Z_2cb08618","run_id":"20261101T115624Z_2cb08618","status":"started","ts":"2026-11-01T11:56:24.408871Z"}
 {"note":"5/5","record_id":"runs-20261101T115736635835Z-b61e9b5b","run_dir":"runs/20261101T115624Z_2cb08618","run_id":"20261101T115624Z_2cb08618","status":"completed","ts":"2026-11-01T11:57:36.635868Z"}
+{"purpose":"d1_fault_case","record_id":"runs-20261101T224056641777Z-4f9d6476","run_dir":"runs/20261101T224056Z_4114c67c","run_id":"20261101T224056Z_4114c67c","status":"started","ts":"2026-11-01T22:40:56.641819Z"}
+{"note":"R-07","record_id":"runs-20261101T224124968829Z-f8bd92c2","run_dir":"runs/20261101T224056Z_4114c67c","run_id":"20261101T224056Z_4114c67c","status":"completed","ts":"2026-11-01T22:41:24.968861Z"}
+{"purpose":"d1_fault_case","record_id":"runs-20261101T224134133038Z-267e7695","run_dir":"runs/20261101T224134Z_5db327be","run_id":"20261101T224134Z_5db327be","status":"started","ts":"2026-11-01T22:41:34.133084Z"}
+{"note":"R-07","record_id":"runs-20261101T224350805157Z-7e2a874e","run_dir":"runs/20261101T224134Z_5db327be","run_id":"20261101T224134Z_5db327be","status":"completed","ts":"2026-11-01T22:43:50.805213Z"}
+{"purpose":"d1_fault_case","record_id":"runs-20261101T224413209177Z-6ef2dff9","run_dir":"runs/20261101T224413Z_e4560e13","run_id":"20261101T224413Z_e4560e13","status":"started","ts":"2026-11-01T22:44:13.209263Z"}

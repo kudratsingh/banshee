@@ -61,6 +61,7 @@ class Injection:
     yaw_rate_rad_s: float = 0.0
     position_jump_m: tuple[float, float, float] | None = None
     arm_attempt_after_s: float | None = None
+    stream_before_switch_s: float | None = None
 
     @property
     def is_case(self) -> bool:
@@ -104,6 +105,7 @@ def from_case(case: dict[str, Any]) -> Injection:
         swap_axes=bool(node.get("swap_axes", False)),
         flip_east=bool(node.get("flip_east", False)),
         arm_attempt_after_s=node.get("arm_attempt_after_s"),
+        stream_before_switch_s=node.get("stream_before_switch_s"),
         scale=float(node.get("scale", 1.0)),
         yaw_rate_rad_s=float(node.get("yaw_rate_rad_s", 0.0)),
         position_jump_m=(float(jump[0]), float(jump[1]), float(jump[2])) if jump else None,

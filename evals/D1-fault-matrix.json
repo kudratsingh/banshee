@@ -1,6 +1,6 @@
 {
  "schema": "banshee-fault-matrix-1",
- "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases, and the first recording found an operator-override bug, after which R-01, R-02, R-06, T-03 and T-04 gained holds_s, and after the review G-03 and V-01 to V-05 gained an arm attempt, because the node had never sent one; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
+ "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases, and the first recording found an operator-override bug, after which R-01, R-02, R-06, T-03 and T-04 gained holds_s, and after the review G-03 and V-01 to V-05 gained an arm attempt, because the node had never sent one, and after D1 passed, on the owner's instruction, R-07 was added with the fix for the node overriding a mode chosen while disarmed; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
  "stack": "config/stack-lock.resolved.json",
  "frozen_bounds": "evals/D1-exit-tests.json",
  "note": "Specified behaviour comes from docs/TEST_PROTOCOL.md section 1, docs/OPERATING_ENVELOPE.md and ADR-0007. Times are seconds from the trigger. A mismatch is reported as a deviation, not hidden.",
@@ -1070,6 +1070,40 @@
     ],
     "final_latch": "operator"
    }
+  },
+  {
+   "id": "R-07",
+   "group": "takeover",
+   "rc": true,
+   "title": "Operator selects a mode while disarmed, before the node asks for offboard",
+   "needs_trigger": false,
+   "timeout_s": 75,
+   "node": {
+    "stream_before_switch_s": 30
+   },
+   "rc_pre_events": [
+    {
+     "t_s": 20,
+     "set": {
+      "5": 2000
+     }
+    }
+   ],
+   "configured": "The mode switch moves to Position while disarmed. The node yields: it sends no mode or arm command, and the aircraft stays in Position, disarmed.",
+   "expect": {
+    "nav": [
+     {
+      "state": 2,
+      "within_s": 60
+     }
+    ],
+    "nav_never": [
+     14
+    ],
+    "never_armed": true,
+    "final_latch": "operator"
+   },
+   "observe_s": 70
   },
   {
    "id": "K-01",

@@ -18,6 +18,7 @@ from ..freshness import Mode
 Latch = Literal["none", "hold", "land", "operator"]
 Command = Literal["none", "hold", "land"]
 
+NAV_UNKNOWN = -1
 NAV_LOITER = 4
 NAV_DESCEND = 12
 NAV_OFFBOARD = 14
@@ -35,15 +36,25 @@ class Response:
     pending_from: int = NAV_OFFBOARD
 
 
-def arming_step(nav_state: int, was_armed: bool) -> Literal["none", "mode", "arm"]:
+def arming_step(
+    nav_state: int, was_armed: bool, offboard_seen: bool
+) -> Literal["none", "mode", "arm", "yield"]:
     """Before flight: offboard first, and arm only from offboard. Nothing after the first arm.
 
     Sent together, PX4 can accept the arm and refuse the mode, which leaves it armed in Hold. And
     arming again after a disarm would override the operator.
+
+    The node asks for offboard only from Hold, PX4's state when nobody has chosen a mode. Any other
+    state, or leaving offboard once in it, means the operator or PX4 has chosen, so the node yields
+    and sends nothing more. An operator who selects Hold while already in Hold cannot be seen.
     """
-    if was_armed:
+    if nav_state == NAV_UNKNOWN:
         return "none"
-    return "arm" if nav_state == NAV_OFFBOARD else "mode"
+    if nav_state == NAV_OFFBOARD:
+        return "none" if was_armed else "arm"
+    if was_armed or offboard_seen or nav_state != NAV_LOITER:
+        return "yield"
+    return "mode"
 
 
 def respond(
