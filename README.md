@@ -3,7 +3,7 @@
 `banshee` is the repository and Python package of Omni Drone, named for the spirit whose wail forewarns a death, and for the sound a quadrotor makes. A general-purpose aerial autonomy platform developed as a ladder of bounded, demonstrated missions. Conventional control, estimation, perception and navigation first; learned components only through evidence gates. "Omni" means growing mission capability, not a mechanically omnidirectional airframe. Part of the owner's physical-AI program — read `PROGRAM.md` first.
 
 ## The ladder
-D0 operating envelope → D1 SITL + offboard velocity interface + contract logging + fault matrix → D2 props-off sensor/localization/reference checkout → [D3 optional outdoor GPS checkout] → D4 indoor VIO position hold → D5 GPS-denied known route → D6 fixed-target inspection mission → D7+ further missions one at a time and learned-component gates. Details and exit tests: `docs/PHASES.md`.
+D0 operating envelope → D1 SITL + offboard velocity interface + contract logging + fault matrix → D2 props-off sensor/localization/reference checkout → D3 outdoor GPS checkout → D4 VIO position hold → D5 GPS-denied known route → D6 fixed-target inspection mission → D7+ further missions one at a time and learned-component gates. Details and exit tests: `docs/PHASES.md`.
 
 ## Read in order
 `PROGRAM.md` → `AGENTS.md` → `START_HERE.md` → `docs/PHASES.md` → `docs/ARCHITECTURE.md` → `docs/CONTEXT_AND_DECISIONS.md` → `docs/OPERATING_ENVELOPE.md` → `docs/TEST_PROTOCOL.md` → `docs/REFERENCE_AND_SENSING.md` → `work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md`.

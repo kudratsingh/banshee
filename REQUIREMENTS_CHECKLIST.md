@@ -7,7 +7,7 @@ Status words: **confirmed** (owner decision), **proposed default** (suggested, n
 | 1 | One central program document for all agents, covering the trajectory of all projects and the owner's ML/robotics advancement | `PROGRAM.md` (identical in both kits; `config/program-lock.json`) | confirmed |
 | 2 | Two independent projects; the drone is conventional-first and never waits for the world model; exports to it through the contract only | `PROGRAM.md §5–6`, `docs/PHASES.md`, ADR-0001 | confirmed |
 | 3 | No Microduck, no rocket warm-up, no third project / shared runtime | `PROGRAM.md §5.5`, ADR-0001 | confirmed |
-| 4 | Conventional-first D0–D7+ ladder; optional outdoor checkout; qualified localization/reference sensing; setpoint freshness; degraded modes; real connection-loss tests; operator authority | `docs/PHASES.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `src/banshee/freshness.py` | confirmed |
+| 4 | Conventional-first D0–D7+ ladder; required outdoor checkout (owner, 2026-10-31); qualified localization/reference sensing; setpoint freshness; degraded modes; real connection-loss tests; operator authority | `docs/PHASES.md`, `docs/TEST_PROTOCOL.md`, `docs/REFERENCE_AND_SENSING.md`, `src/banshee/freshness.py` | confirmed |
 | 5 | Exit tests for every stage, written before the stage starts; clear ladder anyone can follow | `config/phases.json`, `docs/PHASES.md`, `AGENTS.md §5`, `docs/STATUS_BOARD.md` | confirmed |
 | 6 | Never delete or overwrite data/runs/logs; append or new record | `AGENTS.md §6`, `docs/DATA_POLICY.md`, `tools/check_immutable.py`, `src/banshee/core/`, `contracts/v1/writer.py`, validation ledger | confirmed |
 | 7 | Agile development: backlog of WOs, ready/done, WIP, cycles, retros | `AGENTS.md §3`, `docs/WORKFLOW.md §1`, `work_orders/README.md` | confirmed |
@@ -28,7 +28,7 @@ Status words: **confirmed** (owner decision), **proposed default** (suggested, n
 | 22 | Credentials outside source control; untrusted inputs; safe loading; licenses; privacy; retention; manifests | `AGENTS.md §6.6–6.7, §10`, `docs/DATA_POLICY.md`, `tools/scan_secrets.py` | confirmed |
 | 23 | Simple modular components, typed interfaces, structured logs, no enterprise infrastructure | `AGENTS.md §8.6, §8.9`, `src/banshee/interfaces.py`, `core/log.py` | confirmed |
 | 24 | Validation of the final packages with checksums and a verification report | `VERIFICATION.md`, `SHA256SUMS.json` | confirmed |
-| 25 | Future missions (object search, mapping, onboard autonomy) one at a time; drone research question (uncertainty-gated trust in learned dynamics) | `PROGRAM.md §7–8`, `docs/PHASES.md` D7 | confirmed / future option |
+| 25 | Future missions (object search, mapping, further onboard capability) one at a time; drone research question (uncertainty-gated trust in learned dynamics) | `PROGRAM.md §7–8`, `docs/PHASES.md` D7 | confirmed / future option |
 | 26 | Hardware plan recorded, nothing purchased by these files | `PROGRAM.md §9` | confirmed intent |
 | 27 | FAA: Part 107 for non-recreational flights; 250 g is not a blanket exemption; indoor-only outside Part 107 but controlled | `docs/OPERATING_ENVELOPE.md`, `docs/SOURCES.md` [S1]–[S5] | confirmed |
 | 28 | Outside-in reference is an evaluator, never an operational input in unaided-VIO tests; qualified for accuracy/coverage/latency | `docs/REFERENCE_AND_SENSING.md`, `AGENTS.md §13.6` | confirmed |

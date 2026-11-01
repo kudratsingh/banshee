@@ -4,7 +4,7 @@
 **Size:** M
 **Prerequisites:** the rename pull request merged, and WO-006, WO-008 and WO-009 `accepted` (status ledger). Entirely desk work: documents, sourced prices, documentation reading. No hardware, no purchase, no flight-stack installation required (installation is WO-002).
 **Authorization:** AGENTS §2.1 only. Purchasing is a §2.3 owner action and is **not** part of this WO. It closes milestone exit tests, so it needs a full review before merging (`AGENTS.md §13.9`).
-**Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`, `docs/SOURCES-D0.md`, `docs/ENVIRONMENT.md`.
+**Files:** `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, `docs/REFERENCE_AND_SENSING.md` (plan section), `config/stack-lock.proposed.json`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `evals/D1-exit-tests.json` (draft of frozen D1 bounds), `reports/WO-001-d0-operating-envelope-and-platform-proposal.md`, `docs/SOURCES-D0.md`, `docs/ENVIRONMENT.md`; on the owner's decisions of 2026-10-31, also `config/phases.json`, `docs/PHASES.md`, `docs/CONTEXT_AND_DECISIONS.md`, `README.md`, `START_HERE.md`, `ledgers/approvals.jsonl`.
 
 ## Objective
 Give the owner a one-page, numerically justified operating envelope and a priced, sourced comparison of at least two compatible platforms, with a proposed (not tested) stack version matrix and a compliance plan — so the purchase decision is made on evidence and D1 can start on pinned software.

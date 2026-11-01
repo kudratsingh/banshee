@@ -10,6 +10,8 @@ What an agent needs from the planning conversations (Oct 2026) to make the same 
 - The owner's interest areas include autonomous and aerial systems and defense; Part 107 is treated as a credential worth having. *Confirmed.*
 
 ## 2. Decisions adopted from the two external reviews (Oct 30, 2026)
+Superseded by the owner on 2026-10-31 where they conflict: all flight stages are outdoors, so D3 is required (section 5).
+
 | # | Decision | Status |
 |---|---|---|
 | 1 | Conventional first; learned components only through evidence gates (held-out logs → shadow → controlled closed-loop) | confirmed |
@@ -24,6 +26,8 @@ What an agent needs from the planning conversations (Oct 2026) to make the same 
 | 10 | Exports to the world model through the contract only; the drone owns command authority and can reject proposals | confirmed |
 
 ## 3. Hardware context (from the owner's purchase plan, Oct 30, 2026)
+Historical. The current plan is `docs/BOM_WORKSHEET.md` and ADR-0007: an X500 V2 with a Pixhawk 6X in an open field.
+
 - Candidate kit: Holybro X500 V2 PX4 Development Kit (Pixhawk 6C, M10 GPS, 915 MHz telemetry; $609 at Holybro, sold out there on Oct 30, 2026; dealers $540–950). 500 mm wheelbase, 1.5 kg payload, ~18 min hover on 5000 mAh [H5].
 - Companion computer: Jetson Orin Nano Super 8 GB ($249 → $399 in July 2026) [H6]; depth camera OAK-D Pro or RealSense D435i; 3 × 4S 5000 mAh; RadioMaster TX16S; containment; Part 107 exam (~$175 [S2]).
 - Total planning range $1.9–2.3k. **Nothing is purchased. The purchase decision follows D0 and D1, by the owner.**
@@ -35,10 +39,10 @@ Fast, autonomous iteration through bounded work orders; continue to the next rea
 ## 5. Open decisions (project level)
 | # | Decision | Default until decided |
 |---|---|---|
-| 1 | Test space: room vs garage/warehouse vs field | unknown — D0 must resolve (ET-D0-6) |
-| 2 | Airframe: X500 V2 class vs 3–5 inch frame | X500 V2 if the space allows; otherwise 3–5 inch |
-| 3 | Companion computer and depth camera | Orin Nano Super 8 GB; OAK-D Pro |
-| 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001, tested in WO-002 |
+| 1 | Test space | decided: a large open field or open space, outdoors; all flight stages outdoors (owner, 2026-10-31) |
+| 2 | Airframe | decided: X500 V2 with Pixhawk 6X; X650-class 6S planned for D7+; no 3–5 inch option (owner, 2026-10-31; ADR-0007) |
+| 3 | Companion computer and depth camera | decided: Orin Nano Super 8 GB from D2, bought after D1; OAK-D Pro (owner, 2026-10-31) |
+| 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001; Jazzy first, Humble as the fallback; tested in WO-002 |
 | 5 | Frame convention ADR | ROS ENU/FLU internally, convert at the PX4 boundary |
 | 6 | Remote repository | decided: `kudratsingh/banshee`, private (ADR-0006) |
 

@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-11-01 00:40 UTC · ledger records: 38
+Generated: 2026-11-01 01:53 UTC · ledger records: 38
 
 ## Phases
 
@@ -10,9 +10,9 @@ Generated: 2026-11-01 00:40 UTC · ledger records: 38
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **in_progress** | 4 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
-| D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
-| D3 | Optional outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
-| D4 | Indoor VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D2 | — |
+| D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
+| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | — |
+| D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
 | D6 | Fixed-target inspection from N declared viewpoints and return | **not_started** | 0 / 0 / 4 | D5 | — |
 | D7 | Further missions one at a time; learned-component integration gates | **not_started** | 0 / 0 / 2 | D6 | — |
@@ -35,18 +35,21 @@ Generated: 2026-11-01 00:40 UTC · ledger records: 38
 | ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | not_run | — |
 | ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | not_run | — |
 | ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | not_run | — |
-| ET-D2-4 | D2 | With motors disarmed, the actual link is cut and the PX4 offboard-loss failsafe plus the project's freshness gate behave as specified independently of the laptop. | 3/3 trials match the specified behaviour | not_run | — |
+| ET-D2-4 | D2 | With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets no later than COM_OF_LOSS_T + 200 ms after the cut, with the time logged, and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4. | 3/3 trials match the specified behaviour | not_run | — |
+| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect. | each control recognised; 3/3 power cycles | not_run | — |
 | ET-D3-1 | D3 | Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission. | all applicable items recorded with dates | not_run | — |
-| ET-D3-2 | D3 | Manual flight checkout and GPS position hold within the frozen tolerance. | proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights | not_run | — |
+| ET-D3-2 | D3 | Manual flight checkout in Position mode and GPS position hold within the frozen tolerance. | proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights | not_run | — |
 | ET-D3-3 | D3 | Emergency procedures (RTL, land, kill) are rehearsed and logged. | each procedure exercised once | not_run | — |
+| ET-D3-4 | D3 | Before the first arm: distance and geofence containment, exclusion, checklists, roles and emergency procedures are in place and signed off, and a parameter dump from the real aircraft matches the frozen values. | complete before first arm | not_run | — |
+| ET-D3-5 | D3 | At low height on GPS: operator takeover, a geofence breach and RC loss each behave as specified on the real aircraft. | each 3/3; any deviation reported | not_run | — |
 | ET-D4-1 | D4 | Containment, checklists, roles and emergency procedures are in place and signed off for the airframe and test configuration. | complete before first arm | not_run | — |
 | ET-D4-2 | D4 | VIO position hold error against the outside-in reference stays within the frozen bound over repeated flights. | proposed default: RMS <= 0.3 m over 60 s on 5/5 flights | not_run | — |
 | ET-D4-3 | D4 | Operator takeover works in flight. | 3/3 takeovers succeed | not_run | — |
-| ET-D4-4 | D4 | Offboard loss in flight triggers the specified behaviour (hold or land depending on estimator validity). | 3/3 trials match spec | not_run | — |
+| ET-D4-4 | D4 | Offboard loss in flight triggers the specified behaviour (hold or land depending on estimator validity), first with GPS aiding on, before VIO is relied on. | 3/3 trials match spec | not_run | — |
 | ET-D4-5 | D4 | VIO health under flight vibration is revalidated; hand-carry results are not reused as flight qualification. | loss/recovery counts and drift reported under flight conditions | not_run | — |
 | ET-D5-1 | D5 | Route completion rate and path error against the reference meet the frozen bounds. | proposed default: >= 8/10 completions with path error RMS <= 0.5 m | not_run | — |
 | ET-D5-2 | D5 | Degraded modes are exercised in flight (stale planner output, localization loss) and the drone responds as specified. | every listed case executed; outcomes match spec | not_run | — |
-| ET-D5-3 | D5 | Minimum clearance to obstacles stays above the frozen bound. | proposed default: >= 0.5 m on all completed runs | not_run | — |
+| ET-D5-3 | D5 | Minimum clearance to obstacles stays above the frozen bound, excluding the staked reference equipment. | proposed default: >= 0.5 m on all completed runs | not_run | — |
 | ET-D5-4 | D5 | Planning latency quantiles, deadline misses and command expiries are reported. | reported; frozen bounds on p95 latency and expiry rate | not_run | — |
 | ET-D5-5 | D5 | Energy reserve at landing is at or above the frozen reserve. | proposed default: >= 25% remaining on every run | not_run | — |
 | ET-D6-1 | D6 | Mission rubric declared before flight (N viewpoints, coverage/visibility, dwell or image quality, target identity, start/return region, permitted route, timeout, reserve); completion requires every component. | proposed default: >= 7/10 complete missions | not_run | — |

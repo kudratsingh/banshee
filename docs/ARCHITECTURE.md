@@ -37,7 +37,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 ## 4. Safety and command authority
 - Only this project's command gate and PX4 may command the aircraft. World-model outputs are proposals; the gate can reject them; the drone runs without them.
 - Failure response depends on which estimates remain valid: hold if position is valid and only the planner is stale; land if localization is lost; operator takeover is always available on an independent link.
-- Loss handling must work without the laptop: PX4's offboard-loss failsafe is configured and tested on the real link (D2, D4).
+- Loss handling must work without the laptop: PX4's offboard-loss failsafe is configured and tested on the real link (D2 for the flag, D4 for the action).
 - Operating envelope (`docs/OPERATING_ENVELOPE.md`) bounds speed, height, clearance, payload and energy reserve; exit tests check them.
 
 ## 5. Modules (what exists, what is specified)
@@ -56,7 +56,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 | World-model adapter (manifest consumer; shadow only) | `src/banshee/learned/` | **not implemented** (D7+) |
 
 ## 6. Compute placement
-Laptop-based autonomy over Wi-Fi for D1–D4 (prototype); onboard companion computer (Jetson class) once a mission works and latency demands it (D7+). Either way the aircraft's loss response never depends on the laptop.
+Laptop for SITL in D1. Jetson Orin Nano Super from D2, hand-carried, then flown from D4, linked to the Pixhawk 6X by TELEM2 or Ethernet. Telemetry is 915 MHz, because Wi-Fi will not reach in a field (owner, 2026-10-31; ADR-0007). The aircraft's loss response never depends on the laptop or the Jetson.
 
 ## 7. Data
 Every flight (SITL or real) is exported through `contracts/v1/writer.py` as a `physics_sim` or `real` episode with the drone's configuration, controller version and calibration ids; raw PX4 logs (ulog) are retained alongside. These exports are the drone's only interface to the world-model project (M4). Reference streams carry `role: reference_only`.
