@@ -10,16 +10,62 @@ import importlib.util
 import json
 import shutil
 import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from ironclad.contracts.v1.validate import ContractError
 from ironclad.core.runs import finish_run, new_run_dir
 
+from ..export.episode import export_run
+from ..outcome.waypoints import read_steps
 from ..sitl.bounded import COMPLETED, free_space_problems, run_bounded, vm_free_bytes
 from .analyze import analyze_dir
 
 VM = "banshee-sitl"
 MIN_FREE_BYTES = 20_000_000_000
+EXPORT_ROOT = Path("data/derived/d1-faults")
+
+
+def export_case(repo: Path, copied: Path, case: dict[str, Any], record: dict[str, Any]) -> str:
+    """Write the case's contract episode. Returns its path, or why there is none."""
+    steps_path = copied / "steps.jsonl"
+    if not steps_path.exists():
+        return "not exported: no steps logged"
+    evals = json.loads((repo / "evals/D1-exit-tests.json").read_text(encoding="utf-8"))
+    tested = record.get("tested", {})
+    deviations = record.get("deviations", [])
+    landed = bool(tested.get("ever_armed")) and not tested.get("armed_at_end", True)
+    fly = case.get("fly", {})
+    route = {"route_id": case["id"], "waypoints_enu_m": fly.get("waypoints_enu_m", [])}
+    outcome = {
+        "success": bool(record.get("executed")) and not deviations,
+        "landed_disarmed": landed,
+        "case": case["id"],
+        "checks": record.get("checks", []),
+        "tested": tested,
+    }
+    run_id = record["run_id"]
+    versions = copied / "versions.json"
+    stack = json.loads(versions.read_text(encoding="utf-8")) if versions.exists() else {}
+    try:
+        path = export_run(
+            read_steps(steps_path),
+            run_id=f"{case['id']}-{run_id}",
+            created_at=datetime.now(UTC).isoformat(),
+            route=route,
+            limits=evals["sim_limits"],
+            outcome=outcome,
+            stack=stack,
+            target_dir=repo / EXPORT_ROOT / run_id,
+            tolerance_m=0.0,
+            suite_id="d1-faults",
+            instruction=case["title"],
+            reason=f"{case['id']}: " + ("; ".join(deviations) or "as specified"),
+        )
+    except (ContractError, ValueError, OSError) as error:
+        return f"not exported: {error}"
+    return str(path)
 
 
 def run_case(
@@ -61,6 +107,7 @@ def run_case(
     copied = run_dir / "tmp" / run_dir.name
     record = analyze_dir(copied, case)
     record.update(run_id=run_dir.name, vm_outcome=result.outcome, vm_returncode=result.returncode)
+    record["export"] = export_case(repo, copied, case, record)
     (run_dir / "analysis.json").write_text(json.dumps(record, indent=1) + "\n", encoding="utf-8")
     clean = result.outcome == COMPLETED and result.returncode == 0 and record["executed"]
     finish_run(repo, run_dir, status="completed" if clean else "failed", note=case["id"])
@@ -91,7 +138,8 @@ def main(argv: list[str] | None = None) -> int:
             continue
         record = run_case(repo, args.matrix, case, lock)
         brief = {
-            k: record.get(k) for k in ("case", "run_id", "executed", "deviations", "vm_returncode")
+            k: record.get(k)
+            for k in ("case", "run_id", "executed", "deviations", "vm_returncode", "export")
         }
         print(json.dumps(brief), flush=True)
         if args.summary is not None:

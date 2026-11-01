@@ -88,6 +88,7 @@ class Mission(Node):  # type: ignore[misc]
         self.setpoint_ns: int | None = None
         self.sensor_ns: int | None = None
         self.latch: Latch = "none"
+        self.pending_from = NAV_OFFBOARD
         self.reached_target = False
         self.latch_ns: int | None = None
         self.waypoint_passed_ns: int | None = None
@@ -248,7 +249,8 @@ class Mission(Node):  # type: ignore[misc]
             if self.nav_state == NAV_OFFBOARD and self.arming_state == ARMING_STATE_ARMED:
                 self.set_phase("route", now)
         elif self.phase == "land":
-            if repeat and self.latch == "none":
+            # Once PX4 has left offboard the landing is PX4's or the operator's, so do not repeat.
+            if repeat and self.latch == "none" and self.nav_state == NAV_OFFBOARD:
                 self.command(CMD_LAND)
                 self.last_command_ns = now
             if self.was_armed and self.arming_state != ARMING_STATE_ARMED:
@@ -324,15 +326,21 @@ class Mission(Node):  # type: ignore[misc]
             mode = "hold" if mode == "continue" else mode
         if self.fault.gate_response:
             reached = self.reached_target
-            if self.latch in TARGET_NAV and self.nav_state == TARGET_NAV[self.latch]:
+            if self.latch in TARGET_NAV and self.nav_state in TARGET_NAV[self.latch]:
                 reached = True
             response = respond(
-                self.latch, mode, self.nav_state, in_flight=flying, reached_target=reached
+                self.latch,
+                mode,
+                self.nav_state,
+                in_flight=flying,
+                reached_target=reached,
+                pending_from=self.pending_from,
             )
             if response.latch != self.latch:
                 reached = False
                 self.latch_ns = self.latch_ns or now
             self.latch, self.reached_target = response.latch, reached
+            self.pending_from = response.pending_from
             send_setpoint, send_heartbeat = response.send_setpoint, response.send_heartbeat
             if not silent:
                 self.send_response(response.command, now)

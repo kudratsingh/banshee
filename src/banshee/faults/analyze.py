@@ -176,6 +176,19 @@ def check(
             hit["t_s"] if hit else None,
             hit is not None and hit["t_s"] <= within,
         )
+        if "holds_s" in item:
+            # A state that is entered and lost again is not the specified response.
+            left = next(
+                (
+                    c["t_s"]
+                    for c in after
+                    if hit and c["t_s"] > hit["t_s"] and c["nav"] != hit["nav"]
+                ),
+                observe_s,
+            )
+            held = round(left - hit["t_s"], 3) if hit else 0.0
+            add(f"nav {item['state']} holds {item['holds_s']} s", item["holds_s"], held,
+                held >= item["holds_s"])  # fmt: skip
     for state in expect.get("nav_never", []):
         add(
             f"never nav {state}",

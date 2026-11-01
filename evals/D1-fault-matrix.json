@@ -1,6 +1,6 @@
 {
  "schema": "banshee-fault-matrix-1",
- "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
+ "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases, and the first recording found an operator-override bug, after which R-01, R-02, R-06, T-03 and T-04 gained holds_s; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
  "stack": "config/stack-lock.resolved.json",
  "frozen_bounds": "evals/D1-exit-tests.json",
  "note": "Specified behaviour comes from docs/TEST_PROTOCOL.md section 1, docs/OPERATING_ENVELOPE.md and ADR-0007. Times are seconds from the trigger. A mismatch is reported as a deviation, not hidden.",
@@ -870,7 +870,8 @@
     "nav": [
      {
       "state": 2,
-      "within_s": 1.0
+      "within_s": 1.0,
+      "holds_s": 8.0
      }
     ],
     "final_latch": "operator"
@@ -912,7 +913,8 @@
     "nav": [
      {
       "state": 2,
-      "within_s": 1.5
+      "within_s": 1.5,
+      "holds_s": 8.0
      }
     ],
     "final_latch": "operator"
@@ -1057,14 +1059,16 @@
      }
     }
    ],
-   "configured": "Altitude mode holds height until commanded. Measure the height change.",
+   "configured": "Altitude mode stays selected and holds height until commanded. Measure the height change.",
    "expect": {
     "nav": [
      {
       "state": 1,
-      "within_s": 4.0
+      "within_s": 4.0,
+      "holds_s": 15.0
      }
-    ]
+    ],
+    "final_latch": "operator"
    }
   },
   {
@@ -1411,7 +1415,8 @@
     "nav": [
      {
       "state": 2,
-      "within_s": 1.0
+      "within_s": 1.0,
+      "holds_s": 8.0
      }
     ],
     "max_peak_speed_m_s": 2.8
@@ -1458,7 +1463,8 @@
     "nav": [
      {
       "state": 2,
-      "within_s": 1.0
+      "within_s": 1.0,
+      "holds_s": 8.0
      }
     ],
     "max_peak_speed_m_s": 1.2

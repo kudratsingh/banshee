@@ -13,7 +13,8 @@ from banshee.faults.analyze import check, motion, timeline, to_boot_us, yaw_chan
 from banshee.faults.case_env import RC_ENV, env_lines, timeline_lines
 from banshee.faults.injection import Injection, Window, from_case
 from banshee.faults.rc_sim import CENTER, channels_at
-from banshee.offboard.response import NAV_LAND, NAV_LOITER, NAV_OFFBOARD, respond
+from banshee.faults.run_matrix import export_case
+from banshee.offboard.response import NAV_DESCEND, NAV_LAND, NAV_LOITER, NAV_OFFBOARD, respond
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = json.loads((ROOT / "evals/D1-fault-matrix.json").read_text(encoding="utf-8"))
@@ -205,3 +206,70 @@ def test_a_missed_specification_is_a_deviation(
 
 def test_an_empty_expectation_only_measures() -> None:
     assert check({}, _tested(), []) == []
+
+
+@pytest.mark.parametrize("nav", [NAV_LAND, NAV_DESCEND])
+def test_land_is_reached_in_land_or_descend(nav: int) -> None:
+    assert _respond("land", "land", nav).command == "none"
+    assert _respond("land", "land", nav).latch == "land"
+
+
+def test_the_operator_keeps_control_from_a_land_latch_px4_is_flying_as_descend() -> None:
+    """R-06, first recording: the node repeated Land and took Altitude mode back after 84 ms."""
+    assert _respond("land", "land", NAV_DESCEND, reached=True).command == "none"
+    altitude = 1
+    r = _respond("land", "land", altitude, reached=True)
+    assert (r.latch, r.command) == ("operator", "none")
+
+
+@pytest.mark.parametrize("latch", ["hold", "land"])
+def test_the_operator_keeps_control_before_the_target_is_reached(latch: Any) -> None:
+    position = 2
+    r = _respond(latch, latch, position)
+    assert (r.latch, r.command) == ("operator", "none")
+
+
+def test_a_pending_command_repeats_only_from_the_state_it_was_decided_in() -> None:
+    assert _respond("land", "land", NAV_OFFBOARD).command == "land"
+    assert _respond("land", "land", NAV_LOITER).latch == "operator"
+
+
+def test_a_hold_escalates_to_land_from_loiter_and_then_yields() -> None:
+    r = _respond("hold", "land", NAV_LOITER, reached=True)
+    assert (r.latch, r.command, r.pending_from) == ("land", "land", NAV_LOITER)
+    still = respond(
+        "land",
+        "land",
+        NAV_LOITER,
+        in_flight=True,
+        reached_target=False,
+        pending_from=r.pending_from,
+    )
+    assert still.command == "land"
+    left = respond(
+        "land", "land", 2, in_flight=True, reached_target=False, pending_from=r.pending_from
+    )
+    assert (left.latch, left.command) == ("operator", "none")
+
+
+def test_a_hold_does_not_escalate_over_the_operator() -> None:
+    r = _respond("hold", "land", 2, reached=True)
+    assert (r.latch, r.command) == ("operator", "none")
+
+
+def test_a_held_state_lost_at_once_is_a_deviation() -> None:
+    after = {
+        "timeline": [{"t_s": 2.1, "nav": 1, "arming": 2}, {"t_s": 2.2, "nav": 12, "arming": 2}],
+    }
+    expect = {"nav": [{"state": 1, "within_s": 4.0, "holds_s": 15.0}]}
+    results = check(expect, _tested(**after), [], 25.0)
+    assert [r["match"] for r in results] == [True, False]
+    kept = {"timeline": [{"t_s": 2.1, "nav": 1, "arming": 2}, {"t_s": 9.0, "nav": 1, "arming": 1}]}
+    results = check(expect, _tested(**kept), [], 25.0)
+    assert [r["match"] for r in results] == [True, True]
+
+
+def test_a_case_without_steps_has_no_episode_and_says_why(tmp_path: Path) -> None:
+    case = {"id": "X-01", "title": "x", "fly": {}}
+    result = export_case(tmp_path, tmp_path, case, {"run_id": "r", "executed": True})
+    assert result == "not exported: no steps logged"

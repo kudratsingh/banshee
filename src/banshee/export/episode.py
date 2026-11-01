@@ -84,6 +84,9 @@ def export_run(
     stack: dict[str, Any],
     target_dir: Path,
     tolerance_m: float,
+    suite_id: str = "d1-nominal",
+    instruction: str = "Take off, fly the route by offboard velocity, land.",
+    reason: str | None = None,
 ) -> Path:
     """Build and validate one episode directory at ``target_dir``, which must not exist."""
     episode_id = f"banshee-d1-{run_id}"
@@ -103,7 +106,7 @@ def export_run(
             "task": {
                 "id": route["route_id"],
                 "version": "1",
-                "instruction": "Take off, fly the route by offboard velocity, land.",
+                "instruction": instruction,
                 "criteria_artifact": {"path": "rubric.json", "sha256": ""},
             },
             "configuration": {
@@ -129,7 +132,7 @@ def export_run(
             },
             "split": {
                 "partition": "dev",
-                "suite_id": "d1-nominal",
+                "suite_id": suite_id,
                 "scene_group_id": route["route_id"],
                 "session_group_id": run_id,
                 "policy_run_group_id": None,
@@ -176,7 +179,8 @@ def export_run(
                 "success": outcome["success"],
                 "terminated": bool(outcome["landed_disarmed"]),
                 "truncated": not outcome["landed_disarmed"],
-                "reason": f"{outcome['waypoints_reached']}/{outcome['waypoints_total']} waypoints",
+                "reason": reason
+                or f"{outcome['waypoints_reached']}/{outcome['waypoints_total']} waypoints",
                 "final_assessment_artifact": {"path": "outcome.json", "sha256": ""},
                 "training_reward_artifact": None,
                 "paired_trial_id": None,
