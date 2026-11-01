@@ -53,3 +53,7 @@
 {"actor":"claude-code-banshee","event":"ready","note":"WO-013 merged","record_id":"status-20261101T043411162149Z-879e0e","ts":"2026-11-01T04:34:11.162149Z","wo":"WO-014"}
 {"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-014-section-13","record_id":"status-20261101T043411200800Z-1a0366","ts":"2026-11-01T04:34:11.200800Z","wo":"WO-014"}
 {"actor":"claude-code-banshee","commit":"85f8c9c","event":"accepted","note":"CI run 41273672151 green on 85f8c9c","record_id":"status-20261101T043548715239Z-82ee6b","report":"reports/WO-014-section-13-wording.md","ts":"2026-11-01T04:35:48.715239Z","wo":"WO-014"}
+{"actor":"claude-code-banshee","event":"ready","note":"WO-001 accepted at bec6c3b; D1 exit tests frozen; owner instruction 2026-10-31","record_id":"status-20261101T015653028189Z-56d6d1","ts":"2026-11-01T01:56:53.028189Z","wo":"WO-002"}
+{"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-002-launch; simulation only","record_id":"status-20261101T015653058249Z-974f18","ts":"2026-11-01T01:56:53.058249Z","wo":"WO-002"}
+{"actor":"claude-code-banshee","event":"ready","note":"ET-D1-1 to 5 frozen","phase":"D1","record_id":"status-20261101T015653088781Z-f401e7","ts":"2026-11-01T01:56:53.088781Z"}
+{"actor":"claude-code-banshee","event":"in_progress","note":"WO-002","phase":"D1","record_id":"status-20261101T015653117234Z-171fb0","ts":"2026-11-01T01:56:53.117234Z"}
