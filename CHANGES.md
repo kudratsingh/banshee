@@ -58,3 +58,6 @@ On the owner's instruction, agents merge their own pull requests when all requir
 
 ## After import: WO-011 and WO-012 superseded (2026-10-31)
 On the owner's instruction, the shared material is being built by its own agent in `ironclad`, from `main` at `9f77ea7`. WO-011 and WO-012 were never started. Each has a short file so the status ledger can name it. This repository authors no program ADR or policy text from now on.
+
+## After import: WO-003 superseded (2026-10-31)
+On the owner's instruction, the paid launcher moved to `ironclad`. WO-003 was never started. Paid execution stays blocked here.
