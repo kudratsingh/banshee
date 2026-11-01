@@ -2,14 +2,14 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 05:58 UTC · ledger records: 63
+Generated: 2026-11-01 12:10 UTC · ledger records: 69
 
 ## Phases
 
 | Phase | Name | State | Exit tests (passed / frozen / total) | Prerequisites | Work orders |
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
-| D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **in_progress** | 3 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014 |
+| D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | — |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
@@ -30,8 +30,8 @@ Generated: 2026-11-01 05:58 UTC · ledger records: 63
 | ET-D1-1 | D1 | SITL launches reproducibly from a script with a version manifest. | 2/2 launches identical versions; zero null pins | passed | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
 | ET-D1-2 | D1 | A waypoint mission completes through the offboard velocity/yaw-rate interface and its outcome is checked by independent code from the logged state. | proposed default: 10/10 nominal runs reach every waypoint within 0.5 m; freeze before running | passed | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
 | ET-D1-3 | D1 | Each run is exported through contracts/v1/writer.py with correct frames and timebase (capture, receive, decision, sent times) and validates. | 100% contract_valid | passed | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
-| ET-D1-4 | D1 | The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished. | all listed cases executed; any deviation from spec is reported, not hidden | frozen | — |
-| ET-D1-5 | D1 | A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness. | tests green; bounds documented with their justification | frozen | — |
+| ET-D1-4 | D1 | The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished. | all listed cases executed; any deviation from spec is reported, not hidden | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
+| ET-D1-5 | D1 | A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness. | tests green; bounds documented with their justification | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
 | ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | not_run | — |
 | ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | not_run | — |
 | ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | not_run | — |
@@ -66,7 +66,7 @@ Generated: 2026-11-01 05:58 UTC · ledger records: 63
 | WO-001 | D0 operating envelope, platform proposal, stack matrix, compliance plan | D0 | **accepted** | 2026-11-01T01:55:46.389532Z | reports/WO-001-d0-operating-envelope-and-platform-proposal.md |
 | WO-002 | D1 SITL: pinned launch, offboard velocity mission, independent outcome, contract export | D1 | **accepted** | 2026-11-01T05:58:17.128905Z | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
 | WO-003 | Supervised resource and spend enforcement (local, no paid execution) | D0 | **superseded** | 2026-11-01T00:39:54.551053Z | — |
-| WO-004 | D1 fault matrix in simulation and the freshness gate in the command loop | D1 | **created** | 2026-10-31T07:51:52.172244Z | — |
+| WO-004 | D1 fault matrix in simulation and the freshness gate in the command loop | D1 | **accepted** | 2026-11-01T12:10:07.957019Z | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
 | WO-005 | D2 props-off sensor, localization and reference checkout | D2 | **created** | 2026-10-31T07:51:52.215726Z | — |
 | WO-006 | Program-wide rename of this repository and package to banshee | D0 | **accepted** | 2026-10-31T22:15:35.944907Z | reports/WO-006-program-rename-banshee.md |
 | WO-007 | Designate the private GitHub remote and create the repository | D0 | **accepted** | 2026-10-31T09:11:55.829902Z | VERIFICATION.md |
