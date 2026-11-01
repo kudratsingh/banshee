@@ -17,7 +17,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 
 ## D0 — Operating envelope, platform proposal, compliance plan (no purchase)
 
-**Deliverable.** One-page operating envelope; priced BOM with dated sources for ≥ 2 compatible airframe options (500 mm class kit and a 3–5 inch indoor frame); proposed stack version matrix with a D1 verification plan; compliance plan; reference and containment plan; owner decision on test space and airframe candidate. **Work orders.** WO-001.
+**Deliverable.** One-page operating envelope; priced BOM with dated sources for the chosen airframe (the owner dropped the second option on 2026-10-31; ET-D0-2's wording stands, and it closes on that decision); proposed stack version matrix with a D1 verification plan; compliance plan; reference and containment plan; owner decision on test space and airframe candidate. **Work orders.** WO-001.
 
 | Exit test | Statement | Threshold |
 |---|---|---|
@@ -28,7 +28,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 | ET-D0-5 | Outside-in reference qualification plan with numeric accuracy target; containment chosen per airframe/test configuration | stated numerically |
 | ET-D0-6 | Owner decision (or explicit deferral) on test space and airframe | one recorded decision or deferral |
 
-**Decision that drives the airframe.** If the test space is a room, the airframe is a 3–5 inch guarded frame and the BOM is re-priced; if a garage, warehouse or field, the X500 V2 class kit stands (`PROGRAM.md §12 #4`).
+**Decision on the airframe (owner, 2026-10-31).** The test space is an open field, outdoors, and the airframe is an X500 V2, with an X650-class 6S airframe planned for D7+. Option B is not needed.
 
 ## D1 — SITL, offboard velocity interface, logging, fault matrix
 
@@ -53,19 +53,22 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 | ET-D2-1 | Camera/IMU offsets, frame consistency, end-to-end latency measured hand-carried | offset CI; frame check passes; latency distribution |
 | ET-D2-2 | VIO tracks the volume; dropouts/resets counted; drift vs reference | *proposed default:* end-of-route drift ≤ 0.2 m |
 | ET-D2-3 | Outside-in reference qualified: static residuals, dynamic latency, coverage, session check | *proposed default:* static RMS ≤ 2 cm; coverage ≥ 90%; inadequate coverage = inconclusive |
-| ET-D2-4 | Motors disarmed, actual link cut: PX4 offboard-loss failsafe + freshness gate behave as specified, laptop-independent | 3/3 trials match |
+| ET-D2-4 | Motors disarmed, actual link cut: PX4's offboard-loss flag sets within `COM_OF_LOSS_T` and the freshness gate stops sending, laptop-independent. PX4 selects no action while disarmed; the action is tested in ET-D3-5 | 3/3 trials match |
+| ET-D2-5 | Props off, disarmed: RC link over CRSF, kill switch and mode switch recognised on the actual Pixhawk 6X; needs a dated owner approval to connect | each control recognised; 3/3 power cycles |
 
 A hand-carried pass is **not** flight qualification; vibration changes VIO behaviour (revalidated in D4).
 
 ## D3 — Outdoor GPS-assisted checkout
 
-**Deliverable.** Manual and GPS position-hold checkout at a permitted site under the applicable compliance path (Part 107 by default; development flights are not assumed recreational [S1]).
+**Deliverable.** First armed flights: manual and GPS position-hold checkout at a permitted site under the applicable compliance path (Part 107 by default; development flights are not assumed recreational [S1]). **Requires §2.3 owner approval for arming/flight.**
 
 | Exit test | Statement | Threshold |
 |---|---|---|
 | ET-D3-1 | Compliance in place: certificate if applicable, registration, Remote ID route, airspace, site permission | all applicable items recorded with dates |
 | ET-D3-2 | Manual checkout and GPS position hold | *proposed default:* RMS ≤ 1.0 m over 60 s, 3/3 flights |
 | ET-D3-3 | Emergency procedures (RTL, land, kill) rehearsed | each exercised once |
+| ET-D3-4 | Before the first arm: distance and geofence containment, exclusion, checklists, roles and emergency procedures signed off; parameter dump from the real aircraft matches the frozen values | complete before first arm |
+| ET-D3-5 | At low height on GPS: takeover, geofence breach, RC loss and offboard loss behave as specified on the real aircraft | each 3/3; any deviation reported |
 
 ## D4 — VIO position hold in a controlled setup
 

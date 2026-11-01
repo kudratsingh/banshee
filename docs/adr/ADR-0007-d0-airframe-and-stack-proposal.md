@@ -14,7 +14,7 @@ Findings that shaped this:
 Items 1, 4, 5 and the telemetry radio are the owner's decisions. The flight controller follows the owner's stated rule. The stack stays proposed until WO-002 tests it.
 
 1. **Test space and airframe.** A large open field, outdoors, and a Holybro X500 V2. An X650-class 6S airframe is the planned D7+ mission platform, with the same autopilot and stack; the D7 list is a frame, motor, ESC and battery swap. No QAV250; Option B is not needed.
-2. **Flight controller: Holybro Pixhawk 6X, target `px4_fmu-v6x_default`.** The comparison is below and in `docs/BOM_WORKSHEET.md`. The owner's lean is to standardize on FMUv6X and the Pixhawk Autopilot Bus, and to prefer ARKV6X if the total stays within about $300 of the 6C plan. ARKV6X with an ARK carrier is +$622.01 against the 6C set in stock, so the preference does not trigger.
+2. **Flight controller: Holybro Pixhawk 6X, target `px4_fmu-v6x_default`.** The comparison is below and in `docs/BOM_WORKSHEET.md`. The owner's lean is to standardize on FMUv6X and the Pixhawk Autopilot Bus, and to prefer ARKV6X if the total stays within about $300 of the 6C plan. ARKV6X with an ARK carrier is +$622.01 in parts against the 6C at Holybro and +$566.05 against the RMRC plan the owner reviewed, so the preference does not trigger.
 3. **Stack.** Ubuntu 24.04, ROS 2 Jazzy, Gazebo Harmonic, PX4 v1.17.0, Micro-XRCE-DDS-Agent v2.4.3, `px4_msgs` at `release/1.17`, QGroundControl v5.1.5. Exact commits are in `config/stack-lock.proposed.json`. Humble on 22.04 is the fallback if WO-002 cannot run this. Jazzy comes first, though the v1.17 guide says Humble, because:
    - Humble's support ends in May 2027 [D11], inside the expected life of D1–D4.
    - Gazebo recommends Jazzy with Harmonic and marks Humble with Harmonic "use with caution" [D10].
@@ -33,7 +33,7 @@ Items 1, 4, 5 and the telemetry radio are the owner's decisions. The flight cont
 | | Pixhawk 6C | **Pixhawk 6X (chosen)** | ARKV6X + ARK carrier |
 |---|---|---|---|
 | With power module and M10 | $271.98 | $466.98 | $893.99 |
-| Against the 6C plan | — | +$195.00 | +$622.01 |
+| Parts against the 6C at Holybro; against the RMRC plan | — | +$195.00; +$139.04 | +$622.01; +$566.05 |
 | FCC Covered List | candidate: SDoC 2022-07-19 | candidate: SDoC 2022-07-19; may not cover Rev 8 | module exempt if still listed, until 2028-01-01; carrier and power module have no Framework row |
 | PX4 target | `px4_fmu-v6c_default` | `px4_fmu-v6x_default` | `ark_fmu-v6x_default` |
 | CRSF in the default build | no | yes; 6,160 bytes free | yes; 41,180 bytes free |
@@ -41,7 +41,7 @@ Items 1, 4, 5 and the telemetry radio are the owner's decisions. The flight cont
 | X500 mounting | sold as a kit | sold as a kit | none documented |
 | 6S 650-class at D7 | documented | documented | in range; not documented |
 
-A 6X and an ARKV6X are interchangeable at the hardware level (Pixhawk Autopilot Bus), but not in firmware: the board id, defaults and PWM channel count differ, so a swap means a reflash and recalibration. **An ARKV6X on a Holybro Mini baseboard, +$292.00, is within the owner's $300.** It was not chosen, because the combination is undocumented and half of it stays Holybro. The owner can overrule this with one line, and it stays available later by swapping the module.
+A 6X and an ARKV6X are interchangeable at the hardware level (Pixhawk Autopilot Bus), but not in firmware: the board id, defaults and PWM channel count differ, so a swap means a reflash and recalibration. **An ARKV6X on a Holybro Mini baseboard, +$292.00 or +$236.04, is within the owner's $300.** It was not chosen, because the combination is undocumented and half of it stays Holybro. The owner can overrule this with one line, and it stays available later by swapping the module.
 
 ## Alternatives considered
 | Option | Why not (or why not yet) |
@@ -71,8 +71,8 @@ A 6X and an ARKV6X are interchangeable at the hardware level (Pixhawk Autopilot 
 | Logging | ULog retained; run exported through `contracts/v1/writer.py` | `validate.py` passes |
 | Failsafes and takeover | each row in `docs/OPERATING_ENVELOPE.md`, run twice: with no manual control at arming, because v1.17 changed Offboard to Position without RC and RC loss is ignored then; and with simulated manual control present at arming, then removed, for `NAV_RCL_ACT`, kill, stick override and the mode switch | configured and tested behaviour both recorded |
 | Geofence | Home invalid at arming; a breach at each limit, with overrun measured; GPS lost mid-flight; a moved takeoff point | the code reading in the envelope is confirmed or corrected |
-| Return | against the 30 m ceiling, with a parameter dump of the SITL airframe | `RTL_RETURN_ALT` as set; no breach |
-| Vision-only position | GPS disabled, with and without a global origin; offboard loss in each | the mode entered is recorded. `gz_x500` may have simulated GPS, which would hide this |
+| Return | against the 30 m ceiling, with a parameter dump of the SITL airframe | `RTL_RETURN_ALT` as set; no breach; speed obeys `MPC_XY_VEL_MAX` |
+| Vision-only position | `EKF2_GPS_CTRL` 0 with a live receiver and a global origin; offboard loss. Wrong origins: under 40 m horizontally, and too high. No origin, and `SYS_HAS_GPS` 0: expected to be refused at arming | the mode entered and the fence's behaviour are recorded. `gz_x500` may have simulated GPS, so confirm aiding is really off |
 | Speed limit and braking | Position mode at full stick with `MPC_XY_VEL_MAX` set; Hold braking from each limit | Position mode obeys the limit; measured distance replaces the estimate |
 | Companion death | stop the node that streams setpoints | offboard loss fires as configured |
 
@@ -80,7 +80,7 @@ If the Jazzy pairing fails on a step that needs a change in PX4, stop, report it
 
 ## Consequences
 - The planning total, about $3,719, is above the owner's range (`docs/BOM_WORKSHEET.md`). No purchase is authorized.
-- All flight stages are outdoors, so D3 is required and D4 now follows it. No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
+- All flight stages are outdoors, so D3 is required, D4 now follows it, and **D3 is now the first armed flight**, with ET-D2-5, ET-D3-4 and ET-D3-5 added to cover what D4 used to. `AGENTS.md §13.9` still ties the review to "D4 readiness"; this repository treats it as due before D3, and the wording is the owner's to change. No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
 - WO-002 starts on an assembled pairing. A failure costs some setup time, and the fallback is documented.
 - Five parts-list lines are flagged in the FCC check, and grant dates need reading before any order.
 - This number follows ADR-0004, which belongs to the program decision on shared material, built in `ironclad`.

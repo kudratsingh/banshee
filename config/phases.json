@@ -7,7 +7,7 @@
       "id": "D0",
       "name": "Operating envelope, platform proposal, compliance plan (no purchase)",
       "program_link": "PROGRAM section 5.1, 9",
-      "deliverable": "A one-page operating envelope; a priced BOM with dated sources for at least two compatible airframe options; a proposed (not tested) stack version matrix with a D1 verification plan; a compliance plan; a reference and containment plan; an owner decision on test space and airframe candidate. No purchase is implied.",
+      "deliverable": "A one-page operating envelope; a priced BOM with dated sources for the chosen airframe (the owner dropped the second option on 2026-10-31); a proposed (not tested) stack version matrix with a D1 verification plan; a compliance plan; a reference and containment plan; an owner decision on test space and airframe candidate. No purchase is implied.",
       "prerequisites": [],
       "exit_tests": [
         {"id": "ET-D0-1", "statement": "The operating envelope page is complete: mission/site, airframe class, speed/height/clearance limits with justification, sensors, compute, energy, reference, containment, human control, compliance, data/privacy.", "evidence": "docs/OPERATING_ENVELOPE.md filled; owner questions listed", "threshold": "zero empty fields; every unknown is a named owner question"},
@@ -42,7 +42,8 @@
         {"id": "ET-D2-1", "statement": "Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried.", "evidence": "measurement report with intervals", "threshold": "offset estimate with CI; frame check passes; latency distribution reported"},
         {"id": "ET-D2-2", "statement": "VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference.", "evidence": "tracking log; comparison table", "threshold": "proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported"},
         {"id": "ET-D2-3", "statement": "The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure.", "evidence": "docs/REFERENCE_AND_SENSING.md qualification record", "threshold": "proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass"},
-        {"id": "ET-D2-4", "statement": "With motors disarmed, the actual link is cut and the PX4 offboard-loss failsafe plus the project's freshness gate behave as specified independently of the laptop.", "evidence": "3 trials logged", "threshold": "3/3 trials match the specified behaviour"}
+        {"id": "ET-D2-4", "statement": "With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets within COM_OF_LOSS_T and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D3-5.", "evidence": "3 trials logged", "threshold": "3/3 trials match the specified behaviour"},
+        {"id": "ET-D2-5", "statement": "With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect.", "evidence": "parameter dump; RC input log", "threshold": "each control recognised; 3/3 power cycles"}
       ]
     },
     {
@@ -54,7 +55,9 @@
       "exit_tests": [
         {"id": "ET-D3-1", "statement": "Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission.", "evidence": "compliance record", "threshold": "all applicable items recorded with dates"},
         {"id": "ET-D3-2", "statement": "Manual flight checkout and GPS position hold within the frozen tolerance.", "evidence": "flight logs", "threshold": "proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights"},
-        {"id": "ET-D3-3", "statement": "Emergency procedures (RTL, land, kill) are rehearsed and logged.", "evidence": "checklist and logs", "threshold": "each procedure exercised once"}
+        {"id": "ET-D3-3", "statement": "Emergency procedures (RTL, land, kill) are rehearsed and logged.", "evidence": "checklist and logs", "threshold": "each procedure exercised once"},
+        {"id": "ET-D3-4", "statement": "Before the first arm: distance and geofence containment, exclusion, checklists, roles and emergency procedures are in place and signed off, and a parameter dump from the real aircraft matches the frozen values.", "evidence": "signed checklist; parameter dump", "threshold": "complete before first arm"},
+        {"id": "ET-D3-5", "statement": "At low height on GPS: operator takeover, a geofence breach, RC loss and offboard loss each behave as specified on the real aircraft.", "evidence": "flight logs", "threshold": "each 3/3; any deviation reported"}
       ]
     },
     {

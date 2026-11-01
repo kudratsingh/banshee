@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-11-01 01:14 UTC · ledger records: 38
+Generated: 2026-11-01 01:38 UTC · ledger records: 38
 
 ## Phases
 
@@ -10,8 +10,8 @@ Generated: 2026-11-01 01:14 UTC · ledger records: 38
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **in_progress** | 4 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
-| D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
-| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
+| D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
+| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | — |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
 | D6 | Fixed-target inspection from N declared viewpoints and return | **not_started** | 0 / 0 / 4 | D5 | — |
@@ -35,10 +35,13 @@ Generated: 2026-11-01 01:14 UTC · ledger records: 38
 | ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | not_run | — |
 | ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | not_run | — |
 | ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | not_run | — |
-| ET-D2-4 | D2 | With motors disarmed, the actual link is cut and the PX4 offboard-loss failsafe plus the project's freshness gate behave as specified independently of the laptop. | 3/3 trials match the specified behaviour | not_run | — |
+| ET-D2-4 | D2 | With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets within COM_OF_LOSS_T and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D3-5. | 3/3 trials match the specified behaviour | not_run | — |
+| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect. | each control recognised; 3/3 power cycles | not_run | — |
 | ET-D3-1 | D3 | Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission. | all applicable items recorded with dates | not_run | — |
 | ET-D3-2 | D3 | Manual flight checkout and GPS position hold within the frozen tolerance. | proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights | not_run | — |
 | ET-D3-3 | D3 | Emergency procedures (RTL, land, kill) are rehearsed and logged. | each procedure exercised once | not_run | — |
+| ET-D3-4 | D3 | Before the first arm: distance and geofence containment, exclusion, checklists, roles and emergency procedures are in place and signed off, and a parameter dump from the real aircraft matches the frozen values. | complete before first arm | not_run | — |
+| ET-D3-5 | D3 | At low height on GPS: operator takeover, a geofence breach, RC loss and offboard loss each behave as specified on the real aircraft. | each 3/3; any deviation reported | not_run | — |
 | ET-D4-1 | D4 | Containment, checklists, roles and emergency procedures are in place and signed off for the airframe and test configuration. | complete before first arm | not_run | — |
 | ET-D4-2 | D4 | VIO position hold error against the outside-in reference stays within the frozen bound over repeated flights. | proposed default: RMS <= 0.3 m over 60 s on 5/5 flights | not_run | — |
 | ET-D4-3 | D4 | Operator takeover works in flight. | 3/3 takeovers succeed | not_run | — |

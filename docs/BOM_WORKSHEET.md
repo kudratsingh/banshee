@@ -8,10 +8,10 @@
 | Item | Candidate | Qty | Unit USD | Line USD | Supplier (read 2026-10-31) | Stock read | Compatibility evidence |
 |---|---|---:|---:|---:|---|---|---|
 | Airframe | Holybro X500 V2 ARF kit: frame, props, 2216 KV920 motors, BLHeli S 20A ESCs, PDB | 1 | 396.71 | 396.71 | [readymaderc.com](https://www.readymaderc.com/products/details/87064-holybro-x500-v2-almost-ready-to-fly-arf-kit) | in stock | 500 mm; about 1 kg payload at 70% throttle on 4S 5000 mAh [D13]; Holybro lists it at $329.00, sold out |
-| Autopilot | Holybro Pixhawk 6X, Standard v2A baseboard, PM02D | 1 | 422.99 | 422.99 | [holybro.com](https://holybro.com/products/pixhawk-6x) | in stock; ships from Hong Kong | PX4 target `px4_fmu-v6x_default`; three ICM-45686 IMUs; CRSF in the default build; Ethernet; PM02D takes 2S–12S [D49] |
+| Autopilot | Holybro Pixhawk 6X, Standard v2A baseboard, PM02D | 1 | 422.99 | 422.99 | [holybro.com](https://holybro.com/products/pixhawk-6x) | in stock | PX4 target `px4_fmu-v6x_default`; three ICM-45686 IMUs; CRSF in the default build; Ethernet; PM02D takes 2S–12S [D49] |
 | Autopilot mount | Holybro mounting plate, Pixhawk 6X | 1 | 5.59 | 5.59 | [holybro.com](https://holybro.com/products/standard-baseboard-mounting-plate) | in stock | hole data not on the page; the X500 kit is sold with a 6X, so fit is expected |
-| GPS | Holybro M10, 10-pin | 1 | 43.99 | 43.99 | [holybro.com](https://holybro.com/products/m10-gps) | in stock; ships from Hong Kong | standard GPS port; Holybro also now lists an M10 V2 |
-| Telemetry | Holybro SiK V3 915 MHz 100 mW, pair | 1 | 58.99 | 58.99 | [holybro.com](https://holybro.com/products/sik-telemetry-radio-v3) | in stock; ships from Hong Kong | FCC ID 2AP22-HT03-V3 on the store page; licence finding under Compliance in the envelope |
+| GPS | Holybro M10, 10-pin | 1 | 43.99 | 43.99 | [holybro.com](https://holybro.com/products/m10-gps) | in stock | standard GPS port; Holybro also now lists an M10 V2 |
+| Telemetry | Holybro SiK V3 915 MHz 100 mW, pair | 1 | 58.99 | 58.99 | [holybro.com](https://holybro.com/products/sik-telemetry-radio-v3) | in stock | FCC ID 2AP22-HT03-V3 on the store page; licence finding under Compliance in the envelope |
 | Companion computer | NVIDIA Jetson Orin Nano Super 8 GB dev kit | 1 | 399.00 | 399.00 | [sparkfun.com](https://www.sparkfun.com/nvidia-jetson-orin-nano-developer-kit.html) | backorder | **$399 is NVIDIA's list price** ([FAQ](https://developer.nvidia.com/embedded/faq)); see the note below; 175 g; DC jack 9–20 V [D15] |
 | Storage | Sandisk Optimus 5100 500 GB NVMe, M.2 2280 | 1 | 109.99 | 109.99 | [amazon.com](https://www.amazon.com/dp/B0GJSFFLXZ) | in stock | M.2 Key-M 2280 slot, PCIe 3.0 x4 [D51]; working on PCIe 3.0 is inferred |
 | Jetson power | Matek BEC12S-PRO, 12 V 5 A | 1 | 18.99 | 18.99 | [progressiverc.com](https://www.progressiverc.com/products/matek-bec12s-pro) | available | 9–55 V in, so it also takes 6S at D7. **Needs at least 14 V in for a stable 12 V: a 4S pack drops below that at 3.5 V per cell.** The Jetson's 9–20 V jack should tolerate this; bench test in D2. Default output is 5.2 V: set 12 V before connecting. A 5.5 × 2.5 mm barrel lead is unpriced |
@@ -48,7 +48,7 @@
 
 **Jetson price.** The owner's instruction was NVIDIA list price at $249 from a listed partner, not the $399 backorder listing. **That cannot be met: $399 is the list price.** NVIDIA's [FAQ](https://developer.nvidia.com/embedded/faq) gives $399, press reports the rise from $249 in [July 2026](https://hwbusters.com/news/nvidia-jetson-prices-jump-up-to-101-the-249-orin-nano-super-is-now-399/), and SparkFun states "$399 retail price". No page that loaded shows $249. In stock, [Seeed](https://www.seeedstudio.com/NVIDIAr-Jetson-Orintm-Nano-Developer-Kit-p-5617.html) lists $450.30 and Amazon sellers start at $472.90. [SabrePC](https://www.sabrepc.com/945-13766-0000-000-NVIDIA-S116360058) lists $283.86, out of stock. NVIDIA's store, Arrow, Mouser, Micro Center, Newegg and B&H did not load, so a lower price there cannot be excluded; check them before ordering. At $249 this total would be $3,541. A successor, the Orin Nano 2, is reported for the first half of 2027 ([one source](https://jetsonhacks.com/2026/08/26/jetsonhacks-august-2026-newsletter/)), after this order.
 
-**Not in the total: tariffs.** $531.56 of these goods ships from Hong Kong, and Holybro says the buyer pays US duties at an unstated rate. A superseded notice on its site said "up to 69%", which would add about $367, roughly what the contingency covers. A US reseller avoids this but costs more; the 6X set's reseller price was not read.
+**Not in the total: tariffs.** $555.33 of these goods comes from Holybro directly, whose store says orders ship from Hong Kong and the buyer pays US duties at an unstated rate. A superseded notice there said "up to 69%", a worst case of about $383. The contingency does not cover that, because it is assigned to unpriced items. A US reseller avoids this but costs more; the 6X set's reseller price was not read.
 
 **Ways to reduce it (planning total after each change, *estimated*):**
 | Change | Total | Cost of the change |
@@ -60,12 +60,13 @@
 ## Flight controller comparison
 | | Pixhawk 6C | Pixhawk 6X | ARKV6X + ARK carrier |
 |---|---|---|---|
-| Set priced | Aluminium, PM02 V3, $227.99 (plastic set sold out) | Standard v2A, PM02D, $422.99 | [Bundle](https://arkelectron.com/product/arkv6x-bundle/) $750 + [power module](https://arkelectron.com/product/ark-pab-power-module/) $100 |
+| Set priced | Aluminium, PM02 V3, $227.99 at Holybro (plastic set sold out there; $275.15 at RMRC) | Standard v2A, PM02D, $422.99 | [Bundle](https://arkelectron.com/product/arkv6x-bundle/) $750 + [power module](https://arkelectron.com/product/ark-pab-power-module/) $100 |
 | With M10, $43.99 | $271.98 | $466.98 | $893.99 |
-| Against the 6C plan, with the 6C from Holybro | — | +$195.00 | **+$622.01** |
-| Within the owner's $300? | — | yes | **no, by about $322** |
-| FCC Covered List | candidate: SDoC 2022-07-19, vendor-hosted | candidate: SDoC 2022-07-19; may not cover Rev 8 | module exempt if still listed: Blue Framework since 2025-02-15, last readable 2026-05-25, until 2028-01-01. **The carrier and power module have no Framework row** |
-| Stated origin | not stated; Holybro's addresses are Shenzhen and Hong Kong, an inference only | same | USA, a vendor claim, not a domestic-end-product finding |
+| Parts against the 6C at Holybro, $271.98 | — | +$195.00 | **+$622.01** |
+| Parts against the plan the owner reviewed, RMRC, $327.94 | — | +$139.04 | **+$566.05** |
+| Within the owner's $300, on parts? | — | yes | **no, on either basis** |
+| FCC Covered List | candidate: SDoC 2022-07-19, vendor-hosted | candidate: SDoC 2022-07-19; may not cover Rev 8 | module exempt if still listed: Blue Framework since 2025-02-15, last readable 2026-05-25 [D60], until 2028-01-01. **The carrier and power module have no Framework row** |
+| Stated origin | CN, per reseller RMRC, not Holybro | CN on RMRC's 6X Pro and module listings, not the priced set; Holybro states none | USA, a vendor claim, not a domestic-end-product finding |
 | PX4 target at v1.17.0 | `px4_fmu-v6c_default` | `px4_fmu-v6x_default` | `ark_fmu-v6x_default` |
 | CRSF in the default build | **no, custom build needed** | yes; 6,160 bytes of flash free | yes; 41,180 bytes free |
 | IMUs | 2 | 3 | 3 |
@@ -75,7 +76,7 @@
 
 **Chosen: Pixhawk 6X, target `px4_fmu-v6x_default`,** as the owner's stated lean to standardize on FMUv6X and the Pixhawk Autopilot Bus. The owner's preference for ARKV6X applied only within about $300 of the 6C plan, and the ARK stack is well over that. **"Interchangeable" holds at the hardware level only:** PX4 lists these as interchangeable carriers and modules, but the firmware differs (board id 53 and 57), and so do board defaults and PWM channel count (9 and 8), so a swap means a reflash and recalibration. No documented test of that swap was found.
 
-**One route does fit $300, and the owner may prefer it:** an ARKV6X module ($400) on a [Holybro Mini baseboard](https://holybro.com/products/pixhawk-baseboards) ($95) with PM02D ($24.99) and M10, $563.98, +$292.00. It was not chosen, because the combination is undocumented, the baseboard is a foreign-made Holybro part with no separate SDoC listed, and Mini fit on the X500 is unread. It remains available later, by swapping the module.
+**One route does fit $300, and the owner may prefer it:** an ARKV6X module ($400) on a [Holybro Mini baseboard](https://holybro.com/products/pixhawk-baseboards) ($95) with PM02D ($24.99) and M10, $563.98, which is +$292.00 or +$236.04 on the same two bases. It was not chosen, because the combination is undocumented, the baseboard is a foreign-made Holybro part with no separate SDoC listed, and Mini fit on the X500 is unread. It remains available later, by swapping the module.
 
 ## FCC Covered List check, per line
 **A planning check, not legal advice.** The action is [DA 25-1086](https://docs.fcc.gov/public/attachments/DA-25-1086A1.pdf), 2025-12-22. It bars *new* FCC equipment authorizations for foreign-produced UAS and critical components. Previously authorized models "can continue to be imported, sold, and used" [D50]. What the sources add to the owner's summary:
@@ -83,7 +84,7 @@
 - **The test is primary use:** "designed and intended primarily for use in UAS". So a multi-use camera is outside it. This is FAQ guidance, and FCC 26-50 only proposes codifying it.
 - **Frames and general-purpose computers are not addressed by any FCC text read,** so "not a critical component" is reasoning, not an FCC statement.
 - **The owner's three categories do not cover everything.** A battery or motor is named but has no grant to show, so it fits none of them (the FAQ: no device newly requires authorization). The list also excepts Conditional Approvals and Toy Drones.
-- **Exemptions expire:** Blue UAS and domestic end products until 2028-01-01. "Blue UAS" includes the Framework list ([DA 26-761](https://docs.fcc.gov/public/attachments/DA-26-761A1.pdf)). The live list could not be read; the newest row data is 2026-05-25.
+- **Exemptions expire:** Blue UAS and domestic end products until 2028-01-01. "Blue UAS" includes the Framework list ([DA 26-761](https://docs.fcc.gov/public/attachments/DA-26-761A1.pdf)). The live list could not be read; the newest row data is 2026-05-25 [D60].
 - **Grandfathering is not permanent:** 47 CFR 2.939(e) lets the FCC stop import and marketing of authorized covered equipment. It has done so for 2024-or-earlier entries, but [DA 26-635](https://docs.fcc.gov/public/attachments/DA-26-635A1.pdf) excludes the UAS entry. Proposals for UAS (DA 26-742, DA 26-758) are pending and would leave already-bought equipment usable. **So re-check before buying.**
 - **"US-made" does not settle it:** place of production governs, with no content threshold stated, and FCC 26-50 proposes that "produced in a foreign country" mean failing the domestic end product test.
 - **No FAQ addresses a self-built drone.** How this applies to parts assembled by an owner is not stated in anything read.
@@ -93,7 +94,7 @@
 | Airframe | **FLAG** | See the three rows below this table: the frame and props, the motors, and the ESCs differ. |
 | Autopilot | Grandfathered candidate | [FCC SDoC](https://docs.holybro.com/company/certification-iso-fcc-ce-rohs-etc) issued 2022-07-19. Not verified complete: lab-issued, no US responsible party named, and valid only for the configuration described, which may predate Rev 8. Ask the seller. |
 | Autopilot mount | Not a critical component (reasoning) | Passive part with no radio. No FCC text names it; inferred from silence. |
-| GPS | Grandfathered candidate | [FCC SDoC](https://docs.holybro.com/company/certification-iso-fcc-ce-rohs-etc) dated 2023-11-20, same limits as the autopilot. Navigation systems are a named component. Alternative: [ARK SAM GPS](https://arkelectron.com/product/ark-sam-gps/), $75, Blue Framework listed in the data of 2026-05-25. |
+| GPS | Grandfathered candidate | [FCC SDoC](https://docs.holybro.com/company/certification-iso-fcc-ce-rohs-etc) dated 2023-11-20, same limits as the autopilot. Navigation systems are a named component. Alternative: [ARK SAM GPS](https://arkelectron.com/product/ark-sam-gps/), $75, Blue Framework listed in the data of 2026-05-25 [D60]. |
 | Telemetry | Grandfathered candidate | FCC ID published, and a filing letter names it (2018). **The grant itself could not be read**, so date, rule part and antennas are unverified. Read it before buying: [FCC search](https://apps.fcc.gov/oetcf/eas/reports/GenericSearch.cfm), grantee 2AP22. |
 | Companion computer | Not a critical component (reasoning) | General-purpose compute. No FCC text names computers as UAS components; this reasons from the FAQ's primary-use test [D50]. |
 | Storage | Not a critical component (reasoning) | General-purpose storage, same reasoning. |
@@ -106,7 +107,7 @@
 | Charger | Not a critical component (reasoning) | Ground equipment, not named; inferred from silence. |
 | LiPo bag | Not a critical component (reasoning) | Not a UAS component. |
 | Fire-safe box | Not a critical component (reasoning) | Not a UAS component. |
-| RC transmitter | **FLAG** | FCC ID 2BUHG-TX16SMK3 is in the manual. **Grant date unread**, and reviews start January 2026, so a grant before 2025-12-22 cannot be assumed. Controllers are a named component. Read the grant before buying. No low-cost US-made alternative was found. |
+| RC transmitter | **FLAG** | FCC ID 2BUHG-TX16SMK3 is in the manual. **Grant date unread**, and reviews start January 2026, so a grant before 2025-12-22 cannot be assumed. Controllers are a named component. Read the grant before buying. Candidate alternative: the [RadioMaster Pocket](https://www.readymaderc.com/products/details/85660-radiomaster-pocket-radio-controller-expresslrs-elrs-2-4ghz-charcoal-mode-2), with its grant date as the check; its status was not read. No exempt or US-made controller was priced. |
 | RC receiver | **FLAG** | **No FCC ID found**, and it transmits telemetry. Fits none of the three on this evidence. Alternative: [ModalAI M0184](https://www.modalai.com/products/m0184), $159.99, Blue Framework per the vendor; pairing with the TX16S is untested. |
 | Spare props | Not a critical component (reasoning) | Passive, not named; inferred from silence. |
 | Remote ID | **FLAG** | A data transmission device. **No FCC ID was read.** FAA list could not be read automatically. Check both before buying. Alternatives: [BlueMark db120](https://download.bluemark.io/db120.pdf), FAA acceptance stated by the vendor; Pierce Aerospace B1, reported on the Blue Framework, no price found. Holybro's module is not an option: it is not for DIY users and has no serial. |

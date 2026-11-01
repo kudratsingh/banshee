@@ -63,15 +63,15 @@
       "value": "isaac_ros_visual_slam 4.6.0",
       "tag": "v4.6-0",
       "commit_short": "6e23c6c",
-      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install. A reported JetPack 7 UART1 fault may affect TELEM2, so Ethernet to the 6X is the alternative; tested in D2.",
+      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate: Luxonis BasaltVIO on the OAK-D Pro. The full commit hash is read at install. A reported JetPack 7 UART1 fault may affect TELEM2, so Ethernet to the 6X is the alternative; tested in D2.",
       "status": "proposed",
       "evidence_url": "https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_visual_slam/index.html",
       "evidence_date": "2026-10-31",
       "jetpack": "7.2"
     },
     "sensor_driver_commits": {
-      "value": "depthai_ros_v3 3.2.1-1 (tag v3.2.1-jazzy) for OAK-D Pro; realsense2_camera 4.58.4-1 for D435i",
-      "note": "All in the Jazzy apt main repository on this date. realsense2_camera 4.59.1-1 is in building and testing only. Luxonis's install instructions (https://docs.luxonis.com/software-v3/depthai/ros/driver) add the testing apt source. Exact commits are recorded when a camera is chosen.",
+      "value": "depthai_ros_v3 3.2.1-1 (tag v3.2.1-jazzy) for the OAK-D Pro",
+      "note": "The camera is chosen (owner, 2026-10-31). In the Jazzy apt main repository on this date. Luxonis's install instructions add the testing apt source [D47]. The exact commit is recorded when the driver is installed.",
       "status": "proposed",
       "evidence_url": "http://repo.ros2.org/status_page/ros_jazzy_default.html",
       "evidence_date": "2026-10-31"

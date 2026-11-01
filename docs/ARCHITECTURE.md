@@ -56,7 +56,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 | World-model adapter (manifest consumer; shadow only) | `src/banshee/learned/` | **not implemented** (D7+) |
 
 ## 6. Compute placement
-Laptop-based autonomy over Wi-Fi for D1–D4 (prototype); onboard companion computer (Jetson class) once a mission works and latency demands it (D7+). Either way the aircraft's loss response never depends on the laptop.
+Laptop for SITL in D1. Jetson Orin Nano Super from D2, hand-carried, then flown from D4, linked to the Pixhawk 6X by TELEM2 or Ethernet. Telemetry is 915 MHz, because Wi-Fi will not reach in a field (owner, 2026-10-31; ADR-0007). The aircraft's loss response never depends on the laptop or the Jetson.
 
 ## 7. Data
 Every flight (SITL or real) is exported through `contracts/v1/writer.py` as a `physics_sim` or `real` episode with the drone's configuration, controller version and calibration ids; raw PX4 logs (ulog) are retained alongside. These exports are the drone's only interface to the world-model project (M4). Reference streams carry `role: reference_only`.

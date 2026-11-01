@@ -13,7 +13,7 @@ Nominal hover and waypoint route; frame-sign and unit errors (injected); stale s
 ## 3. Physical progression
 Props-off tests precede any armed test. Revalidate sensing under vibration in the controlled flight gate (D4); hand-carry success is not flight qualification. Test actual laptop/link failure with a staged procedure; loss handling must remain available without a working laptop. The external reference is an evaluator, never an operational localization input in unaided-VIO tests. Never remove a bad run from the record; retain intervention, timeout and abort counts.
 
-## 4. Pre-flight and session checklist (D4+)
+## 4. Pre-flight and session checklist (D3+; on GPS, the reference and VIO items do not apply)
 1. Containment inspected; people excluded; observer briefed; operator on the independent link with takeover tested on the ground.
 2. Battery voltage and cell balance recorded; reserve threshold set in PX4.
 3. Reference cameras: known-pose check recorded; calibration ids logged.
