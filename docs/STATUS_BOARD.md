@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-10-31 23:58 UTC · ledger records: 37
+Generated: 2026-11-01 00:40 UTC · ledger records: 38
 
 ## Phases
 
@@ -62,7 +62,7 @@ Generated: 2026-10-31 23:58 UTC · ledger records: 37
 |---|---|---|---|---|---|
 | WO-001 | D0 operating envelope, platform proposal, stack matrix, compliance plan | D0 | **in_progress** | 2026-10-31T22:44:11.327280Z | — |
 | WO-002 | D1 SITL: pinned launch, offboard velocity mission, independent outcome, contract export | D1 | **created** | 2026-10-31T07:51:52.077382Z | — |
-| WO-003 | Supervised resource and spend enforcement (local, no paid execution) | D0 | **created** | 2026-10-31T07:51:52.125269Z | — |
+| WO-003 | Supervised resource and spend enforcement (local, no paid execution) | D0 | **superseded** | 2026-11-01T00:39:54.551053Z | — |
 | WO-004 | D1 fault matrix in simulation and the freshness gate in the command loop | D1 | **created** | 2026-10-31T07:51:52.172244Z | — |
 | WO-005 | D2 props-off sensor, localization and reference checkout | D2 | **created** | 2026-10-31T07:51:52.215726Z | — |
 | WO-006 | Program-wide rename of this repository and package to banshee | D0 | **accepted** | 2026-10-31T22:15:35.944907Z | reports/WO-006-program-rename-banshee.md |

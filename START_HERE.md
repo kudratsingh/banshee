@@ -24,7 +24,7 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 - The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
 
 ## 4. First work order
-`work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 (budget enforcement) can run in parallel in its own worktree.
+`work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 is superseded: the paid launcher moved to `ironclad`.
 
 ## 5. Unresolved owner decisions you may hit
 `docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`: test space; airframe; companion computer and depth camera; stack pins; frame convention. Take the recorded default, write the assumption into the report, and continue — stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**
