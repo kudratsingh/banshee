@@ -53,7 +53,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 | ET-D2-1 | Camera/IMU offsets, frame consistency, end-to-end latency measured hand-carried | offset CI; frame check passes; latency distribution |
 | ET-D2-2 | VIO tracks the volume; dropouts/resets counted; drift vs reference | *proposed default:* end-of-route drift ≤ 0.2 m |
 | ET-D2-3 | Outside-in reference qualified: static residuals, dynamic latency, coverage, session check | *proposed default:* static RMS ≤ 2 cm; coverage ≥ 90%; inadequate coverage = inconclusive |
-| ET-D2-4 | Motors disarmed, actual link cut: PX4's offboard-loss flag sets within `COM_OF_LOSS_T` and the freshness gate stops sending, laptop-independent. PX4 selects no action while disarmed; the action is tested in ET-D3-5 | 3/3 trials match |
+| ET-D2-4 | Motors disarmed, actual link cut: PX4's offboard-loss flag sets no later than `COM_OF_LOSS_T` + 200 ms after the cut, logged, and the freshness gate stops sending, laptop-independent. PX4 selects no action while disarmed; the action is tested in ET-D4-4 | 3/3 trials match |
 | ET-D2-5 | Props off, disarmed: RC link over CRSF, kill switch and mode switch recognised on the actual Pixhawk 6X; needs a dated owner approval to connect | each control recognised; 3/3 power cycles |
 
 A hand-carried pass is **not** flight qualification; vibration changes VIO behaviour (revalidated in D4).
@@ -65,10 +65,10 @@ A hand-carried pass is **not** flight qualification; vibration changes VIO behav
 | Exit test | Statement | Threshold |
 |---|---|---|
 | ET-D3-1 | Compliance in place: certificate if applicable, registration, Remote ID route, airspace, site permission | all applicable items recorded with dates |
-| ET-D3-2 | Manual checkout and GPS position hold | *proposed default:* RMS ≤ 1.0 m over 60 s, 3/3 flights |
+| ET-D3-2 | Manual checkout in Position mode and GPS position hold | *proposed default:* RMS ≤ 1.0 m over 60 s, 3/3 flights |
 | ET-D3-3 | Emergency procedures (RTL, land, kill) rehearsed | each exercised once |
 | ET-D3-4 | Before the first arm: distance and geofence containment, exclusion, checklists, roles and emergency procedures signed off; parameter dump from the real aircraft matches the frozen values | complete before first arm |
-| ET-D3-5 | At low height on GPS: takeover, geofence breach, RC loss and offboard loss behave as specified on the real aircraft | each 3/3; any deviation reported |
+| ET-D3-5 | At low height on GPS: takeover, geofence breach and RC loss behave as specified on the real aircraft | each 3/3; any deviation reported |
 
 ## D4 — VIO position hold in a controlled setup
 
@@ -79,7 +79,7 @@ A hand-carried pass is **not** flight qualification; vibration changes VIO behav
 | ET-D4-1 | Containment, checklists, roles, emergency procedures in place and signed off | complete before first arm |
 | ET-D4-2 | VIO hold error vs outside-in reference | *proposed default:* RMS ≤ 0.3 m over 60 s, 5/5 flights |
 | ET-D4-3 | Operator takeover in flight | 3/3 |
-| ET-D4-4 | Offboard loss in flight → specified behaviour (hold or land by estimator validity) | 3/3 |
+| ET-D4-4 | Offboard loss in flight, first with GPS aiding on → specified behaviour (hold or land by estimator validity) | 3/3 |
 | ET-D4-5 | VIO health under flight vibration revalidated | loss/recovery counts and drift reported in flight |
 
 ## D5 — GPS-denied known route
@@ -88,7 +88,7 @@ A hand-carried pass is **not** flight qualification; vibration changes VIO behav
 |---|---|---|
 | ET-D5-1 | Route completion and path error vs reference | *proposed default:* ≥ 8/10; RMS ≤ 0.5 m |
 | ET-D5-2 | Degraded modes in flight (stale planner → hold; localization loss → land) | each executed; matches spec |
-| ET-D5-3 | Minimum clearance | *proposed default:* ≥ 0.5 m |
+| ET-D5-3 | Minimum clearance, excluding the staked reference equipment | *proposed default:* ≥ 0.5 m |
 | ET-D5-4 | Latency quantiles, deadline misses, command expiries | reported; frozen p95 and expiry bounds |
 | ET-D5-5 | Energy reserve at landing | *proposed default:* ≥ 25% |
 
@@ -107,7 +107,7 @@ A known-route demonstration does not establish unknown-space navigation; unknown
 
 ## D7+ — Further missions one at a time; learned-component integration gates
 
-Each new mission (object search, mapping an unknown room, moving autonomy onboard the companion computer) gets its own rubric, frozen thresholds and degradation tests before flight. Learned components — first candidate: the world model's uncertainty-gated residual dynamics (`PROGRAM.md §8.2`) — enter only through: held-out log evaluation → shadow mode (logged, never commanding) → controlled closed-loop comparison against the conventional baseline, with a kill switch and drone-owned acceptance. Prediction improvements are not mission gains until the closed-loop comparison shows them.
+Each new mission (object search, mapping an unknown room, adding capability on the onboard computer) gets its own rubric, frozen thresholds and degradation tests before flight. Learned components — first candidate: the world model's uncertainty-gated residual dynamics (`PROGRAM.md §8.2`) — enter only through: held-out log evaluation → shadow mode (logged, never commanding) → controlled closed-loop comparison against the conventional baseline, with a kill switch and drone-owned acceptance. Prediction improvements are not mission gains until the closed-loop comparison shows them.
 
 | Exit test | Statement | Threshold |
 |---|---|---|

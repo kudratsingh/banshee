@@ -11,7 +11,7 @@ You are the coding agent for the `banshee` repository, one of two new projects i
 **Then:**
 1. Create the tooling environment and run `make check`; report the environment and the result. Fix a red check before anything else, in its own PR.
 2. If this directory is not a git repository, `git init -b main` and commit the starter as "Starter kit import". `config/repo.json` designates the private remote `kudratsingh/banshee` (ADR-0006). Do not add any other remote.
-3. WO-001 is accepted (`docs/STATUS_BOARD.md`). Its decisions are in `ledgers/approvals.jsonl` and ADR-0007: an open outdoor field, an X500 V2 with a Pixhawk 6X, the OAK-D Pro, and a Jetson from D2.
+3. WO-001's state is on `docs/STATUS_BOARD.md`. Its decisions are in `ledgers/approvals.jsonl` and ADR-0007: an open outdoor field, an X500 V2 with a Pixhawk 6X, the OAK-D Pro, and a Jetson from D2.
 4. Continue with WO-002 (SITL, software only). WO-003 is superseded: the paid launcher moved to `ironclad`. Keep going while prerequisites are satisfied. A work order that closes a milestone exit test needs the full review (`AGENTS.md §13.9`) before merging.
 
 **You may, without asking:** write code, tests, docs, configs; create branches and worktrees; commit; push to the designated remote; open pull requests and merge them when all required checks are green, after a full review where `AGENTS.md §13.9` requires one; run CPU-tier checks; run PX4/Gazebo SITL on a machine set up for this project; append to ledgers and status; write reports and ADRs; proceed to the next prerequisite-satisfied work order.

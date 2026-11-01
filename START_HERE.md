@@ -24,7 +24,7 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 - Test space: a large open field, outdoors; all flight stages outdoors. Airframe: X500 V2 with Pixhawk 6X (ADR-0007). No purchase is authorized (`ledgers/approvals.jsonl`).
 
 ## 4. First work order
-WO-001 is accepted. WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 is superseded: the paid launcher moved to `ironclad`.
+WO-001 closes on the owner's decisions (see the status board). WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 is superseded: the paid launcher moved to `ironclad`.
 
 ## 5. Unresolved owner decisions you may hit
 `docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`. Test space, airframe, flight controller, companion computer and camera are decided (`ledgers/approvals.jsonl`, ADR-0007); `PROGRAM.md` has not caught up, and a dated owner message takes precedence. Stack pins and the frame convention remain: take the recorded default, write the assumption into the report, and continue. Stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**

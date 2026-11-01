@@ -28,7 +28,7 @@ Status words: **confirmed** (owner decision), **proposed default** (suggested, n
 | 22 | Credentials outside source control; untrusted inputs; safe loading; licenses; privacy; retention; manifests | `AGENTS.md §6.6–6.7, §10`, `docs/DATA_POLICY.md`, `tools/scan_secrets.py` | confirmed |
 | 23 | Simple modular components, typed interfaces, structured logs, no enterprise infrastructure | `AGENTS.md §8.6, §8.9`, `src/banshee/interfaces.py`, `core/log.py` | confirmed |
 | 24 | Validation of the final packages with checksums and a verification report | `VERIFICATION.md`, `SHA256SUMS.json` | confirmed |
-| 25 | Future missions (object search, mapping, onboard autonomy) one at a time; drone research question (uncertainty-gated trust in learned dynamics) | `PROGRAM.md §7–8`, `docs/PHASES.md` D7 | confirmed / future option |
+| 25 | Future missions (object search, mapping, further onboard capability) one at a time; drone research question (uncertainty-gated trust in learned dynamics) | `PROGRAM.md §7–8`, `docs/PHASES.md` D7 | confirmed / future option |
 | 26 | Hardware plan recorded, nothing purchased by these files | `PROGRAM.md §9` | confirmed intent |
 | 27 | FAA: Part 107 for non-recreational flights; 250 g is not a blanket exemption; indoor-only outside Part 107 but controlled | `docs/OPERATING_ENVELOPE.md`, `docs/SOURCES.md` [S1]–[S5] | confirmed |
 | 28 | Outside-in reference is an evaluator, never an operational input in unaided-VIO tests; qualified for accuracy/coverage/latency | `docs/REFERENCE_AND_SENSING.md`, `AGENTS.md §13.6` | confirmed |

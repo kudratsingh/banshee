@@ -132,7 +132,7 @@ The owner decided Q1 to Q7 and asked for a flight-controller comparison and an F
 
 **Report sections this overtakes:** section 0's questions are answered, and sections 4 and 5's room and garage limits and the QAV250 no longer apply. WO-003, named in section 10, is superseded. ET-D0-2 closes on the owner's decision that Option B is not needed, and ET-D0-6 on the recorded decisions.
 
-**Reviews:** the revised documents had a further full review on a clean clone before merge (`AGENTS.md §13.9`).
+**Reviews:** the revised documents had a further full review on a clean clone (`AGENTS.md §13.9`), then an independent check of those fixes. The last set of fixes from that check was rechecked by script by the author, with no further independent pass.
 
 **Exit tests added by this change, before any is frozen:** ET-D2-5, ET-D3-4 and ET-D3-5, because D3 is now the first armed flight. ET-D2-4 is restated, because PX4 selects no action while disarmed.
 

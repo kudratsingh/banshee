@@ -80,7 +80,7 @@ If the Jazzy pairing fails on a step that needs a change in PX4, stop, report it
 
 ## Consequences
 - The planning total, about $3,719, is above the owner's range (`docs/BOM_WORKSHEET.md`). No purchase is authorized.
-- All flight stages are outdoors, so D3 is required, D4 now follows it, and **D3 is now the first armed flight**, with ET-D2-5, ET-D3-4 and ET-D3-5 added to cover what D4 used to. `AGENTS.md §13.9` still ties the review to "D4 readiness"; this repository treats it as due before D3, and the wording is the owner's to change. No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
+- All flight stages are outdoors, so D3 is required, D4 now follows it, and **D3 is now the first armed flight**, with ET-D2-5, ET-D3-4 and ET-D3-5 added to cover what D4 used to, and with offboard loss tested in flight only from D4, since nothing streams offboard before then. `AGENTS.md §13.9` still ties the review to "D4 readiness"; this repository treats it as due before D3, and the wording is the owner's to change. No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
 - WO-002 starts on an assembled pairing. A failure costs some setup time, and the fallback is documented.
 - Five parts-list lines are flagged in the FCC check, and grant dates need reading before any order.
 - This number follows ADR-0004, which belongs to the program decision on shared material, built in `ironclad`.
