@@ -175,3 +175,6 @@ The first-tick stall appeared in 2 of these 10 runs. As before, it was before ar
 | ET-D1-3 | 100% contract valid | 10/10 | yes |
 
 The 6X compile check, the limits and the "not run" items in "Results, 2026-10-31" still apply, except that the judge's limit on ground truth is now closed. The compile ran at the same locked PX4 commit, and `compile_target.sh` did not change.
+
+## Closing, 2026-10-31
+Merged at `a7b954133d20d6bf293e34e736e2c4c939a119e6` after the full review and a second pass over the fixes, on a clean clone. The second pass recomputed the final results table from raw evidence, reading ground truth from each episode's `outcome.json`, not the ULogs. It found no blockers. It left three notes for WO-004: a corrupt ULog would stop a campaign, a sample dropped for its frame is not logged, and the settle phase may advance on a stale velocity.
