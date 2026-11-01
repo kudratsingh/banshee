@@ -25,7 +25,7 @@ Old paths that stay in frozen or policy text mean the following:
 | `tools/budget_preflight.py` | `ironclad-budget-preflight` |
 | `src/*/core/` | `ironclad.core` |
 
-These remain in `AGENTS.md §13.8` and in the frozen ET-D1-3 and its threshold in `evals/D1-exit-tests.json`. This repository authors no policy text, and a frozen exit test is not edited.
+These remain in the frozen ET-D1-3 and its threshold in `evals/D1-exit-tests.json`, because a frozen exit test is not edited, and in the shared core. `AGENTS.md §13.8` was corrected in WO-014.
 
 ## Alternatives considered
 | Option | Why not |
