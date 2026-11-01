@@ -4,7 +4,7 @@
 **Size:** L (split into PRs: launch + lock → offboard bridge + mission → outcome + export)
 **Prerequisites:** WO-001 accepted (`config/stack-lock.proposed.json` exists); an Ubuntu machine, VM or container for the flight stack (`docs/ENVIRONMENT.md`); `evals/D1-exit-tests.json` waypoint tolerance and run count frozen before mission runs.
 **Authorization:** AGENTS §2.1 only. Simulation only: no physical flight controller may be connected; no hardware endpoint may be present (stop condition).
-**Files:** `src/banshee/sitl/`, `src/banshee/offboard/`, `src/banshee/export/`, `src/banshee/outcome/`, `tests/`, `config/stack-lock.resolved.json`, `docs/adr/ADR-0005-frame-and-timebase-convention.md`, `reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md`, ignored `runs/`, `data/`.
+**Files:** `src/banshee/sitl/` (including `vm/`), `docs/ENVIRONMENT.md`, `docs/BOM_WORKSHEET.md`, `ledgers/corrections.jsonl`, `src/banshee/offboard/`, `src/banshee/export/`, `src/banshee/outcome/`, `tests/`, `config/stack-lock.resolved.json`, `docs/adr/ADR-0005-frame-and-timebase-convention.md`, `reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md`, ignored `runs/`, `data/`.
 
 ## Objective
 Stand up a reproducible software-in-the-loop environment on the proposed pins, fly a waypoint mission through the bounded velocity/yaw-rate offboard interface, judge the mission by independent code from the logged state, and export every run through the contract — the foundation every later stage and the world model's M4 depend on.

@@ -22,6 +22,15 @@ WO-001 proposes and WO-002 tests. Proposed starting point (**proposed, not teste
 - A VM on the MacBook is enough for SITL; a Linux laptop or the owner's future workstation is better for latency measurements.
 - Pin PX4 by commit, ROS 2 by distribution + package lock, Gazebo by version, bridge by commit, QGC by version; record the OS image digest if a container is used.
 
+## 3a. The SITL VM and its bounds (owner, 2026-10-31)
+SITL runs in a dedicated Lima VM, `banshee-sitl`, set up by `src/banshee/sitl/vm/`, so no shared Docker daemon is started and only this repository is mounted, read-only.
+- **VM disk:** a fixed maximum of 60 GiB (`disk: 60GiB` in `banshee-sitl.yaml`), so a runaway inside the VM cannot fill the Mac. This does not bound a file written on the host, which is what the next two bounds are for.
+- **Long runs:** `run_provision.sh`, through `banshee.sitl.bounded`, gives no stdin, a 3-hour limit and a 200 MB log cap, and reaching either stops the run.
+- **Free space:** it refuses to start with under 20 GB free on the host or in the VM.
+- **PX4:** setup builds with `make px4_sitl_default`. `make px4_sitl gz_x500` starts PX4, even with `DONT_RUN` set.
+
+If neither Jazzy nor Humble runs on arm64, stop and report; the owner's fallback is an x86 Linux machine.
+
 ## 4. The owner's machines
 - MacBook Pro (M3 Pro, 36 GB) and iMac (16 GB): tooling env, docs, CAD, an Ubuntu VM for SITL.
 - Future Linux workstation (`PROGRAM.md §9`): native SITL, VIO development, world-model work; not required for D0–D1.

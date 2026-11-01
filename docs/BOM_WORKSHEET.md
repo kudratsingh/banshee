@@ -1,6 +1,6 @@
 # BOM_WORKSHEET.md — D0 delivered-cost worksheet
 
-**Status: dated price observations from suppliers' pages, not quotes. Nothing was bought and no purchase is authorized (owner, 2026-10-31).** The order would follow D1. Every line was read on 2026-10-31; prices move, so recheck before acting. Bracketed references are in `docs/SOURCES.md` and `docs/SOURCES-D0.md`. Generated from one table, so totals follow the lines.
+**Status: dated price observations from suppliers' pages, not quotes. Nothing was bought and no purchase is authorized (owner, 2026-10-31).** The order would follow D1. Every line was read on 2026-10-31; prices move, so recheck before acting. Bracketed references are in `docs/SOURCES.md` and `docs/SOURCES-D0.md`. Totals were computed from the lines by a script; that script was lost on 2026-10-31 (`ledgers/corrections.jsonl`), so recompute them when a line changes.
 
 **Decided by the owner on 2026-10-31 (`ledgers/approvals.jsonl`):** an open outdoor field, an X500 V2, and no Option B. Netting is removed, D3 items are in the main list, and the owner's list of additions is included. An X650-class 6S airframe is the planned D7+ platform (see the end).
 
