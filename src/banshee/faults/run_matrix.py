@@ -25,6 +25,11 @@ from .analyze import analyze_dir
 VM = "banshee-sitl"
 MIN_FREE_BYTES = 20_000_000_000
 EXPORT_ROOT = Path("data/derived/d1-faults")
+FAULT_NOTES = (
+    "PX4 SITL with Gazebo, with a fault injected. A simulation pass is not flight readiness. "
+    "Success means the specified response to the fault, not a flown route; a run where the route "
+    "failed can be a success. Terminated means disarmed at the end, including by a kill switch."
+)
 
 
 def export_case(repo: Path, copied: Path, case: dict[str, Any], record: dict[str, Any]) -> str:
@@ -62,6 +67,8 @@ def export_case(repo: Path, copied: Path, case: dict[str, Any], record: dict[str
             suite_id="d1-faults",
             instruction=case["title"],
             reason=f"{case['id']}: " + ("; ".join(deviations) or "as specified"),
+            protocol_version="evals/D1-fault-matrix.json",
+            notes=FAULT_NOTES,
         )
     except (ContractError, ValueError, OSError) as error:
         return f"not exported: {error}"

@@ -1,6 +1,6 @@
 {
  "schema": "banshee-fault-matrix-1",
- "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases, and the first recording found an operator-override bug, after which R-01, R-02, R-06, T-03 and T-04 gained holds_s; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
+ "status": "frozen 2026-11-01, before the recorded run. A debug pass ran first and changed some cases, and the first recording found an operator-override bug, after which R-01, R-02, R-06, T-03 and T-04 gained holds_s, and after the review G-03 and V-01 to V-05 gained an arm attempt, because the node had never sent one; reports/WO-004-d1-fault-matrix-and-freshness-gate.md lists each change. Expected values that the debug pass showed to be wrong stay as they were and are reported as deviations.",
  "stack": "config/stack-lock.resolved.json",
  "frozen_bounds": "evals/D1-exit-tests.json",
  "note": "Specified behaviour comes from docs/TEST_PROTOCOL.md section 1, docs/OPERATING_ENVELOPE.md and ADR-0007. Times are seconds from the trigger. A mismatch is reported as a deviation, not hidden.",
@@ -1226,7 +1226,11 @@
    "timeout_s": 60,
    "configured": "COM_ARM_WO_GPS 0: arming denied.",
    "expect": {
-    "never_armed": true
+    "never_armed": true,
+    "arm_attempted": true
+   },
+   "node": {
+    "arm_attempt_after_s": 30
    }
   },
   {
@@ -1526,7 +1530,8 @@
     "python3 -m banshee.faults.set_origin 47.397742 8.545594 488.0 &"
    ],
    "node": {
-    "stop_publishing": "forever"
+    "stop_publishing": "forever",
+    "arm_attempt_after_s": 45
    },
    "configured": "Record the mode entered. Confirm aiding is off. Hold if global position stays valid.",
    "expect": {
@@ -1535,7 +1540,8 @@
       "state": 4,
       "within_s": 1.6
      }
-    ]
+    ],
+    "arm_attempted": true
    }
   },
   {
@@ -1571,7 +1577,12 @@
     "python3 -m banshee.faults.set_origin 47.39792 8.545594 488.0 &"
    ],
    "configured": "Record what the fence does.",
-   "expect": {}
+   "expect": {
+    "arm_attempted": true
+   },
+   "node": {
+    "arm_attempt_after_s": 45
+   }
   },
   {
    "id": "V-03",
@@ -1600,7 +1611,12 @@
     "python3 -m banshee.faults.set_origin 47.397742 8.545594 550.0 &"
    ],
    "configured": "Record what the fence does.",
-   "expect": {}
+   "expect": {
+    "arm_attempted": true
+   },
+   "node": {
+    "arm_attempt_after_s": 45
+   }
   },
   {
    "id": "V-04",
@@ -1616,7 +1632,11 @@
    "timeout_s": 60,
    "configured": "Expected to be refused at arming.",
    "expect": {
-    "never_armed": true
+    "never_armed": true,
+    "arm_attempted": true
+   },
+   "node": {
+    "arm_attempt_after_s": 30
    }
   },
   {
@@ -1630,7 +1650,11 @@
    "timeout_s": 60,
    "configured": "Expected to be refused at arming.",
    "expect": {
-    "never_armed": true
+    "never_armed": true,
+    "arm_attempted": true
+   },
+   "node": {
+    "arm_attempt_after_s": 30
    }
   }
  ]

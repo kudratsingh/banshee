@@ -82,6 +82,7 @@ class Mission(Node):  # type: ignore[misc]
         self.nav_state = -1
         self.arming_state = -1
         self.was_armed = False
+        self.arm_commands = 0
         self.finished = False
         self.result = "timeout"
         self.request: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0)
@@ -156,6 +157,10 @@ class Mission(Node):  # type: ignore[misc]
             "reset_counter": reset_counter,
         }
 
+    @property
+    def armed(self) -> bool:
+        return self.arming_state == ARMING_STATE_ARMED
+
     def on_status(self, msg: Any) -> None:
         self.nav_state = int(msg.nav_state)
         self.arming_state = int(msg.arming_state)
@@ -225,7 +230,8 @@ class Mission(Node):  # type: ignore[misc]
         elif self.phase == "settle":
             # Brake at the last waypoint first: Land does not stop where it starts.
             slow = math.hypot(velocity[0], velocity[1]) < SETTLE_SPEED_M_S
-            if slow or elapsed >= SETTLE_MAX_S:
+            # A latch stays in charge: leaving this phase would end its response and escalation.
+            if self.latch == "none" and (slow or elapsed >= SETTLE_MAX_S):
                 self.set_phase("land", now)
         if since is not None and self.fault.yaw_rate_rad_s:
             request = (request[0], request[1], request[2], self.fault.yaw_rate_rad_s)
@@ -241,8 +247,18 @@ class Mission(Node):  # type: ignore[misc]
         repeat = now - self.last_command_ns > 1_000_000_000
         if self.phase == "wait_estimator" and self.local_position_valid:
             self.set_phase("stream", now)
+        elif self.phase == "wait_estimator":
+            # A refusal is shown only by asking: the node would otherwise never send the command.
+            attempt = self.fault.arm_attempt_after_s
+            if attempt is not None and elapsed >= attempt and repeat:
+                self.command(CMD_ARM, 1.0)
+                self.arm_commands += 1
+                self.last_command_ns = now
+        elif self.phase == "stream" and self.was_armed and not self.armed:
+            # Disarmed before flight: arming again would override the operator.
+            self.stop("disarmed")
         elif self.phase == "stream" and elapsed >= STREAM_BEFORE_SWITCH_S:
-            if repeat:
+            if repeat and not self.was_armed:
                 self.command(CMD_SET_MODE, MODE_CUSTOM, MODE_OFFBOARD)
                 self.command(CMD_ARM, 1.0)
                 self.last_command_ns = now
@@ -279,10 +295,6 @@ class Mission(Node):  # type: ignore[misc]
 
     def transmit(self, action: tuple[float, ...], now: int) -> int:
         vx, vy, vz = enu_to_ned((action[0], action[1], action[2]))
-        if self.fault.swap_axes:
-            vx, vy = vy, vx
-        if self.fault.flip_east:
-            vy = -vy
         msg = TrajectorySetpoint()
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         msg.position = [math.nan, math.nan, math.nan]
@@ -352,7 +364,8 @@ class Mission(Node):  # type: ignore[misc]
         if send_heartbeat and not silent:
             self.heartbeat()
         transmit = send_setpoint and decision.forward and in_stream and not silent
-        sent_ns = self.transmit(decision.filtered, now) if transmit else None
+        action = self.fault.at_boundary(decision.filtered)
+        sent_ns = self.transmit(action, now) if transmit else None
         record = {
             "t_ns": now,
             "phase": self.phase,
@@ -367,13 +380,14 @@ class Mission(Node):  # type: ignore[misc]
             "arming_state": self.arming_state,
             "requested": list(self.request),
             "filtered": list(decision.filtered),
-            "transmitted": list(decision.filtered) if transmit else None,
+            "transmitted": list(action) if transmit else None,
             "sent_t_ns": sent_ns,
             "valid_until_t_ns": now + self.bounds.max_setpoint_age_ns,
             "gate_mode": mode,
             "gate_reasons": reasons,
             "latch": self.latch,
             "since_trigger_s": since,
+            "arm_commands": self.arm_commands,
         }
         self.log.write(json.dumps(record, separators=(",", ":")) + "\n")
         self.finish_checks(now)

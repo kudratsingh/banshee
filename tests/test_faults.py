@@ -273,3 +273,18 @@ def test_a_case_without_steps_has_no_episode_and_says_why(tmp_path: Path) -> Non
     case = {"id": "X-01", "title": "x", "fly": {}}
     result = export_case(tmp_path, tmp_path, case, {"run_id": "r", "executed": True})
     assert result == "not exported: no steps logged"
+
+
+def test_the_logged_action_is_the_one_a_frame_fault_transmits() -> None:
+    action = (1.0, 2.0, 0.5, 0.1)
+    assert Injection().at_boundary(action) == action
+    assert Injection(swap_axes=True).at_boundary(action) == (2.0, 1.0, 0.5, 0.1)
+    assert Injection(flip_east=True).at_boundary(action) == (-1.0, 2.0, 0.5, 0.1)
+
+
+def test_never_armed_needs_the_command_to_have_been_sent() -> None:
+    expect = {"never_armed": True, "arm_attempted": True}
+    silent = check(expect, _tested(ever_armed=False, arm_commands=0), [])
+    assert [r["match"] for r in silent] == [False, True]
+    asked = check(expect, _tested(ever_armed=False, arm_commands=2), [])
+    assert all(r["match"] for r in asked)

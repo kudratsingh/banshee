@@ -119,6 +119,7 @@ def measure(
         "eph_max_m": round(max(float(v) for v in eph), 3),
         "eph_max_after_trigger_m": eph_after,
         "ever_armed": any(int(a) == ARMED for a in data["vehicle_status"]["arming_state"]),
+        "arm_commands": max((int(s.get("arm_commands", 0)) for s in steps), default=0),
         "yaw_change_rad": yaw_change(steps),
         "gate_modes_after_trigger": sorted(
             {s["gate_mode"] for s in steps if s.get("since_trigger_s") is not None}
@@ -196,6 +197,10 @@ def check(
             state in {c["nav"] for c in after},
             not any(c["nav"] == state for c in after),
         )
+    if "arm_attempted" in expect:
+        # "Never armed" means nothing unless the command was sent.
+        sent = tested["arm_commands"] > 0
+        add("arm command sent", expect["arm_attempted"], sent, sent == expect["arm_attempted"])
     if "never_armed" in expect:
         add(
             "never armed",
@@ -260,6 +265,15 @@ def check(
     return results
 
 
+def arm_denials(px4_log: Path) -> list[str]:
+    """PX4's own refusal text, at most three distinct lines."""
+    if not px4_log.exists():
+        return []
+    lines = px4_log.read_text(encoding="utf-8", errors="replace").splitlines()
+    found = dict.fromkeys(line.strip() for line in lines if "denied" in line.lower())
+    return list(found)[:3]
+
+
 def analyze_dir(run: Path, case: dict[str, Any]) -> dict[str, Any]:
     """Read one copied run folder and return the case's record."""
     ulogs = sorted((run / "ulog").glob("*.ulg"))
@@ -277,6 +291,7 @@ def analyze_dir(run: Path, case: dict[str, Any]) -> dict[str, Any]:
     t0_boot = None if t0 is None else to_boot_us(data, t0)
     observe_s = float(case.get("observe_s", 20.0))
     tested = measure(data, steps, t0_boot, observe_s)
+    tested["px4_arm_denials"] = arm_denials(run / "px4.log")
     results = check(case.get("expect", {}), tested, steps, observe_s)
     if case.get("needs_trigger", True) and t0 is None:
         results.append(
