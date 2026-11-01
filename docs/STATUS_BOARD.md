@@ -1,15 +1,15 @@
 # Status board — banshee
 
-_Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
+_Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 01:55 UTC · ledger records: 47
+Generated: 2026-11-01 04:23 UTC · ledger records: 50
 
 ## Phases
 
 | Phase | Name | State | Exit tests (passed / frozen / total) | Prerequisites | Work orders |
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
-| D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 5 / 5 | D0 | WO-002, WO-004 |
+| D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 5 / 5 | D0 | WO-002, WO-004, WO-013 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | — |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
@@ -74,4 +74,5 @@ Generated: 2026-11-01 01:55 UTC · ledger records: 47
 | WO-009 | Protect accepted work orders and widen the secret scan | D0 | **accepted** | 2026-10-31T22:15:36.002410Z | reports/WO-009-status-freeze-and-token-scan.md |
 | WO-011 | Lock the shared tooling files (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.820454Z | — |
 | WO-012 | Extract the shared material into ironclad (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.847240Z | — |
+| WO-013 | Adopt ironclad v1.1.0 and remove the vendored shared files | D1 | **in_progress** | 2026-11-01T04:23:22.751945Z | — |
 
