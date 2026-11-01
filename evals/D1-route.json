@@ -1,0 +1,16 @@
+{
+  "route_id": "d1-square-v1",
+  "status": "frozen before the 10 counted runs, 2026-10-31; two earlier trial runs used it unchanged and stay in the record",
+  "frame": "ENU local, origin at the EKF start point",
+  "waypoints_enu_m": [
+    [0.0, 0.0, 5.0],
+    [10.0, 0.0, 5.0],
+    [10.0, 10.0, 5.0],
+    [0.0, 10.0, 5.0],
+    [0.0, 0.0, 5.0]
+  ],
+  "arrival_radius_m": 0.25,
+  "speed_m_s": 2.0,
+  "gain_per_s": 1.0,
+  "note": "Inside the sim limits and the fence in evals/D1-exit-tests.json. The pass tolerance is frozen there, not here."
+}

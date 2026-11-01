@@ -1,0 +1,15 @@
+{
+  "status": "resolved_measured",
+  "date": "2026-10-31",
+  "written_by": "WO-002",
+  "scope": "SITL in the Lima VM banshee-sitl, aarch64. Read from the installed tools by banshee.sitl.launch; a run refuses to start if any differs.",
+  "pins": {
+    "agent": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "gazebo": "1.0.0-1~noble",
+    "gz_sim": "8.15.0",
+    "os": "Ubuntu 24.04.5 LTS",
+    "px4": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_msgs": "86d8239e962f6939e05c3737784f60c02fa884db",
+    "ros2": "0.11.0-1noble.20261006.040749"
+  }
+}
