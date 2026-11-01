@@ -9,7 +9,7 @@
 | Horizontal speed | ≤ 2.5 m/s on GPS (D3); ≤ 1.0 m/s on VIO (D4–D6) until measured. `MPC_XY_VEL_MAX` is set per stage, so the limit holds in Position, Hold, Return and offboard. It does not hold in Altitude or Stabilized, so neither is on the mode switch |
 | Vertical speed | ≤ 1.0 m/s up; ≤ 0.5 m/s commanded down, enforced by the command gate; landing at PX4's 0.7 m/s |
 | Height and wind | ≥ 1.2 m hover. **All of D3, until logs replace the estimate: ≤ 10 m.** After that, by wind: ≤ 10 m at 5 m/s, 14 m at 4 m/s, 20 m at 3 m/s, 25 m at 2.5 m/s or less. Wind ≤ 5 m/s steady, read on a handheld meter before each flight: *estimated*, because no published X500 limit was found. Fence ceiling is the stage's height limit plus 4 m: 14 m in D3, never above 30 m |
-| Standoff from obstacles | ≥ 7.5 m from the flight box, and outside fence plus overrun for anything not expendable. Staked reference cameras are the one exception: they are expendable, and nobody is near them during a run |
+| Standoff from obstacles | **Frozen by the owner, 2026-11-01 (`evals/D3-standoffs.json`):** ≥ 8.6 m from the flight box at 2.5 m/s, ≥ 3.35 m at 1.0 m/s, and outside fence plus overrun for anything not expendable. Staked reference cameras are the one exception: they are expendable, and nobody is near them during a run |
 | Geofence | Cylinder of 40 m radius, centred on Home, with the ceiling above. Flight box stays within 30 m of Home |
 | Crew | Operator and spotter ≥ 50 m from Home, outside fence plus overrun, with the takeoff point in view. Protection rests on that distance and the kill switch |
 | Bystander exclusion | No uninvolved person, road, building or vehicle within 150 m of Home, so the field must be about 300 m across. Part 107 sets no number, so this is the project's rule |
@@ -23,24 +23,35 @@
 | Weather | Daylight only; visibility ≥ 3 statute miles; ≥ 500 ft below and 2,000 ft from clouds [D29] |
 | Data and privacy | Test volume only; faces excluded or blurred; retention per `docs/DATA_POLICY.md`; GPS stripped from anything shared |
 
-## How the limits were derived (estimated, not measured)
+## How the limits were derived
+The standoff's braking term is measured in SITL (WO-004). Everything else here is estimated until flight logs replace it.
+
 Standoff = reaction distance + braking distance + peak position error.
-- **Braking:** jerk-limited, `d = v·√(v/j)` for v ≤ a²/j = 2.25 m/s, otherwise `d = v·(v/a + a/j)/2`, with PX4 defaults a = 3 m/s² (`MPC_ACC_HOR`) and j = 4 m/s³ (`MPC_JERK_AUTO`) [D24]. No page read says these govern Hold braking, so D1 must measure it.
+- **Braking, as first estimated:** jerk-limited, `d = v·√(v/j)` for v ≤ a²/j = 2.25 m/s, otherwise `d = v·(v/a + a/j)/2`, with PX4 defaults a = 3 m/s² (`MPC_ACC_HOR`) and j = 4 m/s³ (`MPC_JERK_AUTO`) [D24]. No page read said these govern Hold braking, and D1 measured more: 3.0–3.2 m from 2.5 m/s against 1.98 m, and 0.93–1.02 m from 1.0 m/s against 0.50 m, net of 0.2 s of reaction (H-01, H-02, K-01, K-02). The table uses the measured values.
 - **Reaction, worst case:** 1.35 s. That is 1.0 s for PX4's default `COM_OF_LOSS_T` [D23], plus the frozen setpoint (200 ms) and sensor (150 ms) age bounds that can run before the link is lost. The last setpoint may be applied throughout, which D1 tests.
 - **Peak position error:** twice the RMS bound, an assumption that flight logs replace. GPS: 2 × 1.0 m (ET-D3-2). VIO moving: 2 × 0.5 m (ET-D5-1).
 
 | Speed | Reaction | Braking | Error | Standoff |
 |---:|---:|---:|---:|---:|
-| 1.0 m/s (VIO) | 1.35 m | 0.50 m | 1.0 m | **2.85 m** |
-| 2.5 m/s (GPS) | 3.38 m | 1.98 m | 2.0 m | **7.35 m** |
+| 1.0 m/s (VIO) | 1.35 m | 1.0 m | 1.0 m | **3.35 m** |
+| 2.5 m/s (GPS) | 3.38 m | 3.2 m | 2.0 m | **8.6 m** |
 
-The 7.35 m case sets the standoff and the fence's overrun margin. ET-D5-3's ≥ 0.5 m clearance must be re-proposed at no less than this, excluding the staked reference cameras, when D5 is frozen (`AGENTS.md §13.5`).
+The 8.6 m case sets the standoff, and rounded up to 9 m it sets the fence's overrun margin. These replace 7.35 m and 2.85 m. The measured fence overrun at 2.5 m/s is 3.82–3.94 m (G-01). ET-D5-3's ≥ 0.5 m clearance must be re-proposed at no less than this, excluding the staked reference cameras, when D5 is frozen (`AGENTS.md §13.5`).
 
-**Exclusion radius** = fence radius + overrun margin + a bystander distance = 40 + 7.5 + 100 m, rounded up to 150 m. **Part 107 sets no stand-off** [D56], so the owner sets this number. The 100 m is PX4's first-flight rule of thumb [D40]. For comparison, the EU's A3 category uses 150 m and Canada uses 30 m (foreign rules, for reference only). If the field is smaller, shrink the fence by the same amount; keep R + 107.5 m.
+**Exclusion radius** = fence radius + overrun margin + a bystander distance = 40 + 9 + 100 m = 149 m, rounded up to 150 m. **Part 107 sets no stand-off** [D56], so the owner sets this number. The 100 m is PX4's first-flight rule of thumb [D40]. For comparison, the EU's A3 category uses 150 m and Canada uses 30 m (foreign rules, for reference only). If the field is smaller, shrink the fence by the same amount; keep R + 109 m.
 
 **Why distance has to carry the failure cases.** Read from v1.17.0 source, not run, so D1 tests each:
 - The cylinder is centred on Home, not on the field, so moving the takeoff point moves the fence. It **passes silently if Home is invalid**, so `COM_ARM_WO_GPS` is set to deny arming, which also requires a valid global position.
-- It has no check that the position is fresh, so it can pass on stale data. On GPS loss, Position mode falls back to Altitude mode, which does not hold position, and the aircraft holds altitude until the operator commands a descent, then drifts while it comes down: wind × (height ÷ 0.7 m/s + 5 s of operator reaction) (*estimated*). From fence plus overrun, 47.5 m out, staying inside 150 m means that drift is ≤ 102.5 m, which gives the table's limits. At 10 m and 5 m/s it is about 96 m. A height excursion to the fence ceiling on top of GPS loss is a second failure and can go further, and the operator's kill switch is the last control.
+- It has no check that the position is fresh, so it can pass on stale data. On GPS loss, Position mode falls back to Altitude mode, which does not hold position, and the aircraft holds altitude until the operator commands a descent, then drifts while it comes down: wind × (height ÷ 0.7 m/s + 5 s of operator reaction) (*estimated*). WO-004 measured a further term with no wind, for speed carried into the loss: 12.5–13.1 m from 2.5 m/s (G-04). It also measured that the fence does not act once position is lost (G-04, W-01), so nothing but distance contains this case.
+
+**The owner's rule, 2026-11-01: the 150 m exclusion radius covers position-lost cases on its own.** The arithmetic behind it, *estimated*:
+
+| Start of the drift | Carried speed | Drift at the table's height and wind limits | Reaches |
+|---|---:|---:|---:|
+| Flight box edge, 30 m out: position loss alone | 13.1 m | 96.4–101.8 m | **139.5–144.9 m, inside 150 m** |
+| Fence plus overrun, 49 m out: position loss on top of a fence breach | 13.1 m | 96.4–101.8 m | **158.5–163.9 m, past 150 m** |
+
+So the rule holds for position loss alone, by 5 m at the least. Position loss at the fence's edge is a second failure, like the height excursion below, and it can pass 150 m by up to 14 m. The measured drifts sit well inside this: 41.5–46.1 m in 5.4 m/s of wind from 10 m, with no operator delay (W-01). The stage's height and wind limits are part of the rule, because the drift scales with both. A height excursion to the fence ceiling on top of GPS loss is a second failure and can go further, and the operator's kill switch is the last control.
 - `GF_ACTION` 4 (Terminate) appears to be a live motor kill: the circuit breaker the safety page cites does not gate it. It is not used.
 - Return mode's climb is not clamped to the fence, so `RTL_RETURN_ALT` sits below the ceiling and at the stage's height limit.
 - With `GF_SOURCE` 1 the fence compares raw GPS with a Home that follows the estimator, so a wrong global origin moves its centre and ceiling without tripping anything: an origin 100 m too high would put the 30 m ceiling at 130 m. In VIO stages the origin is set from a checked GPS fix at the takeoff point, and the crew compares raw GPS with Home before arming (5 m horizontal, 10 m vertical; *estimated*).

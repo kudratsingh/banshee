@@ -1,0 +1,37 @@
+{
+  "phase": "D3",
+  "status": "frozen",
+  "frozen": "2026-11-01, owner instruction (ledgers/approvals.jsonl)",
+  "status_note": "Adopted from WO-004's simulation measurements. They are not flight measurements. D3 logs may replace them only through a new dated owner decision, and these values stay as frozen until then.",
+  "consumer": "docs/OPERATING_ENVELOPE.md; ET-D3-4 containment sign-off",
+  "standoff_m": {
+    "at_2_5_m_s": 8.6,
+    "at_1_0_m_s": 3.35
+  },
+  "terms_m": {
+    "at_2_5_m_s": {
+      "reaction": 3.38,
+      "reaction_label": "estimated: 1.35 s worst case at 2.5 m/s",
+      "braking": 3.2,
+      "braking_label": "measured in SITL: 3.0-3.2 m across H-02 and K-01, recordings 2 to 4",
+      "position_error": 2.0,
+      "position_error_label": "estimated: 2 x the 1.0 m RMS bound of ET-D3-2"
+    },
+    "at_1_0_m_s": {
+      "reaction": 1.35,
+      "reaction_label": "estimated: 1.35 s worst case at 1.0 m/s",
+      "braking": 1.0,
+      "braking_label": "measured in SITL: 0.93-1.02 m across H-01 and K-02, recordings 2 to 4",
+      "position_error": 1.0,
+      "position_error_label": "estimated: 2 x the 0.5 m RMS bound of ET-D5-1"
+    }
+  },
+  "exclusion_radius_m": 150,
+  "exclusion_radius_terms_m": {
+    "fence_radius": 40,
+    "overrun_margin": 9,
+    "bystander_distance": 100,
+    "sum": 149
+  },
+  "evidence": "reports/WO-004-d1-fault-matrix-and-freshness-gate.md section 4"
+}
