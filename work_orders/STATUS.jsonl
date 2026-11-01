@@ -48,3 +48,4 @@
 {"actor":"claude-code-banshee","event":"created","note":"owner instruction 2026-10-31","record_id":"status-20261101T042322686807Z-e1d849","ts":"2026-11-01T04:23:22.686807Z","wo":"WO-013"}
 {"actor":"claude-code-banshee","event":"ready","note":"ironclad v1.1.0 tagged; deploy key set by the owner","record_id":"status-20261101T042322719633Z-87dc91","ts":"2026-11-01T04:23:22.719633Z","wo":"WO-013"}
 {"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-013-adopt-ironclad","record_id":"status-20261101T042322751945Z-981671","ts":"2026-11-01T04:23:22.751945Z","wo":"WO-013"}
+{"actor":"claude-code-banshee","commit":"b74a602","event":"accepted","note":"CI run 41273032517 green on b74a602 with the deploy key","record_id":"status-20261101T042551348734Z-ce8953","report":"reports/WO-013-adopt-ironclad.md","ts":"2026-11-01T04:25:51.348734Z","wo":"WO-013"}

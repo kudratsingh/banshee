@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 04:23 UTC · ledger records: 50
+Generated: 2026-11-01 04:25 UTC · ledger records: 51
 
 ## Phases
 
@@ -74,5 +74,5 @@ Generated: 2026-11-01 04:23 UTC · ledger records: 50
 | WO-009 | Protect accepted work orders and widen the secret scan | D0 | **accepted** | 2026-10-31T22:15:36.002410Z | reports/WO-009-status-freeze-and-token-scan.md |
 | WO-011 | Lock the shared tooling files (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.820454Z | — |
 | WO-012 | Extract the shared material into ironclad (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.847240Z | — |
-| WO-013 | Adopt ironclad v1.1.0 and remove the vendored shared files | D1 | **in_progress** | 2026-11-01T04:23:22.751945Z | — |
+| WO-013 | Adopt ironclad v1.1.0 and remove the vendored shared files | D1 | **accepted** | 2026-11-01T04:25:51.348734Z | reports/WO-013-adopt-ironclad.md |
 
