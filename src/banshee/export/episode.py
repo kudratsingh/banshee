@@ -16,6 +16,10 @@ from ironclad.contracts.v1.writer import EpisodeBuilder
 
 FRAME = "enu_local"
 STATE_UNITS = ["m", "m", "m", "m/s", "m/s", "m/s", "rad"]
+NOMINAL_NOTES = (
+    "PX4 SITL with Gazebo. A simulation pass is not flight readiness. Success needs the route "
+    "judged from PX4's estimate and Gazebo ground truth, and a clean run."
+)
 
 
 def _observation(step: dict[str, Any]) -> dict[str, Any]:
@@ -84,6 +88,11 @@ def export_run(
     stack: dict[str, Any],
     target_dir: Path,
     tolerance_m: float,
+    suite_id: str = "d1-nominal",
+    instruction: str = "Take off, fly the route by offboard velocity, land.",
+    reason: str | None = None,
+    protocol_version: str = "evals/D1-exit-tests.json",
+    notes: str = NOMINAL_NOTES,
 ) -> Path:
     """Build and validate one episode directory at ``target_dir``, which must not exist."""
     episode_id = f"banshee-d1-{run_id}"
@@ -103,7 +112,7 @@ def export_run(
             "task": {
                 "id": route["route_id"],
                 "version": "1",
-                "instruction": "Take off, fly the route by offboard velocity, land.",
+                "instruction": instruction,
                 "criteria_artifact": {"path": "rubric.json", "sha256": ""},
             },
             "configuration": {
@@ -129,7 +138,7 @@ def export_run(
             },
             "split": {
                 "partition": "dev",
-                "suite_id": "d1-nominal",
+                "suite_id": suite_id,
                 "scene_group_id": route["route_id"],
                 "session_group_id": run_id,
                 "policy_run_group_id": None,
@@ -170,20 +179,20 @@ def export_run(
             },
             "validation": {"statuses": [], "evidence": []},
             "outcome": {
-                "protocol_version": "evals/D1-exit-tests.json",
+                "protocol_version": protocol_version,
                 "rubric_version": "1",
                 "assessment_method": "independent_sim_state",
                 "success": outcome["success"],
                 "terminated": bool(outcome["landed_disarmed"]),
                 "truncated": not outcome["landed_disarmed"],
-                "reason": f"{outcome['waypoints_reached']}/{outcome['waypoints_total']} waypoints",
+                "reason": reason
+                or f"{outcome['waypoints_reached']}/{outcome['waypoints_total']} waypoints",
                 "final_assessment_artifact": {"path": "outcome.json", "sha256": ""},
                 "training_reward_artifact": None,
                 "paired_trial_id": None,
                 "reviewer_ids": [],
             },
-            "notes": "PX4 SITL with Gazebo. A simulation pass is not flight readiness. Success "
-            "needs the route judged from PX4's estimate and Gazebo ground truth, and a clean run.",
+            "notes": notes,
         }
     )
     rubric = {"route": route, "tolerance_m": tolerance_m}
