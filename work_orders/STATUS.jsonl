@@ -52,3 +52,4 @@
 {"actor":"claude-code-banshee","event":"created","note":"owner approval 2026-10-31","record_id":"status-20261101T043411123099Z-1459f4","ts":"2026-11-01T04:34:11.123099Z","wo":"WO-014"}
 {"actor":"claude-code-banshee","event":"ready","note":"WO-013 merged","record_id":"status-20261101T043411162149Z-879e0e","ts":"2026-11-01T04:34:11.162149Z","wo":"WO-014"}
 {"actor":"claude-code-banshee","event":"in_progress","note":"branch wo/WO-014-section-13","record_id":"status-20261101T043411200800Z-1a0366","ts":"2026-11-01T04:34:11.200800Z","wo":"WO-014"}
+{"actor":"claude-code-banshee","commit":"85f8c9c","event":"accepted","note":"CI run 41273672151 green on 85f8c9c","record_id":"status-20261101T043548715239Z-82ee6b","report":"reports/WO-014-section-13-wording.md","ts":"2026-11-01T04:35:48.715239Z","wo":"WO-014"}
