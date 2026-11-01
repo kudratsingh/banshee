@@ -67,3 +67,6 @@ All flight stages move outdoors to an open field, so D3 is required and D4 now f
 
 ## After import: ironclad adopted (2026-10-31, WO-013, ADR-0008)
 The shared contract, core, tools and tests now come from the pinned `ironclad-kit` v1.1.0, and the vendored copies are gone. `sync-policy` added a marker line to each policy copy, without changing the `AGENTS.md` core or `PROGRAM.md` otherwise, and updated `docs/WORKFLOW.md`, `docs/DATA_POLICY.md`, `docs/BUDGET_AND_LAUNCHER.md` and `work_orders/README.md` to the new commands and the launcher. The root `SHA256SUMS.json` is removed, because nothing would maintain it.
+
+## After import: D1 nominal missions (2026-10-31, WO-002, ADR-0005)
+SITL now runs from a measured lock, and flies a route through the offboard velocity interface, with an independent judge and a contract export per run. Ten of ten counted missions passed in simulation. See `reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md`, including an unexplained 0.9 m landing offset carried to WO-004.

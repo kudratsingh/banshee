@@ -21,6 +21,7 @@ from banshee.offboard.frames import (
 )
 from banshee.offboard.gate import CommandLimits, clamp, decide, load_frozen
 from banshee.offboard.guidance import RouteFollower, load_route, velocity_toward
+from banshee.outcome.truth_check import closest_per_waypoint, enu_from_ned
 from banshee.outcome.waypoints import judge, tolerance_from_evals
 from banshee.sitl.launch import differences
 
@@ -180,9 +181,16 @@ def test_outcome_rejects_a_bad_flight(steps: list[dict[str, Any]]) -> None:
     assert not judge(steps, WAYPOINTS, 0.5)["success"]
 
 
+def test_truth_check_converts_axes_and_finds_the_closest_point() -> None:
+    assert enu_from_ned(1.0, 2.0, -3.0) == (2.0, 1.0, 3.0)
+    track = [(0.0, 0.0, 0.0), (3.0, 4.0, 0.0)]
+    assert closest_per_waypoint(track, [(3.0, 4.0, 1.0), (0.0, 0.0, 0.0)]) == [1.0, 0.0]
+
+
 def test_outcome_does_not_import_the_planner() -> None:
-    source = (ROOT / "src/banshee/outcome/waypoints.py").read_text(encoding="utf-8")
-    assert "offboard" not in source and "guidance" not in source
+    for name in ("waypoints.py", "truth_check.py"):
+        source = (ROOT / "src/banshee/outcome" / name).read_text(encoding="utf-8")
+        assert "banshee.offboard" not in source and "guidance" not in source
 
 
 def test_export_writes_a_valid_episode_once(tmp_path: Path) -> None:
