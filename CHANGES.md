@@ -70,3 +70,6 @@ The shared contract, core, tools and tests now come from the pinned `ironclad-ki
 
 ## After import: D1 nominal missions (2026-10-31, WO-002, ADR-0005)
 SITL now runs from a measured lock, and flies a route through the offboard velocity interface, with an independent judge and a contract export per run. Ten of ten counted missions passed in simulation. See `reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md`, including an unexplained 0.9 m landing offset carried to WO-004.
+
+## After import: D1 fault matrix (2026-11-01, WO-004, ADR-0009)
+Every D1 fault case now runs against the real command path in SITL, with a log and a contract export per case, and deviations are reported. The first recording found the mission node overriding the operator from a land latch. That is fixed, and the matrix was recorded again. Vision-only flight was not shown and is proposed for D4.
