@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 12:10 UTC · ledger records: 69
+Generated: 2026-11-01 22:38 UTC · ledger records: 70
 
 ## Phases
 
@@ -11,7 +11,7 @@ Generated: 2026-11-01 12:10 UTC · ledger records: 69
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
-| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | — |
+| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
 | D6 | Fixed-target inspection from N declared viewpoints and return | **not_started** | 0 / 0 / 4 | D5 | — |
@@ -76,4 +76,5 @@ Generated: 2026-11-01 12:10 UTC · ledger records: 69
 | WO-012 | Extract the shared material into ironclad (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.847240Z | — |
 | WO-013 | Adopt ironclad v1.1.0 and remove the vendored shared files | D1 | **accepted** | 2026-11-01T04:25:51.348734Z | reports/WO-013-adopt-ironclad.md |
 | WO-014 | Correct AGENTS.md sections 13.8 and 13.9 | D1 | **accepted** | 2026-11-01T04:35:48.715239Z | reports/WO-014-section-13-wording.md |
+| WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **created** | 2026-11-01T22:38:38.149365Z | — |
 

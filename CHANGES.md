@@ -73,3 +73,6 @@ SITL now runs from a measured lock, and flies a route through the offboard veloc
 
 ## After import: D1 fault matrix (2026-11-01, WO-004, ADR-0009)
 Every D1 fault case now runs against the real command path in SITL, with a log and a contract export per case, and deviations are reported. The first recording found the mission node overriding the operator from a land latch. That is fixed, and the matrix was recorded four times in all, with the fourth as the results of record. Nothing armed in the vision-only world, so that flight was not shown, and ADR-0010 proposes carrying it to D4. Estimator age during landing came within 8 ms of its bound, which D2 has to measure.
+
+## After import: owner decisions after D1 (2026-11-01, WO-015)
+ADR-0010 is accepted. The D3 standoffs are frozen at 8.6 m and 3.35 m in `evals/D3-standoffs.json`, and the envelope now states that the 150 m exclusion radius covers position loss on its own, with its arithmetic. The VM disk cap and free-space check are recorded as done.
