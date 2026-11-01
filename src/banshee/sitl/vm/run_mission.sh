@@ -27,6 +27,7 @@ source /opt/ros/jazzy/setup.bash
 source "$WORK/ws/install/setup.bash"
 set -u
 cleanup() {
+  pkill -f banshee-sitl-watchdog || true
   pkill -x px4 || true
   pkill -f 'gz sim' || true
   pkill -x MicroXRCEAgent || true
@@ -34,6 +35,8 @@ cleanup() {
 }
 trap cleanup EXIT
 cleanup
+# Gazebo is started by PX4, outside any time limit here, and a killed caller would skip the trap.
+setsid nohup bash -c 'sleep 295; pkill -x px4; pkill -x MicroXRCEAgent; pkill -f "gz sim"' banshee-sitl-watchdog </dev/null >/dev/null 2>&1 &
 python3 -m banshee.sitl.launch --check-versions --lock "$repo/config/stack-lock.resolved.json" >"$out/versions.json" 2>"$out/versions.err" || exit 3
 rootfs="$WORK/PX4-Autopilot/build/px4_sitl_default/rootfs"
 rm -f "$rootfs"/parameters*.bson

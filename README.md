@@ -21,14 +21,15 @@ These commands do not run PX4 or Gazebo and are not flight logs. The contract fi
 ## Current status (2026-10-31)
 | Implemented and tested here | Specified, not implemented |
 |---|---|
-| contract v1 (schemas, validator with append-only ledger merge, split audit, write-once reference writer, fixtures, 41 tests) | SITL launch + version lock, offboard velocity bridge, mission runner, contract export (WO-002) |
+| contract v1 (schemas, validator with append-only ledger merge, split audit, write-once reference writer, fixtures, 41 tests) | live-link and hardware testing (D2 onward) |
 | core record helpers: append-only ledgers, content-addressed artifacts, write-once run dirs, structured logs, strict config | fault-matrix harness (WO-004); outside-in reference pipeline (D2) |
 | setpoint-freshness / estimator-validity gate (pure logic; bounds frozen in D1) | mission executive and skills (D5–D6) |
 | typed Protocol interfaces (estimator, command gate, skill, mission executive, outcome judge, learned-proposal adapter) | world-model adapter in shadow mode (D7+) |
 | tools: status ledger/board, append-only CI check, hash locks, secrets scan, link check, budget preflight | enforcing paid launcher (moved to `ironclad`) |
+| SITL launch and version lock, offboard mission, independent judge, contract export (WO-002; simulation only) |  |
 | CI workflow (CPU tier), Makefile, pre-commit hooks | hardware (none owned), compliance steps |
 
-All stages are `not_started`; see `docs/STATUS_BOARD.md`. No flight controller integration, VIO stack, avoidance system, reference tracker or aircraft has been built or tested. All physical gates are closed. No purchase is needed for D0/D1.
+See `docs/STATUS_BOARD.md` for each stage's state. Offboard flight has run in simulation only. No flight controller, VIO stack, avoidance system, reference tracker or aircraft has been connected or tested. All physical gates are closed. No purchase is needed for D0/D1.
 
 ## Layout
 ```

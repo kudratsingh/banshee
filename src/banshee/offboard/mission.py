@@ -40,6 +40,8 @@ from .guidance import RouteFollower, load_route
 
 TICK_S = 0.05
 STREAM_BEFORE_SWITCH_S = 1.5
+SETTLE_SPEED_M_S = 0.2
+SETTLE_MAX_S = 10.0
 NAV_STATE_OFFBOARD = 14
 ARMING_STATE_ARMED = 2
 CMD_SET_MODE = 176
@@ -87,6 +89,9 @@ class Mission(Node):  # type: ignore[misc]
 
     def on_odom(self, msg: Any) -> None:
         received = time.monotonic_ns()
+        # A sample in any other frame is dropped, so the state goes stale and the gate holds.
+        if msg.pose_frame != msg.POSE_FRAME_NED or msg.velocity_frame != msg.VELOCITY_FRAME_NED:
+            return
         px4_ns = int(msg.timestamp_sample) * 1000
         offset = received - px4_ns
         # The smallest offset seen keeps a mapped capture time at or before its receipt.
@@ -143,7 +148,12 @@ class Mission(Node):  # type: ignore[misc]
         self.result = result
         self.finished = True
 
-    def next_request(self, position: tuple[float, float, float], now: int) -> tuple[float, ...]:
+    def next_request(
+        self,
+        position: tuple[float, float, float],
+        velocity: tuple[float, float, float],
+        now: int,
+    ) -> tuple[float, ...]:
         """Advance the mission state and return the requested action."""
         elapsed = (now - self.phase_start_ns) / 1e9
         repeat = now - self.last_command_ns > 1_000_000_000
@@ -157,11 +167,16 @@ class Mission(Node):  # type: ignore[misc]
             if self.nav_state == NAV_STATE_OFFBOARD and self.arming_state == ARMING_STATE_ARMED:
                 self.set_phase("route", now)
         elif self.phase == "route":
-            velocity = self.follower.step(position)
-            if velocity is None:
-                self.set_phase("land", now)
+            request = self.follower.step(position)
+            if request is None:
+                self.set_phase("settle", now)
             else:
-                return (*velocity, 0.0)
+                return (*request, 0.0)
+        elif self.phase == "settle":
+            # Brake at the last waypoint first: Land does not stop where it starts.
+            slow = math.hypot(velocity[0], velocity[1]) < SETTLE_SPEED_M_S
+            if slow or elapsed >= SETTLE_MAX_S:
+                self.set_phase("land", now)
         elif self.phase == "land":
             if repeat:
                 self.command(CMD_LAND)
@@ -179,7 +194,7 @@ class Mission(Node):  # type: ignore[misc]
         odom = self.odom
         if odom is None:
             return
-        requested = self.next_request(odom["position"], now)
+        requested = self.next_request(odom["position"], odom["velocity"], now)
         inputs = GateInputs(
             now_ns=now,
             last_setpoint_ns=now,
@@ -193,7 +208,7 @@ class Mission(Node):  # type: ignore[misc]
             self.bounds,
             self.limits,
         )
-        transmit = decision.forward and self.phase in ("stream", "route")
+        transmit = decision.forward and self.phase in ("stream", "route", "settle")
         sent_ns = None
         if transmit:
             msg = TrajectorySetpoint()

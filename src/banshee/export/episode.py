@@ -19,13 +19,14 @@ STATE_UNITS = ["m", "m", "m", "m/s", "m/s", "m/s", "rad"]
 
 
 def _observation(step: dict[str, Any]) -> dict[str, Any]:
+    valid = bool(step["estimator_valid"])
     value = [*step["position_enu_m"], *step["velocity_enu_m_s"], step["yaw_enu_rad"]]
     return {
         "stream": "state",
         "capture_t_ns": step["capture_t_ns"],
         "received_t_ns": step["received_t_ns"],
-        "valid": True,
-        "value": value,
+        "valid": valid,
+        "value": value if valid else None,
         "artifact": None,
     }
 
@@ -162,7 +163,7 @@ def export_run(
             },
             "simulator": {
                 "engine": "px4_sitl_gazebo",
-                "version": str(stack.get("gazebo", "unknown")),
+                "version": str(stack.get("gz_sim", "unknown")),
                 "initial_state_artifact": {"path": "initial-state.json", "sha256": ""},
                 "asset_manifest_artifact": {"path": "assets.json", "sha256": ""},
                 "restore_mode": "initial_state_only",
@@ -181,8 +182,8 @@ def export_run(
                 "paired_trial_id": None,
                 "reviewer_ids": [],
             },
-            "notes": "PX4 SITL with Gazebo. A simulation pass is not flight readiness. The outcome "
-            "judges PX4's state estimate, not simulator ground truth.",
+            "notes": "PX4 SITL with Gazebo. A simulation pass is not flight readiness. Success "
+            "needs the route judged from PX4's estimate and Gazebo ground truth, and a clean run.",
         }
     )
     rubric = {"route": route, "tolerance_m": tolerance_m}

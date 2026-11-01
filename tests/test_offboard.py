@@ -21,7 +21,7 @@ from banshee.offboard.frames import (
 )
 from banshee.offboard.gate import CommandLimits, clamp, decide, load_frozen
 from banshee.offboard.guidance import RouteFollower, load_route, velocity_toward
-from banshee.outcome.truth_check import closest_per_waypoint, enu_from_ned
+from banshee.outcome.truth_check import closest_per_waypoint, enu_from_ned, truth_outcome
 from banshee.outcome.waypoints import judge, tolerance_from_evals
 from banshee.sitl.launch import differences
 
@@ -185,6 +185,39 @@ def test_truth_check_converts_axes_and_finds_the_closest_point() -> None:
     assert enu_from_ned(1.0, 2.0, -3.0) == (2.0, 1.0, 3.0)
     track = [(0.0, 0.0, 0.0), (3.0, 4.0, 0.0)]
     assert closest_per_waypoint(track, [(3.0, 4.0, 1.0), (0.0, 0.0, 0.0)]) == [1.0, 0.0]
+
+
+def test_truth_outcome_needs_route_order() -> None:
+    forward = [(0.0, 0.0, 5.0), (5.0, 0.0, 5.0), (10.0, 0.0, 5.0)]
+    assert truth_outcome(forward, WAYPOINTS, 0.5)["success"]
+    assert not truth_outcome(list(reversed(forward)), WAYPOINTS, 0.5)["success"]
+    # A swapped x and y misses the route, even though the two axes look alike on a square.
+    swapped = [(0.0, 0.0, 5.0), (0.0, 10.0, 5.0)]
+    assert not truth_outcome(swapped, WAYPOINTS, 0.5)["success"]
+
+
+def test_export_marks_an_invalid_estimate_as_an_invalid_observation(tmp_path: Path) -> None:
+    steps = [_step([0.0, 0.0, 5.0], t=0, valid=False), _step([1.0, 0.0, 5.0], t=1)]
+    path = export_run(
+        steps,
+        run_id="invalid",
+        created_at="2026-10-31T00:00:00+00:00",
+        route={"route_id": "fixture-route", "waypoints_enu_m": WAYPOINTS},
+        limits={
+            "max_horizontal_speed_m_s": 2.5,
+            "max_climb_m_s": 1.0,
+            "max_commanded_descent_m_s": 0.5,
+        },
+        outcome=judge(steps, WAYPOINTS, 0.5),
+        stack={"gz_sim": "8.15.0", "px4": "fixture"},
+        target_dir=tmp_path / "episode",
+        tolerance_m=0.5,
+    )
+    first = json.loads((path / "transitions.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    assert first["observations"][0]["valid"] is False
+    assert first["observations"][0]["value"] is None
+    manifest = json.loads((path / "episode.json").read_text(encoding="utf-8"))
+    assert manifest["simulator"]["version"] == "8.15.0"
 
 
 def test_outcome_does_not_import_the_planner() -> None:
