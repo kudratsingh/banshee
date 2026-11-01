@@ -4,8 +4,8 @@
 work orders implement against a stable contract and tests can use fakes. Nothing here is a working
 flight component. Every implementation must:
 
-- state units and frames of every vector in its docstring (``contracts/v1`` action_spec is the
-  source);
+- state units and frames of every vector in its docstring (``ironclad.contracts.v1`` action_spec
+  is the source);
 - never bypass the command gate: only ``CommandGate`` forwards setpoints, after
   ``freshness.assess``;
 - treat learned proposals as optional inputs that can be rejected (``LearnedProposalAdapter``).

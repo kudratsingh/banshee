@@ -15,7 +15,7 @@ Stand up a reproducible software-in-the-loop environment on the proposed pins, f
 3. **Frame and timebase ADR** (ADR-0005): ROS ENU/FLU internally, converted at the PX4 boundary (NED/FRD); monotonic clock mapping; sign tests that would catch a swapped axis.
 4. **Mission runner**: takeoff → waypoint route → land, with per-step logging of state estimates (position, velocity, attitude, estimator validity), commands and timing.
 5. **Independent outcome** (`src/banshee/outcome/waypoints.py`): from the logged state alone, decide whether each waypoint was reached within the frozen tolerance and whether the mission completed; no dependency on the planner.
-6. **Contract export** (`src/banshee/export/`): each run → a `physics_sim` episode via `contracts/v1/writer.py` with the drone's configuration, controller version, simulator identity (initial state + assets), reference streams tagged `reference_only`; `validate.py` must pass (ET-D1-3). Retain raw ulog alongside.
+6. **Contract export** (`src/banshee/export/`): each run → a `physics_sim` episode via `ironclad.contracts.v1.writer` with the drone's configuration, controller version, simulator identity (initial state + assets), reference streams tagged `reference_only`; `ironclad-validate` must pass (ET-D1-3). Retain raw ulog alongside.
 7. Run the frozen number of nominal missions (proposed 10); report completion with Wilson interval, waypoint errors, latency distribution, export validation (ET-D1-2).
 
 ## Out of scope
@@ -27,8 +27,8 @@ make check
 python -m banshee.sitl.launch --check-versions          # twice, on a clean machine; identical manifests
 python -m banshee.offboard.mission --route evals/D1-route.json --runs 10 --out runs/
 python -m banshee.outcome.waypoints --run runs/<id> --tolerance-file evals/D1-exit-tests.json
-python contracts/v1/validate.py data/derived/d1/<episode>/episode.json
-python tools/status_board.py --render > docs/STATUS_BOARD.md
+ironclad-validate data/derived/d1/<episode>/episode.json
+ironclad-status --render > docs/STATUS_BOARD.md
 ```
 Expected: version manifests identical; ≥ frozen completion count; every episode `contract_valid`; frame sign tests pass; report lists latency quantiles and any deviation from spec.
 

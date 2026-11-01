@@ -29,7 +29,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 | Reference (evaluation only) | this project | outside-in cameras + AprilTags, independent clocks | — |
 
 ## 3. Interfaces that must be exact
-- **Action:** bounded velocity and yaw-rate commands with explicit frame, units, duration/expiry and limits (`contracts/v1` action_spec). Requested, filtered, transmitted and measured-applied values are logged separately with their times.
+- **Action:** bounded velocity and yaw-rate commands with explicit frame, units, duration/expiry and limits (`ironclad.contracts.v1` action_spec). Requested, filtered, transmitted and measured-applied values are logged separately with their times.
 - **Frames:** one internal convention (ROS: ENU/FLU) with conversion at the PX4 boundary (NED/FRD); the convention is an ADR written in D1 and tested with sign checks.
 - **Timing:** capture, arrival, decision, transmit and (where known) application times, in a declared monotonic clock; unknown times are `null`, never guessed. At 2 m/s a 100 ms delay is 20 cm of travel before braking.
 - **Freshness:** sensor age, estimator validity and setpoint age are checked independently of the ROS 2 offboard heartbeat; expired commands are not sent.
@@ -44,7 +44,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 
 | Module | Path | Status |
 |---|---|---|
-| Core record helpers (append-only ledgers, artifact store, run dirs, logs, config) | `src/banshee/core/` | implemented, tested |
+| Core record helpers (append-only ledgers, artifact store, run dirs, logs, config) | `ironclad.core` | implemented, tested |
 | Setpoint freshness / estimator validity gate (pure logic) | `src/banshee/freshness.py` | implemented, tested; bounds to be frozen in D1 |
 | Typed interfaces (estimator, gate, mission executive, skill, learned-proposal adapter) | `src/banshee/interfaces.py` | implemented as Protocols |
 | SITL launch + version manifest | `src/banshee/sitl/` | **not implemented** (WO-002) |
@@ -59,4 +59,4 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 Laptop for SITL in D1. Jetson Orin Nano Super from D2, hand-carried, then flown from D4, linked to the Pixhawk 6X by TELEM2 or Ethernet. Telemetry is 915 MHz, because Wi-Fi will not reach in a field (owner, 2026-10-31; ADR-0007). The aircraft's loss response never depends on the laptop or the Jetson.
 
 ## 7. Data
-Every flight (SITL or real) is exported through `contracts/v1/writer.py` as a `physics_sim` or `real` episode with the drone's configuration, controller version and calibration ids; raw PX4 logs (ulog) are retained alongside. These exports are the drone's only interface to the world-model project (M4). Reference streams carry `role: reference_only`.
+Every flight (SITL or real) is exported through `ironclad.contracts.v1.writer` as a `physics_sim` or `real` episode with the drone's configuration, controller version and calibration ids; raw PX4 logs (ulog) are retained alongside. These exports are the drone's only interface to the world-model project (M4). Reference streams carry `role: reference_only`.

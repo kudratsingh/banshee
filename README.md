@@ -12,9 +12,9 @@ D0 operating envelope → D1 SITL + offboard velocity interface + contract loggi
 ```bash
 python3 -m venv .venv && . .venv/bin/activate
 python -m pip install -r requirements-dev.txt
-make check          # lint, types, tests, hash locks, secrets scan, link check
+make check          # lint, types, tests, ironclad verify, secrets scan, link check
 make board          # regenerate docs/STATUS_BOARD.md
-python contracts/v1/validate.py contracts/v1/examples/drone_sim/episode.json
+ironclad contract-info
 ```
 These commands do not run PX4 or Gazebo and are not flight logs. The contract fixtures are fabricated.
 
@@ -33,13 +33,11 @@ All stages are `not_started`; see `docs/STATUS_BOARD.md`. No flight controller i
 ## Layout
 ```
 PROGRAM.md  AGENTS.md  CLAUDE.md  START_HERE.md  CHANGES.md  REQUIREMENTS_CHECKLIST.md  VERIFICATION.md
-config/      phases.json, budget.json, repo.json, locks, stack-lock.pending.json, sealed-access schema
-contracts/v1 the one shared boundary (byte-identical in vishwaroop)
+config/      phases.json, budget.json, repo.json, stack-lock.proposed.json, stack-lock.pending.json, sealed-access schema
 docs/        PHASES, ARCHITECTURE, CONTEXT_AND_DECISIONS, OPERATING_ENVELOPE, TEST_PROTOCOL, REFERENCE_AND_SENSING,
              BOM_WORKSHEET, ENVIRONMENT, WORKFLOW, DATA_POLICY, BUDGET_AND_LAUNCHER, REPORT_TEMPLATE, ADR_TEMPLATE, SOURCES, STATUS_BOARD, adr/
-src/banshee/      core/, freshness.py, interfaces.py   (sitl/, offboard/, export/, outcome/, faults/, reference/, mission/, learned/ to come)
-tests/       CPU tier;  contracts/v1/tests/  conformance
-tools/       status_board, check_immutable, check_hashes, scan_secrets, check_links, budget_preflight
+src/banshee/      freshness.py, interfaces.py   (sitl/, offboard/, export/, outcome/, faults/, reference/, mission/, learned/ to come)
+tests/       project tests; shared tests and contract conformance come from ironclad's pytest plugin
 work_orders/ WO-001..009 + STATUS.jsonl (append-only)      prompts/FIRST_SESSION.md
 data/ runs/ ledgers/ artifacts/ reports/ evals/   append-only record locations
 ```
