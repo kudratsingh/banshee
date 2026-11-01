@@ -115,3 +115,63 @@ WO-004: the fault matrix and ET-D1-4, ET-D1-5, plus the landing offset above.
 
 ### Retro note
 The first trial cost little because it was bounded and logged. Reading the parameters back found a silent no-op that the override list had hidden. Checking the judge's numbers against ground truth, not only pass or fail, is what exposed the metric error early enough to fix before the counted runs.
+
+## Review and final runs, 2026-10-31
+The full review required by `AGENTS.md §13.9` ran on a clean clone: an independent agent, read-only, with `make check` green there and numbers recomputed from raw evidence. It found no blockers. Its findings were checked against the data, and the fixes below went in. Then the 10 missions were flown again on the final code. **These 10 are the runs of record for the exit tests.** The first 10 also passed, and stay in the record.
+
+### What the review changed
+| Finding | Checked | Outcome |
+|---|---|---|
+| The campaign counted a win without looking at the VM's exit code | read in the code; the first 10 all logged `mission exit 0`, so their count stands | success now needs a clean run |
+| The episode said `independent_sim_state`, while the judge read PX4's estimate | true, and already disclosed, but the field itself was wrong | success now also needs Gazebo ground truth, in route order, so the field is true. `pyulog` is now the `sitl` extra, needed only to run missions |
+| The closest-approach check on ground truth ignored order, and a square looks alike with x and y swapped | true | the check is now ordered, with a test for reversed and swapped tracks |
+| The episode's simulator version was the `gz-harmonic` package version | true | now `gz_sim` 8.15.0 |
+| Observations were marked valid even with an invalid estimator | true; no flown step had one | now invalid, with no value |
+| An export error would stop the campaign and leave a run "started" | read in the code | now a failed run |
+| `gz sim` had no time limit of its own | none left over in the VM, but a killed caller would skip the trap | a watchdog now stops all three at 295 s |
+| Odometry frames were assumed to be NED | mid-route velocity matches position change in sign and size (east 2.05 against 1.94 m/s) | a sample in another frame is now dropped, so the gate holds |
+| The landing offset has a likely cause | **true**: in all first 10 runs the aircraft entered Land at about 1.4 m/s south, on the final leg's heading, against a request near 0.3 m/s | a settle phase now brakes before Land. The offset fell from 0.83–1.00 m to 0.31–0.43 m, which supports the cause. About 0.3 m south remains and is not explained |
+
+**Correction to "Results, 2026-10-31".** The end offset there, 0.82 to 0.99 m, should read 0.83 to 1.00 m: it read one axis. "The cause is not known" is replaced by the row above. That section's 10 episodes keep the old simulator version and a judge based on the estimate alone, so **use the final 10 episodes, not those**.
+
+### Accepted, not changed here
+All go to WO-004, unless marked:
+- Setpoint age is always 0 in the mission, because the planner runs in the gate's tick, so the 200 ms bound is never exercised in flight.
+- No test covers the mission node's wiring. `enu_to_ned` and `ned_to_enu` are the same function, so calling the wrong one would pass. Ground truth does catch a wrong axis.
+- A non-zero yaw rate has never flown, because guidance requests 0. The sign is tested only as a pure function.
+- Mode switch and arm commands skip the freshness check.
+- When the mission hits its time limit it exits with no land command. In simulation PX4's offboard loss should then act, which is untested.
+- Not for WO-004, and unchanged: `valid_until_t_ns` is the gate's bound and is filled in for steps that were not sent, since the contract requires a time. `restore_mode` is `initial_state_only`, the only value the contract allows, although `initial-state.json` holds only the first position and the world name, so an episode cannot be restored from it.
+- The ULog stays under `runs/` and not inside the episode. The work order asks for it to be retained, and it is, at about 55 MB per run.
+
+### Final results
+Commit `dd2e610603a5b0bc29aaf1aa565c49ae1dea791d`. All measured, in the VM. Run IDs: `20261101T054322Z_3b0d572c`, `20261101T054434Z_908f01fc`, `20261101T054545Z_463db2fd`, `20261101T054657Z_94dcdf21`, `20261101T054808Z_40ad1133`, `20261101T054920Z_c4759c8d`, `20261101T055032Z_d3cf33d9`, `20261101T055143Z_f412d3f2`, `20261101T055255Z_8dd65595`, `20261101T055406Z_81c79653`.
+
+| Measure | Result |
+|---|---|
+| Missions completed, on estimate and ground truth and a clean run | 10/10; 95% Wilson interval 0.722 to 1.000 |
+| Closest approach per waypoint, in route order, from the logged estimate | median 0.052 m, worst 0.210 m, tolerance 0.5 m |
+| Closest approach per waypoint, in route order, from Gazebo ground truth | 0.035 to 0.267 m, median 0.110 m |
+| Episodes valid | 10/10 by `ironclad-validate` |
+| Launches with identical versions, all runs on this machine | 22/22; 7 pins, none null |
+| Lock check | exit 0 with the real lock; exit 1 and refusal with a changed `px4` pin (`runs/lock-and-msgs-evidence/lock-check.log`) |
+| `px4_msgs` against PX4's `msg/`, by `compare_msgs.sh` | 235 identical, 0 different (same folder) |
+| Frozen parameters read back from PX4 | 21 of 21 match, in all 10 runs |
+| Transmitted setpoints over the limits | 0; fastest horizontal speed flown 2.11 m/s, limit 2.5 |
+| Highest point by ground truth | 5.21 m |
+| Tick spacing after the first tick | p50 50.0 ms, p95 50.5, p99 50.8, max 57.6 |
+| Decision to publish return | p50 166 µs, p95 450 µs, max 334 ms (the first tick) |
+| Observation age at decision | p50 10.5 ms, p95 44.5, max 341 ms (the first tick); a lower bound, per ADR-0005 |
+| Settle phase | 0.80 to 0.85 s |
+| Landing offset from the route's end, by ground truth | 0.31 to 0.43 m |
+
+The first-tick stall appeared in 2 of these 10 runs. As before, it was before arming, and the gate held that one setpoint back. Running `git.json` shows `dirty: true` for the same reason as before: the runs append to `ledgers/runs.jsonl`.
+
+### Exit tests, runs of record
+| Exit test | Threshold | Result | Pass? |
+|---|---|---|---|
+| ET-D1-1 | 2/2 launches identical; zero null pins | 22/22; zero null | yes |
+| ET-D1-2 | 10/10 reach every waypoint within 0.5 m, by independent code | 10/10; worst 0.210 m by estimate, 0.267 m by ground truth | yes |
+| ET-D1-3 | 100% contract valid | 10/10 | yes |
+
+The 6X compile check, the limits and the "not run" items in "Results, 2026-10-31" still apply, except that the judge's limit on ground truth is now closed. The compile ran at the same locked PX4 commit, and `compile_target.sh` did not change.
