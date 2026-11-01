@@ -1,3 +1,4 @@
+<!-- ironclad-policy v1.1.0 -->
 # AGENTS.md — rules for every agent working in this repository
 
 **Policy version 1.1 — 2026-10-31.** This file is the **single authoritative source of rules** for this repository. `CLAUDE.md` only points here. Sections 1–12 are the shared core, byte-identical across the `banshee` and `vishwaroop` repositories (sha256 recorded in `VERIFICATION.md`); section 13 is project-specific. Change the core only through a program-level ADR applied to both repositories.
@@ -158,8 +159,8 @@ These rules apply to the `banshee` repository in addition to the shared core abo
 
 13.7 **Compliance.** Outdoor development flights are planned under Part 107 (not assumed recreational); registration and Remote ID follow the FAA sources in `docs/SOURCES.md`; indoor-only operations still need site permission and physical controls. Recheck dates are recorded before any outdoor stage.
 
-13.8 **Records.** Every SITL run and every flight is exported through `contracts/v1/writer.py` with raw PX4 logs retained alongside; bad runs stay in the record with intervention, timeout and abort counts. Footage excludes faces and private spaces; GPS is stripped from anything shared.
+13.8 **Records.** Every SITL run and every flight is exported through `ironclad.contracts.v1.writer` with raw PX4 logs retained alongside; bad runs stay in the record with intervention, timeout and abort counts. Footage excludes faces and private spaces; GPS is stripped from anything shared.
 
-13.9 **Review requirement (owner instruction, 2026-10-31).** Agents merge their own pull requests when all required checks are green (`§4.6`); owner approval is only for the authorization matrix (`§2`). A full review comes first, and needs no owner approval, for: a work order that closes a milestone exit test; an RL-loop or evaluator work order; any change touching the contract; the work order that precedes the first armed flight (D4 readiness); any work order that integrates a learned component into the loop. A full review is an independent pass by a second agent or fresh session, on a clean clone, with its findings verified. Everything else merges on CI alone.
+13.9 **Review requirement (owner instruction, 2026-10-31).** Agents merge their own pull requests when all required checks are green (`§4.6`); owner approval is only for the authorization matrix (`§2`). A full review comes first, and needs no owner approval, for: a work order that closes a milestone exit test; an RL-loop or evaluator work order; any change touching the contract; the work order that precedes the first armed flight (D3 readiness); any work order that integrates a learned component into the loop. A full review is an independent pass by a second agent or fresh session, on a clean clone, with its findings verified. Everything else merges on CI alone.
 
 13.10 **Purchases.** Hardware is bought by the owner after D0 and D1; this repository prices and compares (BOM worksheet) and never orders.

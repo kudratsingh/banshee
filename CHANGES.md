@@ -64,3 +64,6 @@ On the owner's instruction, the paid launcher moved to `ironclad`. WO-003 was ne
 
 ## After import: owner decisions on WO-001 (2026-10-31)
 All flight stages move outdoors to an open field, so D3 is required and D4 now follows it. The X500 V2 stays, with a Pixhawk 6X, and Option B is dropped. `PROGRAM.md` still calls D3 optional and describes indoor stages; it is a shared file, left for `ironclad`.
+
+## After import: ironclad adopted (2026-10-31, WO-013, ADR-0008)
+The shared contract, core, tools and tests now come from the pinned `ironclad-kit` v1.1.0, and the vendored copies are gone. `sync-policy` added a marker line to each policy copy, without changing the `AGENTS.md` core or `PROGRAM.md` otherwise, and updated `docs/WORKFLOW.md`, `docs/DATA_POLICY.md`, `docs/BUDGET_AND_LAUNCHER.md` and `work_orders/README.md` to the new commands and the launcher. The root `SHA256SUMS.json` is removed, because nothing would maintain it.
