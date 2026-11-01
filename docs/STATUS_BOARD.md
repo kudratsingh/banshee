@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 22:44 UTC · ledger records: 71
+Generated: 2026-11-01 23:58 UTC · ledger records: 86
 
 ## Phases
 
@@ -10,7 +10,7 @@ Generated: 2026-11-01 22:44 UTC · ledger records: 71
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014, WO-016 |
-| D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 5 | D1 | WO-005 |
+| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
@@ -32,11 +32,11 @@ Generated: 2026-11-01 22:44 UTC · ledger records: 71
 | ET-D1-3 | D1 | Each run is exported through contracts/v1/writer.py with correct frames and timebase (capture, receive, decision, sent times) and validates. | 100% contract_valid | passed | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
 | ET-D1-4 | D1 | The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished. | all listed cases executed; any deviation from spec is reported, not hidden | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
 | ET-D1-5 | D1 | A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness. | tests green; bounds documented with their justification | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
-| ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | not_run | — |
-| ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | not_run | — |
-| ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | not_run | — |
-| ET-D2-4 | D2 | With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets no later than COM_OF_LOSS_T + 200 ms after the cut, with the time logged, and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4. | 3/3 trials match the specified behaviour | not_run | — |
-| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect. | each control recognised; 3/3 power cycles | not_run | — |
+| ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | frozen | — |
+| ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | frozen | — |
+| ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | frozen | — |
+| ET-D2-4 | D2 | With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets no later than COM_OF_LOSS_T + 200 ms after the cut, with the time logged, and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4. | 3/3 trials match the specified behaviour | frozen | — |
+| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect. | each control recognised; 3/3 power cycles | frozen | — |
 | ET-D3-1 | D3 | Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission. | all applicable items recorded with dates | not_run | — |
 | ET-D3-2 | D3 | Manual flight checkout in Position mode and GPS position hold within the frozen tolerance. | proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights | not_run | — |
 | ET-D3-3 | D3 | Emergency procedures (RTL, land, kill) are rehearsed and logged. | each procedure exercised once | not_run | — |
@@ -76,6 +76,7 @@ Generated: 2026-11-01 22:44 UTC · ledger records: 71
 | WO-012 | Extract the shared material into ironclad (superseded, never started) | D0 | **superseded** | 2026-10-31T22:54:36.847240Z | — |
 | WO-013 | Adopt ironclad v1.1.0 and remove the vendored shared files | D1 | **accepted** | 2026-11-01T04:25:51.348734Z | reports/WO-013-adopt-ironclad.md |
 | WO-014 | Correct AGENTS.md sections 13.8 and 13.9 | D1 | **accepted** | 2026-11-01T04:35:48.715239Z | reports/WO-014-section-13-wording.md |
-| WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **created** | 2026-11-01T22:38:38.149365Z | — |
-| WO-016 | Stop the node overriding a mode chosen while disarmed | D1 | **created** | 2026-11-01T22:44:12.733757Z | — |
+| WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **accepted** | 2026-11-01T23:53:22.656911Z | reports/WO-015-owner-decisions-after-d1.md |
+| WO-016 | Stop the node overriding a mode chosen while disarmed | D1 | **accepted** | 2026-11-01T23:53:22.750471Z | reports/WO-016-preflight-mode-override.md |
+| WO-017 | Purchase request for Option A, and freeze D2's exit tests | D2 | **in_progress** | 2026-11-01T23:53:57.402204Z | — |
 

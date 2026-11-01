@@ -4,6 +4,8 @@
 
 **Decided by the owner on 2026-10-31 (`ledgers/approvals.jsonl`):** an open outdoor field, an X500 V2, and no Option B. Netting is removed, D3 items are in the main list, and the owner's list of additions is included. An X650-class 6S airframe is the planned D7+ platform (see the end).
 
+**Re-priced 2026-11-01:** the current lines and total, $3,884.44, are in `docs/PURCHASE_REQUEST-2026-11-01.md`. No price read that day differed from this worksheet. The numbers below stay as the record of 2026-10-31. New since then: DA 26-761's text was read and confirms 2028-01-01; the Dronetag page names G2; Holybro sells spare motors at $19.99, and its spare ESC is sold out.
+
 ## Option A: post-D1 order
 | Item | Candidate | Qty | Unit USD | Line USD | Supplier (read 2026-10-31) | Stock read | Compatibility evidence |
 |---|---|---:|---:|---:|---|---|---|

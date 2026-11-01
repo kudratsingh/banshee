@@ -1,0 +1,87 @@
+{
+  "phase": "D2",
+  "status": "frozen",
+  "frozen": "2026-11-01, owner instruction (ledgers/approvals.jsonl), before any D2 result exists",
+  "status_note": "Statements and evidence are those in config/phases.json. Thresholds that read 'proposed default' there are frozen here at those values. The sample sizes and the confidence level are added here, because the statements did not give them. D2 has not started: it needs hardware the owner has not approved buying, and a dated owner approval to connect it.",
+  "authorization": "Motors disarmed and propellers removed throughout. Connecting to the flight controller and any link-cut test each need a dated owner approval (AGENTS.md section 2.3). No arming.",
+  "pass_rule": "Every trial in a test must meet its threshold. A hand-carried pass is not flight qualification.",
+  "exit_tests": {
+    "ET-D2-1": {
+      "measures": {
+        "camera_imu_offset": "estimate with a 95% confidence interval, from at least 3 sessions",
+        "frame_consistency": "pass/fail: the frame check passes in every session",
+        "end_to_end_latency": "distribution reported: median, p99 and worst"
+      },
+      "threshold": "offset estimate with a 95% CI; frame check passes in 3/3 sessions; latency distribution reported"
+    },
+    "ET-D2-2": {
+      "trials": 3,
+      "threshold": {
+        "end_of_route_drift_m": 0.2
+      },
+      "reported_not_thresholded": [
+        "dropout count",
+        "reset count",
+        "recovery count"
+      ],
+      "inconclusive": "If the reference does not pass ET-D2-3, this test is inconclusive, not a pass."
+    },
+    "ET-D2-3": {
+      "threshold": {
+        "static_residual_rms_m": 0.02,
+        "coverage_of_test_volume_min": 0.9
+      },
+      "reported_not_thresholded": [
+        "dynamic latency",
+        "session check procedure"
+      ],
+      "inconclusive": "Inadequate coverage is inconclusive, not a pass."
+    },
+    "ET-D2-4": {
+      "trials": 3,
+      "threshold": {
+        "offboard_loss_flag_max_ms_after_cut": "COM_OF_LOSS_T + 200",
+        "freshness_gate_stops_sending": "in every trial, independently of the laptop",
+        "passes_required": "3/3"
+      },
+      "note": "PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4."
+    },
+    "ET-D2-5": {
+      "trials": 3,
+      "threshold": {
+        "controls_recognised": [
+          "RC link over CRSF",
+          "kill switch",
+          "mode switch"
+        ],
+        "power_cycles": "3/3"
+      },
+      "note": "The statement names the Pixhawk 6X. If the owner approves the ARKV6X line instead, this statement changes by a dated owner approval before any result exists."
+    }
+  },
+  "required_in_the_d2_report": {
+    "note": "Open items from earlier reports that need real hardware. Each is reported with its evidence. None is a threshold, and none moves a pass to a fail by itself.",
+    "items": [
+      {
+        "from": "WO-004",
+        "item": "Estimator age on the real link, including landing-phase conditions: it reached 92.2 ms against the 100 ms bound in simulation, as a lower bound. Recommend whether the gate should act during landing."
+      },
+      {
+        "from": "WO-004",
+        "item": "The sensor bound on a real sensor stream. In simulation it had no independent source."
+      },
+      {
+        "from": "WO-016",
+        "item": "Disarmed, with the real mode switch: the node yields when a mode is selected before arming, as R-07 shows in simulation, and when the switch is already away from Hold at boot. The node sends no arm command in this check."
+      },
+      {
+        "from": "OPERATING_ENVELOPE",
+        "item": "OAK-D Pro behaviour in direct sunlight, which is unresolved."
+      },
+      {
+        "from": "BOM_WORKSHEET",
+        "item": "Jetson power: the BEC output on a 4S pack down to 3.5 V per cell, on the bench."
+      }
+    ]
+  }
+}

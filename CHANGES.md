@@ -79,3 +79,6 @@ ADR-0010 is accepted. The D3 standoffs are frozen at 8.6 m and 3.35 m in `evals/
 
 ## After import: the node yields to a mode chosen while disarmed (2026-11-01, WO-016, ADR-0009)
 Before flight, the node now asks for offboard only from Hold and yields on anything else. WO-004's node would take the aircraft from a mode the operator had selected, then arm it. New case R-07 shows the fix, and the 47 earlier cases keep their mode sequences in one new recording. Simulation only.
+
+## After import: purchase request and D2 freeze (2026-11-01, WO-017)
+The re-priced Option A order is one table in `docs/PURCHASE_REQUEST-2026-11-01.md`, with a planning total of $3,884.44. D2's exit tests are frozen in `evals/D2-exit-tests.json`, with sample sizes added. D2 is not started, and nothing was bought.
