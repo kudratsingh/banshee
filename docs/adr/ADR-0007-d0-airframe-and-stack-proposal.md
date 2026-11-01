@@ -14,7 +14,7 @@ Findings that shaped this:
 Items 1, 4, 5 and the telemetry radio are the owner's decisions. The flight controller follows the owner's stated rule. The stack stays proposed until WO-002 tests it.
 
 1. **Test space and airframe.** A large open field, outdoors, and a Holybro X500 V2. An X650-class 6S airframe is the planned D7+ mission platform, with the same autopilot and stack; the D7 list is a frame, motor, ESC and battery swap. No QAV250; Option B is not needed.
-2. **Flight controller: Holybro Pixhawk 6X, target `px4_fmu-v6x_default`.** The comparison is below and in `docs/BOM_WORKSHEET.md`. The owner's lean is to standardize on FMUv6X and the Pixhawk Autopilot Bus, and to prefer ARKV6X if the total stays within about $300 of the 6C plan. ARKV6X with an ARK carrier is +$622.01 in parts against the 6C at Holybro and +$566.05 against the RMRC plan the owner reviewed, so the preference does not trigger.
+2. **Flight controller: Holybro Pixhawk 6X, target `px4_fmu-v6x_default`, for now.** The owner decides 6X or ARKV6X at purchase, after the FCC Covered List check for each line. The comparison is below and in `docs/BOM_WORKSHEET.md`. The owner's lean is to standardize on FMUv6X and the Pixhawk Autopilot Bus, and to prefer ARKV6X if the total stays within about $300 of the 6C plan. ARKV6X with an ARK carrier is +$622.01 in parts against the 6C at Holybro and +$566.05 against the RMRC plan the owner reviewed, so the preference does not trigger.
 3. **Stack.** Ubuntu 24.04, ROS 2 Jazzy, Gazebo Harmonic, PX4 v1.17.0, Micro-XRCE-DDS-Agent v2.4.3, `px4_msgs` at `release/1.17`, QGroundControl v5.1.5. Exact commits are in `config/stack-lock.proposed.json`. Humble on 22.04 is the fallback if WO-002 cannot run this. Jazzy comes first, though the v1.17 guide says Humble, because:
    - Humble's support ends in May 2027 [D11], inside the expected life of D1–D4.
    - Gazebo recommends Jazzy with Harmonic and marks Humble with Harmonic "use with caution" [D10].
@@ -80,7 +80,7 @@ If the Jazzy pairing fails on a step that needs a change in PX4, stop, report it
 
 ## Consequences
 - The planning total, about $3,719, is above the owner's range (`docs/BOM_WORKSHEET.md`). No purchase is authorized.
-- All flight stages are outdoors, so D3 is required, D4 now follows it, and **D3 is now the first armed flight**, with ET-D2-5, ET-D3-4 and ET-D3-5 added to cover what D4 used to, and with offboard loss tested in flight only from D4, since nothing streams offboard before then. `AGENTS.md §13.9` still ties the review to "D4 readiness"; this repository treats it as due before D3, and the wording is the owner's to change. No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
+- All flight stages are outdoors, so D3 is required, D4 now follows it, and **D3 is now the first armed flight**, with ET-D2-5, ET-D3-4 and ET-D3-5 added to cover what D4 used to, and with offboard loss tested in flight only from D4, since nothing streams offboard before then. `AGENTS.md §13.9` requires the independent review before D3 (WO-014). No Part 107 flight can happen until the owner holds a certificate or a certificated pilot directly supervises.
 - WO-002 starts on an assembled pairing. A failure costs some setup time, and the fallback is documented.
 - Five parts-list lines are flagged in the FCC check, and grant dates need reading before any order.
 - This number follows ADR-0004, which belongs to the program decision on shared material, built in `ironclad`.
