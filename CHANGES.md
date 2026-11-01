@@ -76,3 +76,6 @@ Every D1 fault case now runs against the real command path in SITL, with a log a
 
 ## After import: owner decisions after D1 (2026-11-01, WO-015)
 ADR-0010 is accepted. The D3 standoffs are frozen at 8.6 m and 3.35 m in `evals/D3-standoffs.json`, and the envelope now states that the 150 m exclusion radius covers position loss on its own, with its arithmetic. The VM disk cap and free-space check are recorded as done.
+
+## After import: the node yields to a mode chosen while disarmed (2026-11-01, WO-016, ADR-0009)
+Before flight, the node now asks for offboard only from Hold and yields on anything else. WO-004's node would take the aircraft from a mode the operator had selected, then arm it. New case R-07 shows the fix, and the 47 earlier cases keep their mode sequences in one new recording. Simulation only.
