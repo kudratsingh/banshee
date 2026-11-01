@@ -18,7 +18,9 @@ In the first recording, the node also repeated Land over an operator's Altitude 
 - A takeover needs no acknowledgement from the node, and the node cannot override it.
 - A PX4 failsafe also ends the node's commands, so PX4's choice stands. For example, if the node decides Land and PX4 moves to Hold first, the aircraft follows PX4's sequence.
 - This covers the node only. Commands from PX4 failsafes can still override an operator, and `COM_FAIL_ACT_T` applies there.
-- Before flight, the node enters offboard first, repeating the mode command until PX4 accepts. It arms only from offboard, and sends neither after the first arm (`arming_step`). If the vehicle disarms later, the node stops. Takeover before flight was not tested.
+- Before flight, the node enters offboard first, repeating the mode command until PX4 accepts. It arms only from offboard, and sends neither after the first arm (`arming_step`). If the vehicle disarms later, the node stops. A takeover before flight was not tested at the time of this decision; R-07 tests one (below).
+- **Added 2026-11-01, WO-016: before flight, the node asks for offboard only from Hold,** PX4's state when nobody has chosen a mode. Any other state, leaving offboard once in it, or being armed outside offboard means the operator or PX4 has chosen, so the latch becomes `operator` and the node sends nothing more. WO-004 did not have this rule: its node took the aircraft from Position to Offboard, then armed it.
+- Limits of that rule. An operator who selects Hold while already in Hold cannot be seen. A node acting on a status older than the operator's switch can still send one offboard command, and no case tests that window. A mode switch already away from Hold at boot means the node yields and the mission does not start, which fails safe but has only been seen in simulation.
 
 ## Evidence
-`reports/WO-004-d1-fault-matrix-and-freshness-gate.md`, `tests/test_faults.py`. Simulation only.
+`reports/WO-004-d1-fault-matrix-and-freshness-gate.md`, `reports/WO-016-preflight-mode-override.md`, `tests/test_faults.py`. Simulation only.
