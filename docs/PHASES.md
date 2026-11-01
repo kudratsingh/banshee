@@ -7,9 +7,9 @@ Machine-readable twin: `config/phases.json` (a test keeps the two in sync). Live
 ## The ladder
 
 ```
-D0 envelope ──► D1 SITL ──► D2 props-off ──► [D3 outdoor, optional] ──► D4 indoor hold ──► D5 GPS-denied route ──► D6 inspection ──► D7+ missions & learned gates
+D0 envelope ──► D1 SITL ──► D2 props-off ──► D3 outdoor GPS ──► D4 VIO hold ──► D5 GPS-denied route ──► D6 inspection ──► D7+ missions & learned gates
 ```
-D3 is optional: an indoor airframe does not need the outdoor path, but no stage skips manual commissioning. "Omni" means broad mission capability added one mission at a time; a mechanically omnidirectional airframe would be an explicit owner decision.
+All flight stages are outdoors (owner decision, 2026-10-31), so D3 is required, and no stage skips manual commissioning. "Omni" means broad mission capability added one mission at a time; a mechanically omnidirectional airframe would be an explicit owner decision.
 
 Stage states: `not_started → ready → in_progress → (blocked ↔) → passed | failed`.
 
@@ -57,7 +57,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 
 A hand-carried pass is **not** flight qualification; vibration changes VIO behaviour (revalidated in D4).
 
-## D3 (optional) — Outdoor GPS-assisted checkout
+## D3 — Outdoor GPS-assisted checkout
 
 **Deliverable.** Manual and GPS position-hold checkout at a permitted site under the applicable compliance path (Part 107 by default; development flights are not assumed recreational [S1]).
 
@@ -67,9 +67,9 @@ A hand-carried pass is **not** flight qualification; vibration changes VIO behav
 | ET-D3-2 | Manual checkout and GPS position hold | *proposed default:* RMS ≤ 1.0 m over 60 s, 3/3 flights |
 | ET-D3-3 | Emergency procedures (RTL, land, kill) rehearsed | each exercised once |
 
-## D4 — Indoor VIO position hold in a controlled setup
+## D4 — VIO position hold in a controlled setup
 
-**Deliverable.** First armed indoor flights inside the chosen containment: VIO position hold, operator takeover and offboard-loss behaviour tested in flight, VIO revalidated under vibration. **Requires §2.3 owner approval for arming/flight.**
+**Deliverable.** First VIO flights inside the field's containment of distance and geofence: VIO position hold, operator takeover and offboard-loss behaviour tested in flight, VIO revalidated under vibration. **Requires §2.3 owner approval for arming/flight.**
 
 | Exit test | Statement | Threshold |
 |---|---|---|

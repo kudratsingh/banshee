@@ -61,3 +61,6 @@ On the owner's instruction, the shared material is being built by its own agent 
 
 ## After import: WO-003 superseded (2026-10-31)
 On the owner's instruction, the paid launcher moved to `ironclad`. WO-003 was never started. Paid execution stays blocked here.
+
+## After import: owner decisions on WO-001 (2026-10-31)
+All flight stages move outdoors to an open field, so D3 is required and D4 now follows it. The X500 V2 stays, with a Pixhawk 6X, and Option B is dropped. `PROGRAM.md` still calls D3 optional and describes indoor stages; it is a shared file, left for `ironclad`.

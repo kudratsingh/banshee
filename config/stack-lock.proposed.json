@@ -16,7 +16,7 @@
     "px4_release_or_commit": {
       "value": "v1.17.0",
       "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
-      "note": "Latest stable. v1.18.0-rc1 is a pre-release. The release/1.17 branch is 13 commits ahead, one adding LSM6DSV16X support on fmu-v6c; recheck against the actual Pixhawk 6C at hardware time.",
+      "note": "Latest stable. v1.18.0-rc1 is a pre-release. The release/1.17 branch is 13 commits ahead; those that affect boards should be rechecked against the actual Pixhawk 6X at hardware time.",
       "status": "proposed",
       "evidence_url": "https://github.com/PX4/PX4-Autopilot/releases/tag/v1.17.0",
       "evidence_date": "2026-10-31"
@@ -63,7 +63,7 @@
       "value": "isaac_ros_visual_slam 4.6.0",
       "tag": "v4.6-0",
       "commit_short": "6e23c6c",
-      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install.",
+      "note": "For bench evaluation in D2 only, and only on NVIDIA hardware. Not needed by WO-002. Needs JetPack 7.2 and a 128 GB or larger NVMe drive on Jetson Orin. No candidate has a published PX4 integration guide on ROS 2, and accuracy is unmeasured. Second candidate if the OAK is chosen: Luxonis BasaltVIO. The full commit hash is read at install. A reported JetPack 7 UART1 fault may affect TELEM2, so Ethernet to the 6X is the alternative; tested in D2.",
       "status": "proposed",
       "evidence_url": "https://nvidia-isaac-ros.github.io/v/release-4.6/repositories_and_packages/isaac_ros_visual_slam/index.html",
       "evidence_date": "2026-10-31",
@@ -77,10 +77,10 @@
       "evidence_date": "2026-10-31"
     },
     "flight_controller_firmware_target": {
-      "value": "px4_fmu-v6c_default",
-      "note": "Pixhawk 6C and Pixhawk 6C Mini. WO-002 uses SITL: make px4_sitl gz_x500, and no hardware is connected in D0 or D1. For hardware, RC input from the proposed ELRS receiver needs a custom board configuration of this target with crsf_rc enabled, because the default build does not include it; pin that configuration when hardware is bought (ADR-0007).",
+      "value": "px4_fmu-v6x_default",
+      "note": "Pixhawk 6X, per the owner's flight-controller comparison (ADR-0007). CRSF RC input is in this default build; its port must be configured. 6,160 bytes of flash are free, so a custom build has little room. WO-002 is SITL only: make px4_sitl gz_x500. It also compile-checks this target. No hardware is connected in D0 or D1. ARKV6X would need ark_fmu-v6x_default and recalibration.",
       "status": "proposed",
-      "evidence_url": "https://docs.px4.io/v1.17/en/flight_controller/pixhawk6c.html",
+      "evidence_url": "https://raw.githubusercontent.com/PX4/PX4-Autopilot/v1.17.0/boards/px4/fmu-v6x/default.px4board",
       "evidence_date": "2026-10-31"
     },
     "px4_external_vision_interface": {

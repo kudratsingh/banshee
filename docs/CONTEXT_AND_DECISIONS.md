@@ -35,10 +35,10 @@ Fast, autonomous iteration through bounded work orders; continue to the next rea
 ## 5. Open decisions (project level)
 | # | Decision | Default until decided |
 |---|---|---|
-| 1 | Test space: room vs garage/warehouse vs field | unknown — D0 must resolve (ET-D0-6) |
-| 2 | Airframe: X500 V2 class vs 3–5 inch frame | X500 V2 if the space allows; otherwise 3–5 inch |
-| 3 | Companion computer and depth camera | Orin Nano Super 8 GB; OAK-D Pro |
-| 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001, tested in WO-002 |
+| 1 | Test space | decided: a large open field or open space, outdoors; all flight stages outdoors (owner, 2026-10-31) |
+| 2 | Airframe | decided: X500 V2 with Pixhawk 6X; X650-class 6S planned for D7+; no 3–5 inch option (owner, 2026-10-31; ADR-0007) |
+| 3 | Companion computer and depth camera | decided: Orin Nano Super 8 GB from D2, bought after D1; OAK-D Pro (owner, 2026-10-31) |
+| 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001; Jazzy first, Humble as the fallback; tested in WO-002 |
 | 5 | Frame convention ADR | ROS ENU/FLU internally, convert at the PX4 boundary |
 | 6 | Remote repository | decided: `kudratsingh/banshee`, private (ADR-0006) |
 

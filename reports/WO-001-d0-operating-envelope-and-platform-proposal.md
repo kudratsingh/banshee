@@ -114,3 +114,24 @@ WO-002 (SITL, software only), once the owner records a decision or deferral. It 
 - Price the whole option before anyone relies on a planning range.
 
 ## Errata (append-only)
+
+### 2026-10-31: owner's decisions, and what changed
+The owner decided Q1 to Q7 and asked for a flight-controller comparison and an FCC Covered List check (`ledgers/approvals.jsonl`). This report's body stands as written before those decisions. The current documents are `docs/OPERATING_ENVELOPE.md`, `docs/BOM_WORKSHEET.md`, ADR-0007 and `docs/REFERENCE_AND_SENSING.md`.
+
+**Where the sources did not match what the owner expected:**
+- **Jetson at $249:** NVIDIA's list price is now $399. No page that loaded shows $249. The plan carries $399.
+- **ARKV6X within about $300:** with an ARK carrier it is +$622.01, so the preference did not trigger. The Pixhawk 6X was chosen as the owner's FMUv6X lean. An ARKV6X on a Holybro Mini baseboard is +$292.00, and is undocumented as a combination.
+- **mRo as a US-made source:** its store redirects to 3DR, whose kit is "for evaluation only; not FCC approved for resale", has no FCC ID, and has no US-made statement.
+- **SiK licence:** the rule supports the owner's expectation: 47 CFR 15.1(a) and 15.247, with 100 mW under the power limits. For this unit it is not settled, because the grant could not be read and one seller still says a licence is required.
+- **FCC categories:** the three do not cover batteries or motors, which are named but have no grant to show. The list also names sensors and cameras, is open-ended, and has exemptions that end on 2028-01-01. Five lines are flagged.
+- **Geofence as containment:** the fence is off by default, passes silently with no valid Home, and has no freshness check, so distance carries the failure cases, and the wind and height limits matter.
+- **Spotter:** optional in the rule; it does not replace the operator's own sight of the aircraft under the Remote ID rule.
+- **Part 107:** no flight until the owner holds a certificate or a certificated pilot directly supervises.
+
+**Planning total:** $3,719.05 for Option A, against the $1,900–2,300 range. No purchase is authorized.
+
+**Report sections this overtakes:** section 0's questions are answered, and sections 4 and 5's room and garage limits and the QAV250 no longer apply. WO-003, named in section 10, is superseded. ET-D0-2 closes on the owner's decision that Option B is not needed, and ET-D0-6 on the recorded decisions.
+
+**Reviews:** the revised documents had a further full review on a clean clone before merge (`AGENTS.md §13.9`).
+
+**Shared text left for `ironclad`:** `PROGRAM.md` lines 131 and 266 call D3 optional.

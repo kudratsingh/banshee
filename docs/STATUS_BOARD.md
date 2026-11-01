@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `tools/status_board.py`. Do not edit by hand._
 
-Generated: 2026-11-01 00:40 UTC · ledger records: 38
+Generated: 2026-11-01 01:14 UTC · ledger records: 38
 
 ## Phases
 
@@ -11,8 +11,8 @@ Generated: 2026-11-01 00:40 UTC · ledger records: 38
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **in_progress** | 4 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **not_started** | 0 / 0 / 5 | D0 | WO-002, WO-004 |
 | D2 | Props-off sensor and localization walkthrough | **not_started** | 0 / 0 / 4 | D1 | WO-005 |
-| D3 | Optional outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
-| D4 | Indoor VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D2 | — |
+| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 3 | D2 | — |
+| D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
 | D6 | Fixed-target inspection from N declared viewpoints and return | **not_started** | 0 / 0 / 4 | D5 | — |
 | D7 | Further missions one at a time; learned-component integration gates | **not_started** | 0 / 0 / 2 | D6 | — |

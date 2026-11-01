@@ -18,13 +18,13 @@ git status   # if this is not yet a git repository: git init -b main && git add 
 `make check` must be green. If it is not, fixing it is the first task and gets its own PR.
 
 ## 3. Status today (2026-10-31)
-- Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are accepted, and WO-001 is next. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
+- Every stage `not_started`. See `docs/STATUS_BOARD.md` for work-order states: WO-006 (the program-wide rename, ADR-0003), WO-008 and WO-009 (starter-kit tooling fixes) are accepted, as is WO-001; WO-002 is next. No simulator has run; no hardware exists; no flight has happened. Fixtures are fabricated.
 - `config/repo.json`: the private remote `kudratsingh/banshee` is designated (ADR-0006). No other remote may be added. Agents merge their own pull requests when all required checks are green, after a full review where `AGENTS.md §13.9` requires one. Owner approval is only for the authorization matrix (`AGENTS.md §2`).
 - `config/budget.json`: $0 approved. Hardware purchase is an owner action that follows D0 and D1.
-- The test space (room vs garage/field) is undecided; D0 must surface it (ET-D0-6).
+- Test space: a large open field, outdoors; all flight stages outdoors. Airframe: X500 V2 with Pixhawk 6X (ADR-0007). No purchase is authorized (`ledgers/approvals.jsonl`).
 
 ## 4. First work order
-`work_orders/WO-001-d0-operating-envelope-and-platform-proposal.md` — desk work, any machine. Then WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 is superseded: the paid launcher moved to `ironclad`.
+WO-001 is accepted. WO-002 (SITL) needs an Ubuntu machine, VM or container (`docs/ENVIRONMENT.md`). WO-003 is superseded: the paid launcher moved to `ironclad`.
 
 ## 5. Unresolved owner decisions you may hit
 `docs/CONTEXT_AND_DECISIONS.md §5` and `PROGRAM.md §12`: test space; airframe; companion computer and depth camera; stack pins; frame convention. Take the recorded default, write the assumption into the report, and continue — stop only at `AGENTS.md §2.3` gates or §12 conditions. **Never connect to or command any physical flight controller in D0–D1.**

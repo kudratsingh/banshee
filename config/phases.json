@@ -47,9 +47,9 @@
     },
     {
       "id": "D3",
-      "name": "Optional outdoor GPS-assisted checkout",
+      "name": "Outdoor GPS-assisted checkout",
       "program_link": "PROGRAM section 5.1",
-      "deliverable": "Manual and GPS position-hold checkout at a permitted outdoor site under the applicable compliance path. Optional: not a prerequisite for an indoor airframe.",
+      "deliverable": "Manual and GPS position-hold checkout at a permitted outdoor site under the applicable compliance path. Required: all flight stages are outdoors (owner decision, 2026-10-31).",
       "prerequisites": ["D2"],
       "exit_tests": [
         {"id": "ET-D3-1", "statement": "Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission.", "evidence": "compliance record", "threshold": "all applicable items recorded with dates"},
@@ -59,10 +59,10 @@
     },
     {
       "id": "D4",
-      "name": "Indoor VIO position hold in a controlled setup",
+      "name": "VIO position hold in a controlled setup",
       "program_link": "PROGRAM section 5.1",
-      "deliverable": "First armed indoor flights: VIO-based position hold inside the chosen containment, operator takeover and offboard-loss behaviour tested in flight, VIO revalidated under vibration.",
-      "prerequisites": ["D2"],
+      "deliverable": "First VIO flights: VIO-based position hold inside the field's containment of distance and geofence, operator takeover and offboard-loss behaviour tested in flight, VIO revalidated under vibration.",
+      "prerequisites": ["D3"],
       "exit_tests": [
         {"id": "ET-D4-1", "statement": "Containment, checklists, roles and emergency procedures are in place and signed off for the airframe and test configuration.", "evidence": "pre-flight record", "threshold": "complete before first arm"},
         {"id": "ET-D4-2", "statement": "VIO position hold error against the outside-in reference stays within the frozen bound over repeated flights.", "evidence": "paired onboard/reference logs", "threshold": "proposed default: RMS <= 0.3 m over 60 s on 5/5 flights"},
@@ -75,7 +75,7 @@
       "id": "D5",
       "name": "GPS-denied known route",
       "program_link": "PROGRAM section 5.1, 8.2",
-      "deliverable": "Autonomous flight of a known route indoors without GPS, with independent reference comparison, setpoint freshness and degraded modes exercised in flight, clearance, latency and energy reported.",
+      "deliverable": "Autonomous flight of a known route without GPS aiding, with independent reference comparison, setpoint freshness and degraded modes exercised in flight, clearance, latency and energy reported.",
       "prerequisites": ["D4"],
       "exit_tests": [
         {"id": "ET-D5-1", "statement": "Route completion rate and path error against the reference meet the frozen bounds.", "evidence": "paired logs", "threshold": "proposed default: >= 8/10 completions with path error RMS <= 0.5 m"},

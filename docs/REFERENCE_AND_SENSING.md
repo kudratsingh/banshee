@@ -33,17 +33,13 @@ Reference streams enter contract exports with `role: reference_only`; model inpu
 | Arducam B0332, 70° horizontal, 1280 wide | 914 | t = 15 cm | 27 cm | 5.5 m | 3.7 m | 2.6 m |
 | Waveshare OV9281, 120°, axis unstated, taken as horizontal | 370 | t = 15 cm | 27 cm | 2.2 m | 1.5 m | 1.0 m |
 
-**Tag box, per airframe.** A flat plate on top of the aircraft is edge-on to cameras near flight height, so tags go on the four vertical faces of a light box, and at any yaw a camera sees a face at 45° or better.
-| Airframe | Box | Reach at 45° | Result |
-|---|---|---:|---|
-| X500 V2 | 27 cm faces, on a standoff above the 144 mm top plate; about 90 g *estimated*. This is a large box: its fit, prop clearance and effect on flight are unverified and are checked at D2 | 3.9 m | just enough. On the envelope's floors, the far corner of the flight box is 3.46 m (D4) and 3.85 m (D5–D6) from a mid-wall camera |
-| Option B-1 (QAV250, 198 × 235 mm) | 14.4 cm faces | 2.1 m | **short:** its far corner is 3.31 m (D4) and 3.70 m (D5–D6). A box large enough would not fit this frame, so cameras must sit inside the net, or the flight box must shrink, or the reference is inconclusive |
+**Tag box.** A flat plate on top of the aircraft is edge-on to cameras near flight height, so tags go on the four vertical faces of a light box, and at any yaw a camera sees a face at 45° or better. On the X500: 27 cm faces, on a standoff above the 144 mm top plate, about 90 g *estimated*. This is a large box: its fit, prop clearance and effect on flight are unverified and are checked at D2, and `14 CFR 107.49` requires checking that an attached object does not affect flight.
 
-**Placement and coverage.** Mount both cameras rigidly to walls at mid-wall, near the middle of the flight height range, with their axes crossing at 60–90° over the volume, so one camera's weak axis is the other's strong one. Tripods are not used, because a bump invalidates calibration. Map pixels per module and coverage on a 0.5 m grid, including the worst corner, before any evaluation.
+**Placement and coverage, in the field (owner decision, 2026-10-31).** The reference covers one small evaluation box, not the whole fence. The reach at 45° is 3.9 m, so the flight box for a reference run is 1.5 m square, with both cameras within 3.9 m of its far corner. Cameras are on low tripods, staked to the ground, with their axes crossing at 60–90° so one camera's weak axis is the other's strong one. They sit inside the safety standoff, and they are expendable: nobody stands near them during a flight. A bump invalidates calibration, and a field setup is rebuilt each session, so the survey and session check are repeated every time. Direct sun and glare are a new risk for tag detection, tested in D2. Map pixels per module and coverage on a 0.5 m grid, including the worst corner, before any evaluation.
 
 **Synchronization.** No hardware trigger is available on these cameras. Timestamp frames on one logger's monotonic clock and measure the offset with an LED or a moving target. One published webcam result averaged about 13 ms [D38], which at 1 m/s is about 1.3 cm and already a large part of the 2 cm target. Report the measured figure with every error metric.
 
 **Session check.** At every session start, and after any bump, camera setting change or tag replacement: place the box at a surveyed mark, compare to the recorded pose, and stop if the difference exceeds 2 cm. Record the calibration ids.
 
 ## Cost (planning)
-Two webcams at $69.99 are priced in `docs/BOM_WORKSHEET.md`. Wall mounts, the tag box and a tape or laser measure are unpriced and fall under its contingency.
+Two webcams at $69.99 are priced in `docs/BOM_WORKSHEET.md`. Tripods, ground stakes, the tag box and a tape or laser measure are unpriced and fall under its contingency.
