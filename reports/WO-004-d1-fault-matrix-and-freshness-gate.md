@@ -7,7 +7,7 @@
 > Four words with fixed meanings throughout this report: **measured** (ran here, evidence attached), **estimated** (arithmetic from stated assumptions), **mocked/fixture** (fabricated for tests), **not run**.
 
 ## 1. Claim and scope
-All 47 cases in the D1 fault matrix were executed against the real command path (mission node, gate, offboard velocity interface, XRCE-DDS bridge, PX4 SITL, Gazebo), with one log and one contract export each. 41 reached flight with the fault applied. 6 never armed, and of those only G-03 tests what it specifies (§4). Configured and tested behaviour are reported per case, and deviations are listed, not hidden. The freshness gate with the frozen bounds sits in that path and decides independently of the heartbeat.
+All 47 cases in the D1 fault matrix were executed against the real command path (mission node, gate, offboard velocity interface, XRCE-DDS bridge, PX4 SITL, Gazebo), with one log and one contract export each. 41 reached flight with the fault applied. 6 never armed. Of those, G-03 and V-05 show the refusal they specify, and V-01 to V-04 show nothing about theirs (§4). Configured and tested behaviour are reported per case, and deviations are listed, not hidden. The freshness gate with the frozen bounds sits in that path and decides independently of the heartbeat.
 
 This is simulation only. It is not flight readiness. No hardware was connected and nothing was bought. Untested: see §9.
 
@@ -84,14 +84,16 @@ All measured, in the VM, from the fourth recording unless a row says otherwise. 
 | R-04 | Return within 2 s of RC loss | Hold at 0.48 s, Return at 5.48 s | PX4 holds for `COM_FAIL_ACT_T` (5 s) first. The envelope's time was missing this |
 | G-01 | Land within 20 s | Hold at 16.70 s, Land at 21.70 s | Same 5 s hold |
 | G-02 | Land within 14 s | Hold at 11.51 s, Land at 16.51 s | Same 5 s hold |
-| V-01, V-02, V-03 | Vision-only flight, then a fault | Arming refused, so no fault was injected | Not a test of the specified response. See the proposal below |
+| V-01, V-02, V-03 | Vision-only flight, then a fault | Arming refused ("heading estimate not stable", "Global position estimate required"), so no fault was injected | Not a test of the specified response. See the proposal below |
 
 B-01 shows the same 5 s hold (Hold 11.33 s, Return 16.34 s, Land 19.37 s). Its limits are 60 s and 70 s, so it is not a deviation, but the hold is there.
 
 ### Never-armed cases
-G-03 discriminates, because the other 41 cases arm through the same node and commands. V-04 and V-05 do not: nothing armed in the vision world at all, so their "refused at arming" shows nothing about their own conditions.
+G-03 (`EKF2_GPS_CTRL` 0) and V-05 (`SYS_HAS_GPS` 0) fly plain `gz_x500`, the airframe the other 41 cases arm on, and PX4 logs "Preflight Fail: Global position estimate required". So they show the specified refusal, with two limits. These two arm from `wait_estimator` with a direct arm command, while the other 41 arm from offboard through `arming_step`. And the log does not attribute the refusal to `COM_ARM_WO_GPS`.
 
-**Proposal on the vision cases (WO stop condition; ADR-0010, proposed).** The specified responses for V-01 to V-03 were not shown on this stack, whether the cause is `gz_x500_vision` set-up or the stack itself. No specification was changed. These cases come from WO-001's proposals and are not in ET-D1-4's list or `docs/TEST_PROTOCOL.md`. The proposal is to carry them to D4, where vision is in scope, with the vision set-up as that work order's first task. The vision-only rows of `docs/OPERATING_ENVELOPE.md` stay estimated.
+V-04 does not discriminate. It is in the vision world, where V-01 to V-03 were refused too, with an origin set. So its "refused at arming" shows nothing about having no origin.
+
+**Proposal on the vision cases (WO stop condition; ADR-0010, proposed).** V-05 is not a vision case and stays closed as above. The specified responses for V-01 to V-03 were not shown on this stack, whether the cause is `gz_x500_vision` set-up or the stack itself. No specification was changed. These cases come from WO-001's proposals and are not in ET-D1-4's list or `docs/TEST_PROTOCOL.md`. The proposal is to carry V-01 to V-04 to D4, where vision is in scope, with the vision set-up as that work order's first task. The vision-only rows of `docs/OPERATING_ENVELOPE.md` stay estimated.
 
 ### Heartbeat is not freshness
 | Case | Setpoints stop, heartbeat continues, at | Response | Hold at | Horizontal travel after the fault |
@@ -123,12 +125,12 @@ These do not change `docs/OPERATING_ENVELOPE.md`, which is outside this WO's fil
 | `MPC_XY_VEL_MAX` holds at 2.5 | ≤ 2.5 m/s | peak 2.50–2.51 stick, 2.67–2.69 Return | up to 7.5% over, in Return |
 | `MPC_XY_VEL_MAX` holds at 1.0 | ≤ 1.0 m/s | peak 1.00–1.01 stick, 1.14–1.18 Return | up to 18% over, in Return |
 | `EKF2_NOAID_TOUT` 1 s false triggers | test | none in 40 nominal missions and the no-fault cases | none seen |
-| Operator: Altitude after position loss | "holds altitude until commanded" | Altitude from 2.12 s to the end of the window, 22.9 s. Measured from Altitude entry to the end of the log: height 3.21 m to 3.11 m, lowest 2.86 m, horizontal drift 1.84 m. Before that, about 1.4 m of height went in the 1.8 s of Descend (R-06) | holds, in no wind. The operator has to allow for the height lost before the switch |
+| Operator: Altitude after position loss | "holds altitude until commanded" | Altitude from 2.12 s to the end of the window, 22.9 s. From Altitude entry: height 3.21 m to 3.11 m at the end of the log, lowest 2.86 m; horizontal drift 1.55 m to the end of the 25 s window and 1.84 m to the end of the log, 2.2 s later. Before that, 1.32 m of height went in the 1.8 s of Descend (R-06) | holds, in no wind. The operator has to allow for the height lost before the switch |
 
 **Proposed for D3 (estimated from the above; not applied):** at 2.5 m/s, reaction 1.35 s × 2.5 + measured braking 3.2 m + error 2.0 m = **8.6 m** in place of 7.35 m. At 1.0 m/s, 1.35 + 1.0 + 1.0 = **3.35 m** in place of 2.85 m. Exclusion radius: 40 + 9 + 100 = 149 m, so the rounded 150 m still holds. Also: add a carried-speed term to the drift formula, and add `COM_FAIL_ACT_T`'s 5 s to the fence and RC-loss times. The fence did not act once position was lost (G-04, W-01), so the exclusion radius has to cover that case on its own.
 
 ### Gate bounds, as measured (ET-D1-5)
-Over the 10 regression missions of the fourth recording, armed, from takeoff to touchdown (9,346 ticks), with the highest of the four regressions beside it:
+Over the 10 regression missions of the fourth recording, armed, from takeoff to touchdown (9,346 ticks), with the highest of the four regressions beside it. p99 is the sample at index ⌊0.99 n⌋:
 
 | Measure | Bound | Median | p99 | Worst | Worst in any of the 4 regressions |
 |---|---:|---:|---:|---:|---:|
@@ -137,11 +139,13 @@ Over the 10 regression missions of the fourth recording, armed, from takeoff to 
 | Estimator age, settle phase | 100 ms | 26.1 ms | 59.1 ms | 59.3 ms | 60.8 ms |
 | Estimator age, land phase | 100 ms | 29.6 ms | 73.8 ms | 77.4 ms | **92.2 ms** |
 
-**So the estimator bound's margin is thin during landing.** 40 missions produced no false latch, but the worst landing tick was within 8 ms of the bound, and WO-002 already states these ages are lower bounds, because capture time uses the smallest offset seen in a run. The landing worst moved between recordings (65.6, 58.8, 92.2, 77.4 ms), and why the age rises in landing is not established. The bound stays frozen. D2 needs a real measurement of this. A latch here would be a `land` verdict on an aircraft already landing; that path was **not run**.
+**So the estimator bound's margin is thin during landing, and the gate does not act there.** In 40 missions the gate's verdict was `continue` at every armed tick, but the worst landing tick was within 8 ms of the bound, and WO-002 already states these ages are lower bounds, because capture time uses the smallest offset seen in a run. The landing worst moved between recordings (65.6, 58.8, 92.2, 77.4 ms), and why the age rises in landing is not established.
+
+No latch can form in the `land` phase: `flying` covers only `route`, `settle` and `hover` (`src/banshee/offboard/mission.py:338`). So "0 false latches" says nothing about landing, and a stale verdict there would change nothing. The worst age where a latch can form is 61.1 ms, a margin of about 39 ms. The bound stays frozen. D2 needs a real measurement of the age, and has to decide whether the gate should act during landing.
 
 **Correction to an earlier draft of this report:** it gave a worst age of 44.7 ms over 7,142 ticks. That count covered only the route and settle phases, and left landing out, without saying so.
 
-A tick gap of about 335 ms occurred in 2, 3, 4 and 4 of the 10 missions across the four regressions, always at the start of the node's log, in `stream`, before flight. On the next tick the estimator age is about 340 ms and the gate says `land`. Nothing latches, because the node is not in flight. The cause is not established.
+A tick gap of about 335 ms occurred in 2, 3, 4 and 4 of the 10 missions across the four regressions, always at the start of the node's log, in `stream`, before flight. At that tick the estimator age is about 340 ms and the gate says `land`. Nothing latches, because the node is not in flight. The cause is not established.
 
 The planner stall series brackets the setpoint bound: at 100 ms (P-01) no latch in any recording, at 500 ms (P-02) a latch at 0.24 s, and at 150 ms (P-03) a latch at a different time each recording (§4, variation). So a 150 ms stall should be treated as able to latch at any stall.
 
@@ -263,6 +267,14 @@ Passing these says less than the row suggests:
 ### Landing offset (carried here by WO-002, still open)
 The aircraft lands 0.34–0.44 m from the route's end by ground truth in the fourth regression, and 0.33–0.49 m across all four, against 0.31–0.43 m at WO-002's close. This WO found no cause for what remains. The D3 landing zone should allow for it.
 
+### Open from the recheck of the fixes (not fixed)
+A change to the arming path needs another recording (§5), and none of these harmed a recorded run, so they are carried.
+- **Before flight, the node can still override an operator's mode choice.** While disarmed, it repeats the Offboard command each second whenever the vehicle is not in Offboard, and then arms from Offboard. On real hardware this has to change before an operator stands behind it.
+- **A stuck state.** If the vehicle is armed but not in Offboard in `stream`, the node sends nothing and idles until its 200 s deadline, without moving on. The node commands nothing there, so the operator or PX4 stays in charge.
+- **A race.** `nav_state` can be stale, so an arm command could reach PX4 outside Offboard. The next tick's disarm path covers a later disarm, but this was not exercised.
+- **`wait_estimator`'s arm path** (case-only, `arm_attempt_after_s`) has no handling if PX4 accepts the arm. It was refused in all 6 cases.
+- **The settle latch fix has no unit test**, because `plan()` needs `rclpy`. The other fixes do. The recordings exercised it only indirectly.
+
 ### Carried over from WO-002's review (unchanged, open)
 - A corrupt ULog aborts a campaign rather than recording a failure.
 - A sample dropped by the frame guard is not logged.
@@ -280,7 +292,7 @@ None.
 ## 8. Exit tests and acceptance
 | Exit test | Threshold (frozen) | Result | Evidence | Pass? |
 |---|---|---|---|---|
-| ET-D1-4 | All cases executed; deviations reported; configured and tested distinguished | 47/47 executed, 41 with the fault in flight, 6 never armed; 7 deviations reported | `runs/fault-matrix-recorded-4/matrix.jsonl`, §4 | yes |
+| ET-D1-4 | All cases executed; deviations reported; configured and tested distinguished | 47/47 executed, 41 with the fault in flight, 6 never armed; 7 deviations reported | `runs/fault-matrix-recorded-4/matrix.jsonl`, §4 | yes, for every fault the exit test lists. V-01 to V-03 are outside that list and not shown, and ADR-0010 is only proposed. If the owner rejects it, they reopen in a new work order |
 | ET-D1-5 | Gate with frozen bounds in the command path, unit-tested; heartbeat ≠ freshness; bounds justified | Gate in the path; tests green; H-01 to H-04 show the difference; setpoint and estimator bounds measured against flight, with the landing margin thin; sensor bound still estimated | `tests/test_freshness.py`, `tests/test_faults.py`, §4 | yes |
 
 Phase D1 is `passed` once ET-D1-1 to 5 are all recorded, after the independent review (`AGENTS.md §13.9`, §10 below).
@@ -289,22 +301,37 @@ Phase D1 is `passed` once ET-D1-1 to 5 are all recorded, after the independent r
 - Simulation only. Nothing here shows flight readiness, and real links, RC hardware and sensors were not used. Real link cuts belong to D2.
 - One trial per case in each recording. §4's variation table shows that a trial is not a bound, most of all in wind.
 - Simulated RC arrives through `RC_CHANNELS_OVERRIDE`, not a receiver. Stick and switch latency here says nothing about a radio.
-- **Not run:** vision-only flight, and with it the origin-error cases and the 0.5 m `COM_POS_FS_EPH` setting; takeover during a nominal landing; takeover before flight; a false latch during landing; long-duration Hold after link loss; QGroundControl, and the second clean build, carried from WO-002.
+- **Not run:** vision-only flight, and with it the origin-error cases and the 0.5 m `COM_POS_FS_EPH` setting; takeover during a nominal landing; takeover before flight; any gate response during landing, which the node does not have; long-duration Hold after link loss; QGroundControl, and the second clean build, carried from WO-002.
 - World wind was one setting, 5,2,0 m/s, with no gusts.
 
 ## 10. Independent review
-Under `AGENTS.md §13.9`. A second agent, in a fresh session and a clean clone, reviewed the branch at `50406c3` (second recording) with no access to this author's reasoning. It reported no blockers. Each finding was checked against the code or logs before acting on it.
+Under `AGENTS.md §13.9`. A second agent, in a clean clone and briefed on the areas to check, read the branch at `50406c3` (second recording) and the ignored run data, read-only. It ran `pytest tests`, `ruff check` and `mypy src`, not the full `make check`. It reported no blockers. Each finding was checked against the code or logs before acting on it.
 
 | Finding | Verified | Outcome |
 |---|---|---|
 | Never-armed cases never sent an arm command, so "never armed" tested nothing | Yes, and 6 cases, not the 5 reported | Fixed in `2ce9126`: 25 arm commands each, refusals logged |
-| A Hold latch could get stuck, because the phase still advanced to land | Yes | Fixed in `2ce9126` |
+| Hold could not escalate to Land once the phase had advanced to `land` | Yes | Fixed in `2ce9126` |
 | In `stream` the node could re-arm over the operator | Yes | Fixed in `2ce9126` and `9a2571f` (§5) |
 | `transmitted` was logged before the frame fault was applied | Yes | Fixed in `2ce9126`; what is sent is what is logged |
 | Fault episodes' notes described a nominal mission | Yes | Fixed in `2ce9126` |
 | The headline overstated how many cases flew | Yes | §1 and §4 now separate them |
 | Number errors: R-06's measure undefined, W-01's estimate 75 m, ranges inconsistent | Yes | Corrected from the recordings by script |
+| Nominal `land` sends Land only from Offboard | Yes | By design; disclosed in §5 |
+| The sensor bound has no independent source | Yes | Disclosed in §4; stays estimated |
 | Items to disclose (5 s hold in B-01, weak checks, what the export fields mean, dirty flag, 336 ms gap, parameter not read back) | Yes | Disclosed in §3, §4 and §5 |
 
-The recheck of the fixes is recorded below.
+**Recheck of the fixes, at `84e1f09`.** The same agent, in a new clean clone, read the code diff from `50406c3` and recomputed the deviations, the heartbeat table, a sample of the envelope and variation rows, and the gate-bound tables from the run data. It found no blockers, and the code fixes correct. Each finding below was checked against the code or logs, and this report's text was then changed; those edits were not rechecked by the reviewer.
+
+| Recheck finding | Verified | Outcome |
+|---|---|---|
+| V-05 is plain `gz_x500`, not a vision case, and shows its specified refusal | Yes, from `case-env.sh` and `px4.log` | §1, §4 and ADR-0010 corrected; carried set is V-01 to V-04 |
+| No latch can form in `land`, so this report's "latch during landing" described a path that cannot exist | Yes, `mission.py:338` | §4 and §9 corrected: the gate does not act in landing |
+| R-06 drift of 1.84 m did not match the reviewer's 1.55 m | Both are right: end of log, and end of the 25 s window | §4 gives both |
+| R-06 height lost in Descend is 1.32 m, not "about 1.4" | Yes | Corrected |
+| G-03's discrimination was overclaimed | Yes: it arms by a different path, and the log does not name `COM_ARM_WO_GPS` | §4 corrected |
+| ET-D1-4's "yes" depends on ADR-0010 for V-01 to V-03 | Yes | §8 says so |
+| Pre-flight mode override, stuck state, stale-`nav_state` race, `wait_estimator` arm, untested settle fix | Yes, by reading the code | Carried, in §5 |
+| This section misdescribed the first review | Yes | Corrected above |
+
+Not checked by the reviewer: the full `make check`, the content of the fourth recording's exported episodes (they pass `ironclad-validate` here), every row of the "Every case" table, and VM or PX4 internals.
 
