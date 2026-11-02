@@ -4,7 +4,7 @@
 **Date:** 2026-11-02 · **Author:** claude-code-banshee · **Work order:** WO-026 · **Phase:** D2 (not started)
 **Program link:** PROGRAM §5.1
 
-> Results are labelled **measured**, **estimated**, **mocked/fixture** or **not run**. Nothing ran; this records decisions and drafts tests. Prices in the D3 package are search results, not page reads.
+> Results are labelled **measured**, **estimated**, **mocked/fixture** or **not run**. Nothing ran; this records decisions and drafts tests. Prices in the D3 package are search results, except the RFD900x-US, read on 2026-11-01.
 
 ## 1. Recorded
 | Decision | Where |
@@ -24,4 +24,7 @@
 - **The SiK 1 W's FCC ID** reads 2BNF8-HT051WRF915 on Holybro's page, but the same line says 100 mW. Its rule part is left unconfirmed, as the owner asked, until D3.
 
 ## 3. Verification
-`make check` passes. Independent review: §4.
+`make check` passes.
+
+## 4. Independent review
+Read-only, from the diff and the owner's words. It found: ET-D3-6's GPS-off trials put the aircraft in Altitude mode, where the D3 speed limit does not hold and the fence does not act, yet read as settled; the outside-in reference cannot be the truth at this scale; ET-D3-7 covered only the flow-aided case, left reach undefined, could not fail, and had criteria that could not be computed; missing gust, non-flying-day, airspeed and mast items; an overstatement of what held-out checks show; missing correction-link, deferred-line and anemometer items in the package; the SiK entry not plain enough; ET-D2-4's age undefined; stale envelope text; and smaller items. All are fixed. **The GPS-off trials (b) and (d) now need their own dated owner approval and an ADR**, and both D3 thresholds are labelled as the agent's proposal. The ledger is append-only, so a new record adds that limit. There was no second pass on these fixes.

@@ -36,7 +36,7 @@
 | Shipping, flat allowance | 120.00 | estimated |
 | U1, your ceiling | 306.26 | ceiling, not a price |
 | F1, Part 107 test | 175.00 | about $175 |
-| **Planning total** | **7,203.89** | $2.04 under the re-priced list |
+| **Planning total** | **7,203.89** | $2.04 under the re-priced list. Goods on the approved lines alone: $5,972.17; line 31 ($14.97) is held |
 
 ## The two new lines
 **Line 31, adapter leads.** You asked for 12 AWG, EC5 female to XT60 male. The Gens Ace lead names those genders, but its gauge is not confirmed, and its page returned HTTP 429 to every read. **Sellers name EC5 and XT60 genders inconsistently, so check two things before ordering: that the lead mates the Tattu pack's EC5 lead, and that it mates the XT60 on the PM02D and on the charger's output lead.** Listings found with 12 AWG named the opposite genders: [BenchCraft](https://motionrc.com/products/benchcraft-ec5-male-to-xt60-female-adapter-bct5061-041) and [GetFPV](https://www.getfpv.com/accessories/power-cables-connectors/ec5-male-to-xt60-female-12awg-extension-cable-5cm.html), both EC5 male to XT60 female. [Kiwi Quads](https://www.kiwiquads.co.nz/product/xt60-ec5-connector-adaptor-pair) sells a 12 AWG pair with both genders, but from New Zealand and at an unread price. XT60 is rated about 60 A continuous; at 5 kg the hover current on 6S is about 30–40 A (estimated), so the lead should not carry a full-throttle climb for long.

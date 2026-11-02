@@ -45,7 +45,7 @@
         "offboard_loss_flag_max_ms_after_cut": "COM_OF_LOSS_T + 200",
         "freshness_gate_stops_sending": "in every trial, independently of the laptop",
         "passes_required": "3/3 in each case",
-        "no_stale_setpoint_after_resume": "In the SIGSTOP and reboot cases: no setpoint older than 200 ms is sent after SIGCONT or after the restart; 3/3 (owner, 2026-11-02)"
+        "no_stale_setpoint_after_resume": "In the SIGSTOP and reboot cases: no setpoint older than 200 ms is sent after SIGCONT or after the restart; 3/3 in each of the two cases (owner, 2026-11-02). Age is send time minus the setpoint's generation timestamp, as in freshness.assess, and includes setpoints replayed after a reboot. Evidence: the node's send log with both timestamps, and PX4's received log."
       },
       "note": "PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4.",
       "method": "The Jetson-to-6X link runs in board traces (TELEM2 to UART1, and an Ethernet switch), so the cut is made on the Jetson: the interface down for Ethernet, or the XRCE-DDS agent stopped for the UART. The report names the path carrying offboard and shows that the other carries no setpoints. No cable pull is claimed. This is weaker than a physical cut, and the owner accepted it on 2026-11-02.",
@@ -96,7 +96,7 @@
       }
     ]
   },
-  "revised": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before any D2 result exists. Previous version sha256 0ac32802c5691662abca0fe7f81c0df46e1151176ba88624e3fbff0a448b8131. Thresholds carry over. ET-D2-1 adds the distortion model as a reported item, ET-D2-2 and ET-D2-5 gain the ARK Flow MR, and ET-D2-4's cut changes method, which the owner's instruction did not name and the owner is asked to accept. Revised again 2026-11-02, owner decision of that date, before any D2 result exists, from sha256 f543c93eb3ee6c6d059781141baee6b21578d41c9128e29b97239245c41ada0c: the owner accepted the software cut, ET-D2-4 gains the SIGSTOP and Jetson-reboot cases, and the gate trips become a blocking item. The new cases' t0 and the reported items after SIGCONT and on restart are in the statement too. Revised 2026-11-02 again, owner decision: the SIGSTOP and reboot cases gain a pass/fail check, no setpoint older than 200 ms after SIGCONT or restart, 3/3.",
+  "revised": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before any D2 result exists. Previous version sha256 0ac32802c5691662abca0fe7f81c0df46e1151176ba88624e3fbff0a448b8131. Thresholds carry over. ET-D2-1 adds the distortion model as a reported item, ET-D2-2 and ET-D2-5 gain the ARK Flow MR, and ET-D2-4's cut changes method, which the owner's instruction did not name and the owner is asked to accept. Revised again 2026-11-02, owner decision of that date, before any D2 result exists, from sha256 f543c93eb3ee6c6d059781141baee6b21578d41c9128e29b97239245c41ada0c: the owner accepted the software cut, ET-D2-4 gains the SIGSTOP and Jetson-reboot cases, and the gate trips become a blocking item. The new cases' t0 and the reported items after SIGCONT and on restart are in the statement too. Revised 2026-11-02 again, owner decision, from sha256 0854dfcbc18e0670d61c99b1dc615cac6e175fb2fd110324a22f5de817867094: the SIGSTOP and reboot cases gain a pass/fail check, no setpoint older than 200 ms after SIGCONT or restart, 3/3.",
   "blocking_before_armed_flight": [
     {
       "from": "WO-022, owner decision of 2026-11-02",
