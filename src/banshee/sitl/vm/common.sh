@@ -2,7 +2,7 @@
 # stack. Simulation only. Sourced with "repo", "out" and "WORK" set. Every process has a time limit,
 # capped output and no stdin. Set extra PX4_PARAM_ values and the model before start_stack.
 export ROS_DOMAIN_ID=42 HEADLESS=1 PX4_SIM_MODEL=gz_x500 PX4_GZ_WORLD=default
-export PYTHONPATH="$repo/src" PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$repo/src:$repo/onboard/src" PYTHONDONTWRITEBYTECODE=1
 # The frozen values in evals/D1-exit-tests.json px4_parameters_under_test.
 export PX4_PARAM_MPC_XY_VEL_MAX=2.5 PX4_PARAM_MPC_Z_VEL_MAX_UP=1.0 PX4_PARAM_MPC_Z_VEL_MAX_DN=0.7
 export PX4_PARAM_COM_OF_LOSS_T=1.0 PX4_PARAM_COM_OBL_RC_ACT=5 PX4_PARAM_NAV_RCL_ACT=2

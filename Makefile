@@ -3,6 +3,9 @@ BASE ?= origin/main
 
 .PHONY: check lint format type test verify secrets links immutable board sim-check help
 
+onboard-py310:
+	uv run --python 3.10 --no-project --with pytest==9.1.1 python -m pytest -c onboard/pyproject.toml --rootdir onboard onboard/tests
+
 help:
 	@echo "make check      - full CPU tier (lint, type, test, verify, secrets, links)"
 	@echo "make lint       - ruff format --check + ruff check"
@@ -20,14 +23,15 @@ check: lint type test verify secrets links
 	@echo "CPU tier: all checks passed"
 
 lint:
-	$(PYTHON) -m ruff format --check src tests
-	$(PYTHON) -m ruff check src tests
+	$(PYTHON) -m ruff format --check src tests onboard
+	$(PYTHON) -m ruff check src tests onboard
 
 format:
-	$(PYTHON) -m ruff format src tests
+	$(PYTHON) -m ruff format src tests onboard
 
 type:
 	$(PYTHON) -m mypy src
+	$(PYTHON) -m mypy --python-version 3.10 onboard/src
 
 test:
 	$(PYTHON) -m pytest -q

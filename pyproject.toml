@@ -17,15 +17,15 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
+testpaths = ["tests", "onboard/tests"]
+pythonpath = ["src", "onboard/src"]
 addopts = "-q -p no:cacheprovider"
 filterwarnings = ["error::DeprecationWarning:banshee.*", "error::DeprecationWarning:ironclad.*"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["src", "tests"]
+src = ["src", "tests", "onboard/src", "onboard/tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "N", "S", "C4", "SIM", "RUF"]
@@ -38,6 +38,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S", "B011"]
+"onboard/tests/**" = ["S", "B011"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -46,5 +47,5 @@ quote-style = "double"
 python_version = "3.12"
 strict = true
 warn_unreachable = true
-mypy_path = ["src"]
+mypy_path = ["src", "onboard/src"]
 ignore_missing_imports = true
