@@ -1,0 +1,489 @@
+{
+ "schema": "banshee-fault-matrix-1",
+ "status": "measurement set, not an exit test",
+ "stack": "config/stack-lock.resolved.json",
+ "frozen_bounds": "evals/D1-exit-tests.json",
+ "note": "WO-022. Each row of the envelope's height and wind table, on the X650 proxy at its nominal, half and double drag. The loss comes at about 32 m out: the 30 m flight box plus the 2 m position error. Results are simulation results, with uniform wind and an unvalidated ground contact.",
+ "cases": [
+  {
+   "id": "PL-5",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 5 m/s wind at 10 m (gz_x650_proxy)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      10
+     ],
+     [
+      64.99,
+      26.0,
+      10
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 39,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy",
+    "PX4_GZ_WORLD": "windy_5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "14"
+   }
+  },
+  {
+   "id": "PL-5-LD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 5 m/s wind at 10 m (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      10
+     ],
+     [
+      64.99,
+      26.0,
+      10
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 39,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag",
+    "PX4_GZ_WORLD": "windy_5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "14"
+   }
+  },
+  {
+   "id": "PL-5-HD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 5 m/s wind at 10 m (gz_x650_proxy_highdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      10
+     ],
+     [
+      64.99,
+      26.0,
+      10
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 39,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_highdrag",
+    "PX4_GZ_WORLD": "windy_5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "14"
+   }
+  },
+  {
+   "id": "PL-4",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 4 m/s wind at 14 m (gz_x650_proxy)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      14
+     ],
+     [
+      64.99,
+      26.0,
+      14
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 45,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy",
+    "PX4_GZ_WORLD": "windy_4",
+    "PX4_PARAM_GF_MAX_VER_DIST": "18"
+   }
+  },
+  {
+   "id": "PL-4-LD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 4 m/s wind at 14 m (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      14
+     ],
+     [
+      64.99,
+      26.0,
+      14
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 45,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag",
+    "PX4_GZ_WORLD": "windy_4",
+    "PX4_PARAM_GF_MAX_VER_DIST": "18"
+   }
+  },
+  {
+   "id": "PL-4-HD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 4 m/s wind at 14 m (gz_x650_proxy_highdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      14
+     ],
+     [
+      64.99,
+      26.0,
+      14
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 45,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_highdrag",
+    "PX4_GZ_WORLD": "windy_4",
+    "PX4_PARAM_GF_MAX_VER_DIST": "18"
+   }
+  },
+  {
+   "id": "PL-3",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 3 m/s wind at 20 m (gz_x650_proxy)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      20
+     ],
+     [
+      64.99,
+      26.0,
+      20
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 54,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy",
+    "PX4_GZ_WORLD": "windy_3",
+    "PX4_PARAM_GF_MAX_VER_DIST": "24"
+   }
+  },
+  {
+   "id": "PL-3-LD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 3 m/s wind at 20 m (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      20
+     ],
+     [
+      64.99,
+      26.0,
+      20
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 54,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag",
+    "PX4_GZ_WORLD": "windy_3",
+    "PX4_PARAM_GF_MAX_VER_DIST": "24"
+   }
+  },
+  {
+   "id": "PL-3-HD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 3 m/s wind at 20 m (gz_x650_proxy_highdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      20
+     ],
+     [
+      64.99,
+      26.0,
+      20
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 54,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_highdrag",
+    "PX4_GZ_WORLD": "windy_3",
+    "PX4_PARAM_GF_MAX_VER_DIST": "24"
+   }
+  },
+  {
+   "id": "PL-2p5",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 2.5 m/s wind at 25 m (gz_x650_proxy)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      25
+     ],
+     [
+      64.99,
+      26.0,
+      25
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 61,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy",
+    "PX4_GZ_WORLD": "windy_2p5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "29"
+   }
+  },
+  {
+   "id": "PL-2p5-LD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 2.5 m/s wind at 25 m (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      25
+     ],
+     [
+      64.99,
+      26.0,
+      25
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 61,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag",
+    "PX4_GZ_WORLD": "windy_2p5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "29"
+   }
+  },
+  {
+   "id": "PL-2p5-HD",
+   "group": "wo001",
+   "title": "Position lost at about 32 m, 2.5 m/s, flying downwind: 2.5 m/s wind at 25 m (gz_x650_proxy_highdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      25
+     ],
+     [
+      64.99,
+      26.0,
+      25
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 61,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Measure the reach from Home to the end of the ground slide. The fence does not act once position is lost; the gate's response is off, as in G-04.",
+   "expect": {},
+   "timeout_s": 240,
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_highdrag",
+    "PX4_GZ_WORLD": "windy_2p5",
+    "PX4_PARAM_GF_MAX_VER_DIST": "29"
+   }
+  }
+ ]
+}

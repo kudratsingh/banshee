@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 03:03 UTC · ledger records: 101
+Generated: 2026-11-02 06:48 UTC · ledger records: 104
 
 ## Phases
 
@@ -32,11 +32,11 @@ Generated: 2026-11-02 03:03 UTC · ledger records: 101
 | ET-D1-3 | D1 | Each run is exported through contracts/v1/writer.py with correct frames and timebase (capture, receive, decision, sent times) and validates. | 100% contract_valid | passed | reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md |
 | ET-D1-4 | D1 | The simulated fault matrix is executed: stale setpoint while heartbeat continues, lost command stream, stale sensor data, missing depth, localization reset/loss, delayed planner, low energy, operator takeover; each behaves as specified and is logged, with configured versus tested behaviour distinguished. | all listed cases executed; any deviation from spec is reported, not hidden | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
 | ET-D1-5 | D1 | A setpoint-freshness and estimator-validity gate with frozen bounds sits in the command path and is unit-tested; heartbeat continuity never counts as setpoint freshness. | tests green; bounds documented with their justification | passed | reports/WO-004-d1-fault-matrix-and-freshness-gate.md |
-| ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried. | offset estimate with CI; frame check passes; latency distribution reported | frozen | — |
-| ET-D2-2 | D2 | VIO tracks through the test volume; dropouts and resets are counted; drift is measured against the outside-in reference. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported | frozen | — |
+| ET-D2-1 | D2 | Camera/IMU timestamp offsets, frame consistency and end-to-end latency are measured hand-carried, on the OAK-D Pro W connected to the Jetson Orin NX on the Holybro Pixhawk Jetson Baseboard. The report states which distortion model the unit's factory calibration reports, and whether the VIO candidate accepts it. | offset estimate with CI; frame check passes; latency distribution reported | frozen | — |
+| ET-D2-2 | D2 | VIO tracks through the test volume on the OAK-D Pro W; dropouts and resets are counted; drift is measured against the outside-in reference. The ARK Flow MR's optical flow and range are logged on the same routes and reported. | proposed default: end-of-route drift <= 0.2 m; loss/recovery counts reported; ARK Flow MR flow and range reported | frozen | — |
 | ET-D2-3 | D2 | The outside-in reference is qualified: static survey residuals, dynamic latency, coverage map, session check procedure. | proposed default: static residual RMS <= 2 cm; coverage >= 90% of the test volume; inadequate coverage is inconclusive, not a pass | frozen | — |
-| ET-D2-4 | D2 | With motors disarmed, the actual link is cut: PX4's offboard-loss flag sets no later than COM_OF_LOSS_T + 200 ms after the cut, with the time logged, and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4. | 3/3 trials match the specified behaviour | frozen | — |
-| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch and the mode switch are recognised on the actual Pixhawk 6X. Requires a dated owner approval to connect. | each control recognised; 3/3 power cycles | frozen | — |
+| ET-D2-4 | D2 | With motors disarmed, the actual command link between the Jetson and the Pixhawk 6X on the baseboard is cut on the Jetson, because that link runs in board traces and has no cable to pull: the interface is taken down if the link is Ethernet, or the XRCE-DDS agent is stopped if it is the UART. The report names the path carrying offboard and shows that the other carries no setpoints. PX4's offboard-loss flag sets no later than COM_OF_LOSS_T + 200 ms after the cut, with the time logged, and the project's freshness gate stops sending, independently of the laptop. PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4. | 3/3 trials match the specified behaviour | frozen | — |
+| ET-D2-5 | D2 | With propellers removed and motors disarmed, the RC link over CRSF, the kill switch, the mode switch and the ARK Flow MR over DroneCAN are recognised on the actual Pixhawk 6X on the Holybro Pixhawk Jetson Baseboard. Requires a dated owner approval to connect. | each control and the ARK Flow MR recognised; 3/3 power cycles | frozen | — |
 | ET-D3-1 | D3 | Compliance is in place for the site: certificate if applicable, registration, Remote ID route, airspace and site permission. | all applicable items recorded with dates | not_run | — |
 | ET-D3-2 | D3 | Manual flight checkout in Position mode and GPS position hold within the frozen tolerance. | proposed default: position hold RMS <= 1.0 m over 60 s on 3/3 flights | not_run | — |
 | ET-D3-3 | D3 | Emergency procedures (RTL, land, kill) are rehearsed and logged. | each procedure exercised once | not_run | — |
@@ -83,5 +83,5 @@ Generated: 2026-11-02 03:03 UTC · ledger records: 101
 | WO-019 | Close the stale-status offboard-command window in the mode-override fix | D3 | **created** | 2026-11-02T01:22:35.987284Z | — |
 | WO-020 | Record the owner's buy-list decisions and the C2 correction | D2 | **accepted** | 2026-11-02T02:33:42.821764Z | reports/WO-020-buy-list-decisions.md |
 | WO-021 | Record the X650 decision and the hold; re-price the list | D2 | **accepted** | 2026-11-02T03:03:53.154413Z | reports/WO-021-x650-hold-and-reprice.md |
-| WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **created** | 2026-11-02T03:02:51.633777Z | — |
+| WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **accepted** | 2026-11-02T06:48:07.648720Z | reports/WO-022-x650-envelope-and-d2-tests.md |
 

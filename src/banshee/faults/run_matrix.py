@@ -69,6 +69,7 @@ def export_case(repo: Path, copied: Path, case: dict[str, Any], record: dict[str
             reason=f"{case['id']}: " + ("; ".join(deviations) or "as specified"),
             protocol_version="evals/D1-fault-matrix.json",
             notes=FAULT_NOTES,
+            airframe=str(case.get("env", {}).get("PX4_SIM_MODEL", "gz_x500")),
         )
     except (ContractError, ValueError, OSError) as error:
         return f"not exported: {error}"

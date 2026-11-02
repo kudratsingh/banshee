@@ -93,6 +93,7 @@ def export_run(
     reason: str | None = None,
     protocol_version: str = "evals/D1-exit-tests.json",
     notes: str = NOMINAL_NOTES,
+    airframe: str = "gz_x500",
 ) -> Path:
     """Build and validate one episode directory at ``target_dir``, which must not exist."""
     episode_id = f"banshee-d1-{run_id}"
@@ -100,7 +101,7 @@ def export_run(
     if len(usable) < 2:
         raise ValueError("a run needs at least two usable steps to export")
     speed = limits["max_horizontal_speed_m_s"]
-    configuration = json.dumps({"airframe": "gz_x500", "stack": stack}, sort_keys=True).encode()
+    configuration = json.dumps({"airframe": airframe, "stack": stack}, sort_keys=True).encode()
     builder = EpisodeBuilder(
         {
             "schema_version": "1.0.0",
@@ -116,7 +117,7 @@ def export_run(
                 "criteria_artifact": {"path": "rubric.json", "sha256": ""},
             },
             "configuration": {
-                "embodiment_id": "gz_x500",
+                "embodiment_id": airframe,
                 "embodiment_artifact": {"path": "configuration.json", "sha256": ""},
                 "controller_artifact": {"path": "configuration.json", "sha256": ""},
                 "calibration_artifact": {"path": "configuration.json", "sha256": ""},
@@ -203,7 +204,7 @@ def export_run(
         ("configuration.json", configuration),
         ("alignment.json", json.dumps(alignment).encode()),
         ("initial-state.json", json.dumps(initial).encode()),
-        ("assets.json", json.dumps({"model": "gz_x500", "px4": stack.get("px4")}).encode()),
+        ("assets.json", json.dumps({"model": airframe, "px4": stack.get("px4")}).encode()),
         ("outcome.json", json.dumps(outcome, sort_keys=True).encode()),
     ):
         builder.add_file(name, payload)

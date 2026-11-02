@@ -2,7 +2,7 @@
   "phase": "D2",
   "status": "frozen",
   "frozen": "2026-11-01, owner instruction (ledgers/approvals.jsonl), before any D2 result exists",
-  "status_note": "Statements and evidence are those in config/phases.json. Thresholds that read 'proposed default' there are frozen here at those values. The sample sizes and the confidence level are added here, because the statements did not give them. D2 has not started: it needs hardware the owner has not approved buying, and a dated owner approval to connect it.",
+  "status_note": "Statements and evidence are those in config/phases.json. Thresholds that read 'proposed default' there are frozen here at those values. The sample sizes and the confidence level are added here, because the statements did not give them. D2 has not started: it needs hardware the owner has not approved buying, and a dated owner approval to connect it. The hardware is the Pixhawk 6X and Orin NX on the Holybro Pixhawk Jetson Baseboard, the OAK-D Pro W and the ARK Flow MR. Carried on the frame, that assembly is about 3.5-4 kg (estimated).",
   "authorization": "Motors disarmed and propellers removed throughout. Connecting to the flight controller and any link-cut test each need a dated owner approval (AGENTS.md section 2.3). No arming.",
   "pass_rule": "Every trial in a test must meet its threshold. A hand-carried pass is not flight qualification.",
   "exit_tests": {
@@ -10,7 +10,8 @@
       "measures": {
         "camera_imu_offset": "estimate with a 95% confidence interval, from at least 3 sessions",
         "frame_consistency": "pass/fail: the frame check passes in every session",
-        "end_to_end_latency": "distribution reported: median, p99 and worst"
+        "end_to_end_latency": "distribution reported: median, p99 and worst",
+        "distortion_model": "reported: the model in the unit's factory calibration, and whether the VIO candidate accepts it"
       },
       "threshold": "offset estimate with a 95% CI; frame check passes in 3/3 sessions; latency distribution reported"
     },
@@ -22,7 +23,8 @@
       "reported_not_thresholded": [
         "dropout count",
         "reset count",
-        "recovery count"
+        "recovery count",
+        "ARK Flow MR optical flow and range on the same routes"
       ],
       "inconclusive": "If the reference does not pass ET-D2-3, this test is inconclusive, not a pass."
     },
@@ -44,7 +46,8 @@
         "freshness_gate_stops_sending": "in every trial, independently of the laptop",
         "passes_required": "3/3"
       },
-      "note": "PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4."
+      "note": "PX4 selects no action while disarmed, so the action itself is tested in ET-D4-4.",
+      "method": "The Jetson-to-6X link runs in board traces (TELEM2 to UART1, and an Ethernet switch), so the cut is made on the Jetson: the interface down for Ethernet, or the XRCE-DDS agent stopped for the UART. The report names the path carrying offboard and shows that the other carries no setpoints. No cable pull is claimed. This is weaker than a physical cut."
     },
     "ET-D2-5": {
       "trials": 3,
@@ -52,11 +55,12 @@
         "controls_recognised": [
           "RC link over CRSF",
           "kill switch",
-          "mode switch"
+          "mode switch",
+          "ARK Flow MR over DroneCAN"
         ],
         "power_cycles": "3/3"
       },
-      "note": "The statement names the Pixhawk 6X. If the owner approves the ARKV6X line instead, this statement changes by a dated owner approval before any result exists."
+      "note": "The statement names the Pixhawk 6X on the Holybro Pixhawk Jetson Baseboard. The ARKV6X option closed with the owner's decision of 2026-11-01."
     }
   },
   "required_in_the_d2_report": {
@@ -76,12 +80,17 @@
       },
       {
         "from": "OPERATING_ENVELOPE",
-        "item": "OAK-D Pro behaviour in direct sunlight, which is unresolved."
+        "item": "OAK-D Pro W behaviour in direct sunlight, which is unresolved."
       },
       {
         "from": "BOM_WORKSHEET",
-        "item": "Jetson power: the BEC output on a 4S pack down to 3.5 V per cell, on the bench."
+        "item": "Jetson power on the baseboard: the 12 A UBEC at 7.2 V on a 6S pack down to 3.5 V per cell, on the bench."
+      },
+      {
+        "from": "WO-022",
+        "item": "The gate's estimator age on the real link. In simulation, 11 of 131 runs saw `estimator stale` at an armed tick before the fault, first at 102-157 ms against the 100 ms bound, and one tick can latch Land. Six of the first ten were in flight. The cause is not established, and whether this reaches hardware is not known."
       }
     ]
-  }
+  },
+  "revised": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before any D2 result exists. Previous version sha256 0ac32802c5691662abca0fe7f81c0df46e1151176ba88624e3fbff0a448b8131. Thresholds carry over. ET-D2-1 adds the distortion model as a reported item, ET-D2-2 and ET-D2-5 gain the ARK Flow MR, and ET-D2-4's cut changes method, which the owner's instruction did not name and the owner is asked to accept."
 }
