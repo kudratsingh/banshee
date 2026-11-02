@@ -94,3 +94,6 @@ The owner chose the X650 and the Pixhawk Jetson bundle and put all purchases on 
 
 ## After import: envelope recomputed for the X650, D2 tests updated (2026-11-01, WO-022)
 On a simulated proxy of the X650, the standoffs freeze at 8.7 m and 3.4 m and the exclusion radius stays 150 m. On the proxy the rule is not met at 20 m and 25 m at nominal drag, nor at 14 m through one tumble at double drag. At 10 m and 5 m/s it is met only in uniform wind with no large tumble. This is open for the owner. The agent proposes moving the crew to 85 m because of the carbon props. ET-D2-1, -2, -4 and -5 now name the baseboard, the OAK-D Pro W and the ARK Flow MR. `evals/D3-standoffs.json` stays as the X500 record.
+
+## After import: the owner's decisions of 2026-11-02 (WO-023)
+D3 runs under a temporary rule: 10 m, 4 m/s, 160 m, crew 85 m upwind. ET-D2-4 gains a SIGSTOP case and a Jetson-reboot case, and the early gate trips block armed flight until the D2 report explains them. The stack is JetPack 6.2.2 with Humble; WO-024 holds the JetPack 7 migration, and WO-025 re-runs D1 on Humble. Tier B is defined. `docs/BUY_LIST-FINAL-2026-11-02.md` goes to the owner for line-by-line approval.

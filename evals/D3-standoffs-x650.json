@@ -127,5 +127,6 @@
   "crew_distance_label": "estimated, and proposed by the agent; the owner has not named it. Ballistic with quadratic drag, 2-15 g tumbling fragments at up to 140 m/s, 25 m release height, still air: this supports tens of metres, not a bound. Crew upwind of the flight box, because a downwind fragment travels further (79 m at 5 m/s).",
   "evidence": "reports/WO-022-x650-envelope-and-d2-tests.md",
   "overrun_margin_note": "The 8.7 m standoff, rounded up. Measured fence overrun on the proxy: 3.28-3.67 m in the runs used; 3.64 m at 5 kg in a further run (G-01).",
-  "reaction_note": "At the nominal speed limit, as on the X500. The proxy flew 2.50-2.63 m/s at the trigger; at 2.6 m/s the standoff would be 8.8 m, still under the 9 m margin."
+  "reaction_note": "At the nominal speed limit, as on the X500. The proxy flew 2.50-2.63 m/s at the trigger; at 2.6 m/s the standoff would be 8.8 m, still under the 9 m margin.",
+  "superseded_for_d3": "2026-11-02: for D3, the exclusion radius is 160 m and the crew is at 85 m upwind, accepted by the owner, by evals/D3-temporary-rule-2026-11-02.json. The standoffs and overrun margin here still apply. The position-lost status and the crew label below are the record of WO-022."
 }
