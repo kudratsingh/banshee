@@ -3,7 +3,7 @@
 # Usage, inside the VM: bash provision.sh <repository path>. Simulation only: no hardware.
 set -euo pipefail
 repo="$1"
-lock="$repo/config/stack-lock.proposed.json"
+lock="$repo/${2:-config/stack-lock.proposed.json}"
 pin() { python3 -c "import json,sys; print(json.load(open('$lock'))['flight_stack'][sys.argv[1]][sys.argv[2]])" "$1" "$2"; }
 PX4_COMMIT="$(pin px4_release_or_commit commit)"
 AGENT_COMMIT="$(pin px4_ros2_bridge_commit agent_commit)"

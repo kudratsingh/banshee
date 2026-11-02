@@ -97,3 +97,6 @@ On a simulated proxy of the X650, the standoffs freeze at 8.7 m and 3.4 m and th
 
 ## After import: the owner's decisions of 2026-11-02 (WO-023)
 D3 runs under a temporary rule: 10 m, 4 m/s, 160 m, crew 85 m upwind. ET-D2-4 gains a SIGSTOP case and a Jetson-reboot case, and the early gate trips block armed flight until the D2 report explains them. The stack is JetPack 6.2.2 with Humble; WO-024 holds the JetPack 7 migration, and WO-025 re-runs D1 on Humble. Tier B is defined. `docs/BUY_LIST-FINAL-2026-11-02.md` goes to the owner for line-by-line approval.
+
+## After import: D1 holds on Humble (2026-11-02, WO-025)
+A second VM on Ubuntu 22.04 and ROS 2 Humble, with PX4 at the same commit, re-ran the D1 regression: 10/10 missions, 10/10 contract-valid episodes, 47/47 fault cases with the same 7 deviations. `BANSHEE_STACK=humble` selects it; the Jazzy VM stays as the record.

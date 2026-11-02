@@ -16,7 +16,11 @@ export PX4_PARAM_EKF2_NOAID_TOUT=1000000 PX4_PARAM_NAV_DLL_ACT=0  # Applied belo
 export PX4_PARAM_COM_RC_IN_MODE=4 PX4_PARAM_COM_RCL_EXCEPT=4
 set +u
 # shellcheck disable=SC1091
-source /opt/ros/jazzy/setup.bash
+# One ROS distribution per VM: Jazzy in banshee-sitl, Humble in banshee-sitl-humble (WO-025).
+ros_setup="$(ls /opt/ros/*/setup.bash | head -1)"
+if [ "$(basename "$(dirname "$ros_setup")")" = humble ]; then stack_lock=config/stack-lock.humble.resolved.json; else stack_lock=config/stack-lock.resolved.json; fi
+# shellcheck disable=SC1090
+source "$ros_setup"
 # shellcheck disable=SC1091
 source "$WORK/ws/install/setup.bash"
 set -u
@@ -35,7 +39,7 @@ cleanup() {
 param() { timeout 10 ../bin/px4-param "$@" </dev/null; }
 
 check_versions() {
-  python3 -m banshee.sitl.launch --check-versions --lock "$repo/config/stack-lock.resolved.json" >"$out/versions.json" 2>"$out/versions.err"
+  python3 -m banshee.sitl.launch --check-versions --lock "$repo/$stack_lock" >"$out/versions.json" 2>"$out/versions.err"
 }
 
 # Usage: start_stack <limit seconds>. Leaves the working directory in the PX4 rootfs.

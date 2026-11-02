@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 09:03 UTC · ledger records: 110
+Generated: 2026-11-02 10:31 UTC · ledger records: 113
 
 ## Phases
 
@@ -86,5 +86,5 @@ Generated: 2026-11-02 09:03 UTC · ledger records: 110
 | WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **accepted** | 2026-11-02T06:48:07.648720Z | reports/WO-022-x650-envelope-and-d2-tests.md |
 | WO-023 | Record the owner's decisions of 2026-11-02: the D3 rule, ET-D2-4's cases, the stack, Tier B and the final buy list | D2 | **accepted** | 2026-11-02T09:03:02.752529Z | reports/WO-023-owner-decisions-2026-11-02.md |
 | WO-024 | Migrate the Jetson to JetPack 7 (placeholder) | D7 | **created** | 2026-11-02T08:52:47.776257Z | — |
-| WO-025 | Re-run the D1 regression on ROS 2 Humble | D2 | **created** | 2026-11-02T08:52:47.806025Z | — |
+| WO-025 | Re-run the D1 regression on ROS 2 Humble | D2 | **accepted** | 2026-11-02T10:31:52.823440Z | reports/WO-025-d1-regression-on-humble.md |
 
