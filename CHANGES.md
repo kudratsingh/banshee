@@ -106,3 +106,6 @@ The freshness gate, command path and offboard bridge moved to `onboard/` as `ban
 
 ## After import: line approvals and the D3 limit-raising tests (2026-11-02, WO-026)
 The owner approved 14 lines and held line 31; each approval is in the ledger. ET-D2-4 gains a no-stale-setpoint check after SIGCONT and restart. ET-D3-6 and ET-D3-7 collect the data and set the criteria for raising the D3 limits, with the ARK Flow MR as backup velocity. `docs/D3_APPROVAL_PACKAGE.md` drafts the radio, props and RTK items.
+
+## After import: Humble differences are noise (2026-11-02, WO-028)
+R-06 and N-01, six runs each on Jazzy and Humble, overlap: the two WO-025 differences were single runs at the ends of wide spreads. One Jazzy run tripped the freshness gate early on PX4's x500, so the early trips are not specific to the X650 proxy.
