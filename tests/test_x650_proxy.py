@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from banshee.sitl.x650_proxy import (
@@ -14,6 +16,7 @@ from banshee.sitl.x650_proxy import (
     airframe,
     base_sdf,
     model_sdf,
+    wind_world,
 )
 
 NOMINAL = PROXIES[0]
@@ -68,3 +71,15 @@ def test_airframe_edit_sets_geometry_and_motor_range() -> None:
     assert "CA_ROTOR1_KM  0.05" in out
     assert "SIM_GZ_EC_MAX1 700" in out and "SIM_GZ_EC_MIN1 105" in out
     assert "PX4_SIM_MODEL:=x650_proxy" in out
+
+
+def test_wind_world_keeps_the_direction_and_sets_the_speed() -> None:
+    source = "<world name='windy'><linear_velocity>5 2 0</linear_velocity></world>"
+    out = wind_world(source, "windy_4", 4.0)
+    assert "<world name='windy_4'>" in out
+    found = out.split("<linear_velocity>")[1].split("</")[0].split()
+    east, north = float(found[0]), float(found[1])
+    assert math.hypot(east, north) == pytest.approx(4.0)
+    assert north / east == pytest.approx(2 / 5)
+    with pytest.raises(ValueError):
+        wind_world("<world name='other'/>", "windy_4", 4.0)

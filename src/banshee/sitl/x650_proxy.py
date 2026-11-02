@@ -76,7 +76,12 @@ PROXIES = (
     Proxy("x650_proxy", 4901, 5.0),
     Proxy("x650_proxy_4kg", 4902, 4.0),
     Proxy("x650_proxy_lowdrag", 4903, 5.0, drag_factor=0.5),
+    Proxy("x650_proxy_highdrag", 4904, 5.0, drag_factor=2.0),
 )
+
+# The envelope's height and wind limits: wind speed in m/s, by the name of its world.
+WIND_WORLDS = {"windy_5": 5.0, "windy_4": 4.0, "windy_3": 3.0, "windy_2p5": 2.5}
+WINDY_VECTOR = (5.0, 2.0)
 
 
 def _set_tag(text: str, tag: str, value: float, *, count: int = 0) -> str:
@@ -128,8 +133,27 @@ def airframe(source: str, proxy: Proxy) -> str:
     )
 
 
+def wind_world(source: str, name: str, speed_m_s: float) -> str:
+    """PX4's windy world with the same wind direction at another speed."""
+    east, north = WINDY_VECTOR
+    scale = speed_m_s / math.hypot(east, north)
+    text = source.replace("<world name='windy'>", f"<world name='{name}'>")
+    out, found = re.subn(
+        r"<linear_velocity>[^<]*</linear_velocity>",
+        f"<linear_velocity>{east * scale:.6f} {north * scale:.6f} 0</linear_velocity>",
+        text,
+    )
+    if found != 1 or name not in out:
+        raise ValueError("the source world is not PX4's windy world")
+    return out
+
+
 def install(px4: Path) -> None:
     """Add the proxies to the VM's PX4 tree as untracked files. PX4's commit is unchanged."""
+    worlds = px4 / "Tools/simulation/gz/worlds"
+    for name, speed in WIND_WORLDS.items():
+        source = (worlds / "windy.sdf").read_text(encoding="utf-8")
+        (worlds / f"{name}.sdf").write_text(wind_world(source, name, speed), encoding="utf-8")
     models = px4 / "Tools/simulation/gz/models"
     airframes = px4 / "build/px4_sitl_default/etc/init.d-posix/airframes"
     for proxy in PROXIES:
