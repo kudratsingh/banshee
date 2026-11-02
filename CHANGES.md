@@ -93,4 +93,4 @@ Each decision is in `ledgers/approvals.jsonl`, including the owner's correction 
 The owner chose the X650 and the Pixhawk Jetson bundle and put all purchases on hold. `docs/BUY_LIST-REPRICED-2026-11-01.md` holds the new list and FCC check; ADR-0007 records the X500 as superseded. WO-022 recomputes the envelope and updates the D2 tests.
 
 ## After import: envelope recomputed for the X650, D2 tests updated (2026-11-01, WO-022)
-On a simulated proxy of the X650, the standoffs freeze at 8.7 m and 3.4 m and the exclusion radius stays 150 m. The position-lost margin falls to 0.9 m, and the crew moves to 85 m because of the carbon props. ET-D2-1, -2, -4 and -5 now name the baseboard, the OAK-D Pro W and the ARK Flow MR. `evals/D3-standoffs.json` stays as the X500 record.
+On a simulated proxy of the X650, the standoffs freeze at 8.7 m and 3.4 m and the exclusion radius stays 150 m. The position-lost rule is not met above 10 m, which is open for the owner. The agent proposes moving the crew to 85 m because of the carbon props. ET-D2-1, -2, -4 and -5 now name the baseboard, the OAK-D Pro W and the ARK Flow MR. `evals/D3-standoffs.json` stays as the X500 record.

@@ -4,7 +4,7 @@
 **Size:** M
 **Prerequisites:** WO-021 accepted.
 **Authorization:** the owner's decision of 2026-11-01. Simulation only; no hardware. Full independent review, because it touches milestone exit tests.
-**Files:** `src/banshee/sitl/x650_proxy.py`, `tests/test_x650_proxy.py`, `src/banshee/export/episode.py`, `src/banshee/faults/run_matrix.py`, `evals/X650-proxy-cases.json`, `evals/X650-proxy-control-cases.json`, `docs/SOURCES-D0.md`, `ledgers/runs.jsonl`, `evals/D3-standoffs-x650.json`, `evals/D2-exit-tests.json`, `config/phases.json`, `docs/PHASES.md`, `docs/OPERATING_ENVELOPE.md`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `reports/WO-022-x650-envelope-and-d2-tests.md`, `CHANGES.md`.
+**Files:** `src/banshee/sitl/x650_proxy.py`, `tests/test_x650_proxy.py`, `src/banshee/export/episode.py`, `src/banshee/faults/run_matrix.py`, `evals/X650-proxy-cases.json`, `evals/X650-proxy-control-cases.json`, `evals/X650-position-lost-cases.json`, `docs/SOURCES-D0.md`, `ledgers/runs.jsonl`, `evals/D3-standoffs-x650.json`, `evals/D2-exit-tests.json`, `config/phases.json`, `docs/PHASES.md`, `docs/OPERATING_ENVELOPE.md`, `docs/adr/ADR-0007-d0-airframe-and-stack-proposal.md`, `reports/WO-022-x650-envelope-and-d2-tests.md`, `CHANGES.md`.
 
 Serves `PROGRAM §5.1`.
 

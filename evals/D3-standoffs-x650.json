@@ -1,7 +1,7 @@
 {
   "phase": "D3",
   "status": "frozen",
-  "frozen": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before D2 starts",
+  "frozen": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before D2 starts. Frozen: the standoffs, the overrun margin and the exclusion radius. Not settled: whether the radius meets the owner's position-lost rule (position_lost_rule), and the crew distance, which is the agent's proposal.",
   "status_note": "Replaces evals/D3-standoffs.json, which stays as the record for the X500. The braking, overrun and carried-speed terms were measured on a simulated proxy of the X650 (src/banshee/sitl/x650_proxy.py). They are not flight measurements, and the proxy's thrust, drag and motor lag are estimated. D3 logs may replace these values only through a new dated owner decision.",
   "consumer": "docs/OPERATING_ENVELOPE.md; ET-D3-4 containment sign-off",
   "aircraft": "Holybro X650 ARF, about 4-5 kg at takeoff, 15-inch carbon props",
@@ -34,24 +34,89 @@
     "bystander_distance": 100,
     "sum": 149
   },
-  "overrun_margin_note": "The 8.7 m standoff, rounded up. Measured fence overrun on the proxy: 3.28-3.67 m (G-01).",
   "position_lost_rule": {
     "rule": "The owner's rule of 2026-11-01: the 150 m exclusion radius covers position-lost cases on its own.",
-    "flight_box_edge_m": 30,
-    "carried_speed_m": 17.3,
-    "carried_speed_label": "measured on the proxy: 12.4-12.8 m at 5 kg, 12.3-12.5 m at 4 kg, 15.2-17.2 m at half drag. The largest is used, because the X650's drag is not known.",
-    "drift_at_table_limits_m": [
-      96.4,
-      101.8
+    "status": "NOT MET on the proxy above 10 m: reported to the owner with options under WO-022's stop condition. No value was adjusted to fit.",
+    "method": "Measured on the proxy: position lost at about 32 m out (the 30 m flight box plus the 2 m position error), flying downwind at 2.5 m/s, at each row's height and wind. Reach is ground truth from Home to the end of the ground slide. The 5 s of operator delay is estimated, as wind x 5 s. Wind is uniform, and ground contact is not validated.",
+    "rows_m": [
+      {
+        "wind_m_s": 5,
+        "height_m": 10,
+        "nominal_drag": [
+          89.3,
+          99.8
+        ],
+        "half_drag": [
+          82.4,
+          90.2
+        ],
+        "double_drag": [
+          102.2,
+          113.9
+        ],
+        "nominal_with_delay": 124.8,
+        "worst_with_delay": 138.9,
+        "inside_150": true
+      },
+      {
+        "wind_m_s": 4,
+        "height_m": 14,
+        "nominal_drag": [
+          106.2,
+          108.7
+        ],
+        "half_drag": [
+          97.6,
+          112.7
+        ],
+        "double_drag": [
+          108.2,
+          149.6
+        ],
+        "nominal_with_delay": 128.7,
+        "worst_with_delay": 169.6,
+        "inside_150": false
+      },
+      {
+        "wind_m_s": 3,
+        "height_m": 20,
+        "nominal_drag": [
+          117.6,
+          131.6
+        ],
+        "half_drag": [
+          116.0,
+          123.7
+        ],
+        "double_drag": [
+          121.6,
+          135.7
+        ],
+        "nominal_with_delay": 146.6,
+        "worst_with_delay": 150.7,
+        "inside_150": false
+      },
+      {
+        "wind_m_s": 2.5,
+        "height_m": 25,
+        "nominal_drag": [
+          132.1,
+          143.4
+        ],
+        "half_drag": [
+          127.5,
+          144.2
+        ],
+        "double_drag": [
+          128.6,
+          137.6
+        ],
+        "nominal_with_delay": 155.9,
+        "worst_with_delay": 156.7,
+        "inside_150": false
+      }
     ],
-    "drift_label": "estimated: wind x (height / 0.7 m/s + 5 s)",
-    "reaches_m": [
-      143.7,
-      149.1
-    ],
-    "least_margin_m": 0.9,
-    "least_margin_in_d3_m": 6.3,
-    "ground_skid_note": "Not a separate term. Airborne drift plus skid on the proxy reached 60.9 m at most, against 75-77 m for the same formula without the operator delay (W-01). This was checked only at 5.4 m/s and 10 m."
+    "not_included": "Wind shear: the limit is read on a handheld meter near the ground. A 1/7 power law from 1.5 m gives 1.15 to 1.31 times that wind, averaged over the descent (estimated)."
   },
   "crew_distance_from_home_m": 85,
   "crew_distance_terms_m": {
@@ -59,6 +124,8 @@
     "tumbling_fragment_range": 55,
     "sum": 85
   },
-  "crew_distance_label": "estimated: ballistic with quadratic drag, 2-15 g tumbling fragments at up to 140 m/s, 25 m release height. No test.",
-  "evidence": "reports/WO-022-x650-envelope-and-d2-tests.md"
+  "crew_distance_label": "estimated, and proposed by the agent; the owner has not named it. Ballistic with quadratic drag, 2-15 g tumbling fragments at up to 140 m/s, 25 m release height, still air: this supports tens of metres, not a bound. Crew upwind of the flight box, because a downwind fragment travels further (72 m at 5 m/s).",
+  "evidence": "reports/WO-022-x650-envelope-and-d2-tests.md",
+  "overrun_margin_note": "The 8.7 m standoff, rounded up. Measured fence overrun on the proxy: 3.28-3.67 m in the runs used; 3.64 m at 5 kg in a further run (G-01).",
+  "reaction_note": "At the nominal speed limit, as on the X500. The proxy flew 2.50-2.63 m/s at the trigger; at 2.6 m/s the standoff would be 8.8 m, still under the 9 m margin."
 }

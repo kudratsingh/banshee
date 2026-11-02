@@ -28,7 +28,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 | ET-D0-5 | Outside-in reference qualification plan with numeric accuracy target; containment chosen per airframe/test configuration | stated numerically |
 | ET-D0-6 | Owner decision (or explicit deferral) on test space and airframe | one recorded decision or deferral |
 
-**Decision on the airframe (owner, 2026-10-31).** The test space is an open field, outdoors, and the airframe is an X500 V2, with an X650-class 6S airframe planned for D7+. Option B is not needed.
+**Decision on the airframe (owner, 2026-10-31; airframe superseded 2026-11-01).** The test space is an open field, outdoors. The airframe was an X500 V2, with an X650-class 6S airframe planned for D7+; the owner's decision of 2026-11-01 replaced it with the Holybro X650 ARF from the start (ADR-0007). Option B is not needed.
 
 ## D1 — SITL, offboard velocity interface, logging, fault matrix
 
@@ -53,7 +53,7 @@ Stage states: `not_started → ready → in_progress → (blocked ↔) → passe
 | ET-D2-1 | Camera/IMU offsets, frame consistency, end-to-end latency measured hand-carried, on the OAK-D Pro W and the Orin NX on the Holybro Pixhawk Jetson Baseboard; the report states the distortion model of the unit's factory calibration and whether the VIO candidate accepts it | offset CI; frame check passes; latency distribution |
 | ET-D2-2 | VIO tracks the volume on the OAK-D Pro W; dropouts/resets counted; drift vs reference; ARK Flow MR flow and range logged on the same routes | *proposed default:* end-of-route drift ≤ 0.2 m; flow and range reported |
 | ET-D2-3 | Outside-in reference qualified: static residuals, dynamic latency, coverage, session check | *proposed default:* static RMS ≤ 2 cm; coverage ≥ 90%; inadequate coverage = inconclusive |
-| ET-D2-4 | Motors disarmed, actual Jetson-to-6X link cut by taking its interface down on the Jetson, because it runs in board traces; the report names the interface. PX4's offboard-loss flag sets no later than `COM_OF_LOSS_T` + 200 ms after the cut, logged, and the freshness gate stops sending, laptop-independent. PX4 selects no action while disarmed; the action is tested in ET-D4-4 | 3/3 trials match |
+| ET-D2-4 | Motors disarmed, actual Jetson-to-6X link cut on the Jetson, because it runs in board traces: Ethernet interface down, or XRCE-DDS agent stopped for the UART. The report names the path carrying offboard and shows the other carries no setpoints. PX4's offboard-loss flag sets no later than `COM_OF_LOSS_T` + 200 ms after the cut, logged, and the freshness gate stops sending, laptop-independent. PX4 selects no action while disarmed; the action is tested in ET-D4-4 | 3/3 trials match |
 | ET-D2-5 | Props off, disarmed: RC link over CRSF, kill switch, mode switch and ARK Flow MR over DroneCAN recognised on the actual Pixhawk 6X on the Holybro Pixhawk Jetson Baseboard; needs a dated owner approval to connect | each control and the ARK Flow MR recognised; 3/3 power cycles |
 
 A hand-carried pass is **not** flight qualification; vibration changes VIO behaviour (revalidated in D4).

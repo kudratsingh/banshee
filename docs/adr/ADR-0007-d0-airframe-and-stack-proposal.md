@@ -20,7 +20,7 @@ The owner decided that the drone is a powerful omni platform, and that this gove
 
 **VIO and the lens.** BasaltVIO's source handles fisheye (Kannala-Brandt) and pinhole-radtan; Isaac ROS's current docs accept `fisheye`. Neither is run, and the 3.2 list is unconfirmed (`docs/BUY_LIST-REPRICED-2026-11-01.md`).
 
-**The envelope, standoffs and D2 exit tests** are recomputed in WO-022: `evals/D3-standoffs-x650.json` (8.7 m and 3.4 m; the exclusion radius stays 150 m, and the crew moves to 85 m), `docs/OPERATING_ENVELOPE.md` and `evals/D2-exit-tests.json`. They rest on a simulated proxy, not on this airframe. The planning total is in `docs/BUY_LIST-REPRICED-2026-11-01.md`, and purchases are on hold.
+**The envelope, standoffs and D2 exit tests** are recomputed in WO-022: `evals/D3-standoffs-x650.json` (8.7 m and 3.4 m; the exclusion radius stays 150 m), `docs/OPERATING_ENVELOPE.md` and `evals/D2-exit-tests.json`. They rest on a simulated proxy, not on this airframe. **On that proxy the 150 m position-lost rule is not met above 10 m, which is open for the owner.** The planning total is in `docs/BUY_LIST-REPRICED-2026-11-01.md`, and purchases are on hold.
 
 ## Context
 D0 must settle a platform and a software stack to test in D1, with no purchase and no hardware. Sources are in `docs/SOURCES.md` and `docs/SOURCES-D0.md`; nothing here has been installed, run or flown.
