@@ -107,3 +107,4 @@
 {"actor":"agent","event":"created","note":"owner_decision_2026-11-02","record_id":"status-20261102T085247806025Z-b70da5","ts":"2026-11-02T08:52:47.806025Z","wo":"WO-025"}
 {"actor":"agent","event":"ready","note":"owner_decision_2026-11-02","record_id":"status-20261102T085247834218Z-73585f","ts":"2026-11-02T08:52:47.834218Z","wo":"WO-023"}
 {"actor":"agent","event":"in_progress","note":"branch_wo/WO-023-owner-decisions-2026-11-02","record_id":"status-20261102T085247863956Z-78fc07","ts":"2026-11-02T08:52:47.863956Z","wo":"WO-023"}
+{"actor":"agent","commit":"cb798e3","event":"accepted","note":"reviewed_once","record_id":"status-20261102T090302752529Z-a1711c","report":"reports/WO-023-owner-decisions-2026-11-02.md","ts":"2026-11-02T09:03:02.752529Z","wo":"WO-023"}
