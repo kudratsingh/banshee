@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-01 23:58 UTC · ledger records: 86
+Generated: 2026-11-02 00:02 UTC · ledger records: 87
 
 ## Phases
 
@@ -78,5 +78,5 @@ Generated: 2026-11-01 23:58 UTC · ledger records: 86
 | WO-014 | Correct AGENTS.md sections 13.8 and 13.9 | D1 | **accepted** | 2026-11-01T04:35:48.715239Z | reports/WO-014-section-13-wording.md |
 | WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **accepted** | 2026-11-01T23:53:22.656911Z | reports/WO-015-owner-decisions-after-d1.md |
 | WO-016 | Stop the node overriding a mode chosen while disarmed | D1 | **accepted** | 2026-11-01T23:53:22.750471Z | reports/WO-016-preflight-mode-override.md |
-| WO-017 | Purchase request for Option A, and freeze D2's exit tests | D2 | **in_progress** | 2026-11-01T23:53:57.402204Z | — |
+| WO-017 | Purchase request for Option A, and freeze D2's exit tests | D2 | **accepted** | 2026-11-02T00:02:15.827420Z | reports/WO-017-purchase-request-and-d2-freeze.md |
 
