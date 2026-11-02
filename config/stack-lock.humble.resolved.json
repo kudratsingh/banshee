@@ -1,0 +1,15 @@
+{
+  "status": "resolved_measured",
+  "date": "2026-11-02",
+  "written_by": "WO-025",
+  "scope": "SITL in the Lima VM banshee-sitl-humble, aarch64, Ubuntu 22.04 and ROS 2 Humble, by the owner's decision of 2026-11-02. Read from the installed tools by banshee.sitl.launch; a run refuses to start if any differs. PX4, the agent and px4_msgs are at the same commits as config/stack-lock.resolved.json.",
+  "pins": {
+    "agent": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "gazebo": "1.0.0-1~jammy",
+    "gz_sim": "8.15.0",
+    "os": "Ubuntu 22.04.5 LTS",
+    "px4": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_msgs": "86d8239e962f6939e05c3737784f60c02fa884db",
+    "ros2": "0.10.0-1jammy.20260916.125240"
+  }
+}
