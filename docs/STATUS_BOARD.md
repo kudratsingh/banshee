@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 12:02 UTC · ledger records: 116
+Generated: 2026-11-02 12:02 UTC · ledger records: 117
 
 ## Phases
 
@@ -87,5 +87,5 @@ Generated: 2026-11-02 12:02 UTC · ledger records: 116
 | WO-023 | Record the owner's decisions of 2026-11-02: the D3 rule, ET-D2-4's cases, the stack, Tier B and the final buy list | D2 | **accepted** | 2026-11-02T09:03:02.752529Z | reports/WO-023-owner-decisions-2026-11-02.md |
 | WO-024 | Migrate the Jetson to JetPack 7 (placeholder) | D7 | **created** | 2026-11-02T08:52:47.776257Z | — |
 | WO-025 | Re-run the D1 regression on ROS 2 Humble | D2 | **accepted** | 2026-11-02T10:31:52.823440Z | reports/WO-025-d1-regression-on-humble.md |
-| WO-027 | Split the onboard nodes into a Python 3.10 package with no ironclad imports | D2 | **in_progress** | 2026-11-02T12:02:21.230369Z | — |
+| WO-027 | Split the onboard nodes into a Python 3.10 package with no ironclad imports | D2 | **accepted** | 2026-11-02T12:02:24.205711Z | reports/WO-027-onboard-package.md |
 

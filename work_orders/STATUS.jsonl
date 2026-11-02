@@ -114,3 +114,4 @@
 {"actor":"agent","event":"created","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221157967Z-a061a5","ts":"2026-11-02T12:02:21.157967Z","wo":"WO-027"}
 {"actor":"agent","event":"ready","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221195527Z-62e9ca","ts":"2026-11-02T12:02:21.195527Z","wo":"WO-027"}
 {"actor":"agent","event":"in_progress","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221230369Z-0bc0dd","ts":"2026-11-02T12:02:21.230369Z","wo":"WO-027"}
+{"actor":"agent","commit":"7d86293","event":"accepted","note":"ci_only","record_id":"status-20261102T120224205711Z-801fac","report":"reports/WO-027-onboard-package.md","ts":"2026-11-02T12:02:24.205711Z","wo":"WO-027"}
