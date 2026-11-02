@@ -101,3 +101,4 @@
 {"actor":"agent","commit":"68594beea9367d15814426e2f7786b66f5faf353","event":"accepted","note":"hold recorded; list re-priced; envelope and D2 tests in WO-022","record_id":"status-20261102T030353154413Z-9d64c1","report":"reports/WO-021-x650-hold-and-reprice.md","ts":"2026-11-02T03:03:53.154413Z","wo":"WO-021"}
 {"actor":"agent","event":"ready","note":"owner_decision_2026-11-01","record_id":"status-20261102T031214453889Z-910cb9","ts":"2026-11-02T03:12:14.453889Z","wo":"WO-022"}
 {"actor":"agent","event":"in_progress","note":"branch_wo/WO-022-x650-envelope","record_id":"status-20261102T031214496406Z-605ffd","ts":"2026-11-02T03:12:14.496406Z","wo":"WO-022"}
+{"actor":"agent","commit":"90ce674","event":"accepted","note":"stop_condition_fired_owner_decision_on_150m","record_id":"status-20261102T064807648720Z-d13bd7","report":"reports/WO-022-x650-envelope-and-d2-tests.md","ts":"2026-11-02T06:48:07.648720Z","wo":"WO-022"}
