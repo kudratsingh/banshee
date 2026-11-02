@@ -1,0 +1,797 @@
+{
+ "schema": "banshee-fault-matrix-1",
+ "status": "measurement set, not an exit test",
+ "stack": "config/stack-lock.resolved.json",
+ "frozen_bounds": "evals/D1-exit-tests.json",
+ "note": "WO-022. D1 fault cases, unchanged but for the simulated model, on the X650 proxy (src/banshee/sitl/x650_proxy.py). Their expected values are the X500's, so a deviation here is a measurement, not a failure of D1. A proxy result is a simulation result and not a flight measurement.",
+ "cases": [
+  {
+   "id": "N-01",
+   "group": "protocol",
+   "title": "Nominal hover",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "H-01",
+   "group": "protocol",
+   "title": "Stale setpoint while the heartbeat continues, gate response on, at 1.0 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      20,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 1.0,
+    "after_waypoint": 0,
+    "delay_s": 5
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "Heartbeat is not freshness. The gate holds and the node commands Hold.",
+   "expect": {
+    "gate_mode": "hold",
+    "final_latch": "hold",
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ],
+    "max_horizontal_travel_m": 2.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "H-02",
+   "group": "protocol",
+   "title": "Stale setpoint while the heartbeat continues, gate response on, at 2.5 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "As H-01 at the GPS limit.",
+   "expect": {
+    "gate_mode": "hold",
+    "final_latch": "hold",
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ],
+    "max_horizontal_travel_m": 6.0
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "K-01",
+   "group": "wo001",
+   "title": "Hold braking from 2.5 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "Measure stop distance; replaces the envelope's estimate.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "K-02",
+   "group": "wo001",
+   "title": "Hold braking from 1.0 m/s, with MPC_XY_VEL_MAX 1.0",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      20,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 1.0,
+    "after_waypoint": 0,
+    "delay_s": 5
+   },
+   "observe_s": 10,
+   "env": {
+    "PX4_PARAM_MPC_XY_VEL_MAX": 1.0,
+    "PX4_PARAM_MPC_XY_CRUISE": 1.0,
+    "PX4_PARAM_MPC_VEL_MANUAL": 1.0,
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   },
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "Measure stop distance at the VIO-stage limit.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ],
+    "max_peak_speed_m_s": 1.2
+   }
+  },
+  {
+   "id": "C-01",
+   "group": "protocol",
+   "title": "Lost command stream, no manual control at arming, at 1.0 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      20,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 1.0,
+    "after_waypoint": 0,
+    "delay_s": 5
+   },
+   "observe_s": 12,
+   "node": {
+    "stop_publishing": "forever"
+   },
+   "configured": "px4 offboard loss, COM_OF_LOSS_T 1.0 s, then COM_OBL_RC_ACT 5 Hold",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.6
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "C-02",
+   "group": "protocol",
+   "title": "Lost command stream at 2.5 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 12,
+   "node": {
+    "stop_publishing": "forever"
+   },
+   "configured": "px4 offboard loss, COM_OF_LOSS_T 1.0 s, then COM_OBL_RC_ACT 5 Hold",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.6
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "C-05",
+   "group": "wo001",
+   "title": "Stale climb at the vertical limit, stream lost",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      0,
+      0,
+      12
+     ]
+    ],
+    "speed_m_s": 1.0,
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 10,
+   "node": {
+    "stop_publishing": "forever"
+   },
+   "configured": "px4 offboard loss, COM_OF_LOSS_T 1.0 s, then COM_OBL_RC_ACT 5 Hold. Measure the height gained.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.6
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "C-06",
+   "group": "wo001",
+   "title": "Stale descent at the commanded limit, stream lost",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      12
+     ],
+     [
+      0,
+      0,
+      1
+     ]
+    ],
+    "speed_m_s": 0.5,
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 10,
+   "node": {
+    "stop_publishing": "forever"
+   },
+   "timeout_s": 150,
+   "configured": "px4 offboard loss, COM_OF_LOSS_T 1.0 s, then COM_OBL_RC_ACT 5 Hold. Measure the height lost.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.6
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "G-01",
+   "group": "wo001",
+   "title": "Geofence breach, horizontal, at 2.5 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      60,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 0
+   },
+   "observe_s": 35,
+   "configured": "GF_ACTION 5 Land at 40 m. Measure the overrun.",
+   "expect": {
+    "nav": [
+     {
+      "state": 18,
+      "within_s": 20.0
+     }
+    ],
+    "max_max_radius_m": 45.0,
+    "min_max_radius_m": 38.0
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "G-02",
+   "group": "wo001",
+   "title": "Geofence breach, vertical, at 1.0 m/s",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      3
+     ],
+     [
+      0,
+      0,
+      22
+     ]
+    ],
+    "speed_m_s": 1.0,
+    "after_waypoint": 0,
+    "delay_s": 0
+   },
+   "observe_s": 45,
+   "timeout_s": 150,
+   "configured": "GF_ACTION 5 Land at 14 m. Measure the overrun.",
+   "expect": {
+    "nav": [
+     {
+      "state": 18,
+      "within_s": 14.0
+     }
+    ],
+    "max_max_up_m": 15.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "G-04",
+   "group": "wo001",
+   "title": "Fence with position lost mid-flight: EKF2 stops GPS at about 32 m, with the drift reaching past 40 m",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      60,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 30,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Record the mode entered and whether the fence still acts. Raw GPS stays live here; a lost receiver is not injectable on this stack.",
+   "expect": {},
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "W-01",
+   "group": "wo001",
+   "title": "Wind: drift during a descent after EKF2 stops GPS",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      10
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 45,
+   "timeout_s": 150,
+   "env": {
+    "PX4_GZ_WORLD": "windy",
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   },
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "configured": "Measure horizontal drift to the ground in simulated wind.",
+   "expect": {}
+  },
+  {
+   "id": "T-01",
+   "group": "wo001",
+   "title": "Return against the ceiling at the GPS limit",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 30,
+   "vm": [
+    [
+     0,
+     "../bin/px4-commander mode auto:rtl"
+    ]
+   ],
+   "configured": "RTL_RETURN_ALT 10 m; no breach of the 30 m ceiling; speed obeys MPC_XY_VEL_MAX 2.5.",
+   "expect": {
+    "nav": [
+     {
+      "state": 5,
+      "within_s": 1.0
+     }
+    ],
+    "max_max_up_m": 11.0,
+    "max_peak_speed_m_s": 2.8
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "H-02-4KG",
+   "group": "protocol",
+   "title": "Stale setpoint while the heartbeat continues, gate response on, at 2.5 m/s (gz_x650_proxy_4kg)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "As H-01 at the GPS limit.",
+   "expect": {
+    "gate_mode": "hold",
+    "final_latch": "hold",
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ],
+    "max_horizontal_travel_m": 6.0
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_4kg"
+   }
+  },
+  {
+   "id": "K-01-4KG",
+   "group": "wo001",
+   "title": "Hold braking from 2.5 m/s (gz_x650_proxy_4kg)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "Measure stop distance; replaces the envelope's estimate.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_4kg"
+   }
+  },
+  {
+   "id": "G-01-4KG",
+   "group": "wo001",
+   "title": "Geofence breach, horizontal, at 2.5 m/s (gz_x650_proxy_4kg)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      60,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 0
+   },
+   "observe_s": 35,
+   "configured": "GF_ACTION 5 Land at 40 m. Measure the overrun.",
+   "expect": {
+    "nav": [
+     {
+      "state": 18,
+      "within_s": 20.0
+     }
+    ],
+    "max_max_radius_m": 45.0,
+    "min_max_radius_m": 38.0
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_4kg"
+   }
+  },
+  {
+   "id": "G-04-4KG",
+   "group": "wo001",
+   "title": "Fence with position lost mid-flight: EKF2 stops GPS at about 32 m, with the drift reaching past 40 m (gz_x650_proxy_4kg)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      60,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 30,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Record the mode entered and whether the fence still acts. Raw GPS stays live here; a lost receiver is not injectable on this stack.",
+   "expect": {},
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_4kg"
+   }
+  },
+  {
+   "id": "K-01-LD",
+   "group": "wo001",
+   "title": "Hold braking from 2.5 m/s (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      34,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 6
+   },
+   "observe_s": 10,
+   "node": {
+    "freeze_planner": "forever"
+   },
+   "configured": "Measure stop distance; replaces the envelope's estimate.",
+   "expect": {
+    "nav": [
+     {
+      "state": 4,
+      "within_s": 1.5
+     }
+    ]
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag"
+   }
+  },
+  {
+   "id": "G-04-LD",
+   "group": "wo001",
+   "title": "Fence with position lost mid-flight: EKF2 stops GPS at about 32 m, with the drift reaching past 40 m (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ],
+     [
+      60,
+      0,
+      5
+     ]
+    ],
+    "speed_m_s": 2.5,
+    "after_waypoint": 0,
+    "delay_s": 13
+   },
+   "observe_s": 30,
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "node": {
+    "gate_response": false
+   },
+   "configured": "Record the mode entered and whether the fence still acts. Raw GPS stays live here; a lost receiver is not injectable on this stack.",
+   "expect": {},
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag"
+   }
+  },
+  {
+   "id": "W-01-LD",
+   "group": "wo001",
+   "title": "Wind: drift during a descent after EKF2 stops GPS (gz_x650_proxy_lowdrag)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      10
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 45,
+   "timeout_s": 150,
+   "env": {
+    "PX4_GZ_WORLD": "windy",
+    "PX4_SIM_MODEL": "gz_x650_proxy_lowdrag"
+   },
+   "vm": [
+    [
+     0,
+     "../bin/px4-param set EKF2_GPS_CTRL 0"
+    ]
+   ],
+   "configured": "Measure horizontal drift to the ground in simulated wind.",
+   "expect": {}
+  }
+ ]
+}

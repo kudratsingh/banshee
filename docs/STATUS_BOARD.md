@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 03:03 UTC · ledger records: 101
+Generated: 2026-11-02 03:12 UTC · ledger records: 103
 
 ## Phases
 
@@ -83,5 +83,5 @@ Generated: 2026-11-02 03:03 UTC · ledger records: 101
 | WO-019 | Close the stale-status offboard-command window in the mode-override fix | D3 | **created** | 2026-11-02T01:22:35.987284Z | — |
 | WO-020 | Record the owner's buy-list decisions and the C2 correction | D2 | **accepted** | 2026-11-02T02:33:42.821764Z | reports/WO-020-buy-list-decisions.md |
 | WO-021 | Record the X650 decision and the hold; re-price the list | D2 | **accepted** | 2026-11-02T03:03:53.154413Z | reports/WO-021-x650-hold-and-reprice.md |
-| WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **created** | 2026-11-02T03:02:51.633777Z | — |
+| WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **in_progress** | 2026-11-02T03:12:14.496406Z | — |
 
