@@ -2,7 +2,7 @@
 **Phase:** D7 (placeholder, not scheduled; due before Humble's support ends in May 2027, whatever phase is current then)
 **Exit tests advanced:** none
 **Size:** stub; expand when it becomes next
-**Prerequisites:** Holybro supports JetPack 7 on the Pixhawk Jetson Baseboard, which it did not on 2026-11-01 [D63].
+**Prerequisites:** NVIDIA's JetPack 7 release supports the Orin NX, and Holybro supports JetPack 7 on the Pixhawk Jetson Baseboard, which it did not on 2026-11-01 [D63].
 **Authorization:** the owner's decision of 2026-11-02 asks for this placeholder. Any flashing of the Jetson needs its own dated owner approval.
 **Files:** written when expanded.
 

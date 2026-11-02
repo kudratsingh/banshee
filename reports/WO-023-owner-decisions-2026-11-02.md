@@ -34,5 +34,10 @@ Each decision is in `ledgers/approvals.jsonl` with the owner's words.
 ## 4. Verification
 `make check` passes. Independent review: §6.
 
+## 6. Independent review
+Read-only, from the diff and the owner's words. It found: ET-D2-4's new cases had no start time for the bound; the gate-trip item sat under a note saying it moves nothing, and nothing checked stopped an arm; the three D2 files disagreed on the reported items; stale D3 text in the envelope and `evals/D3-standoffs-x650.json`; the shear condition behind the 4 m/s limit left out of the rule; two ledger readings beyond the owner's words; buy-list notes dropped from the earlier list; and smaller items. All are fixed. The gate item is now checked in ET-D3-4, before the first arm, which changes a D3 statement before any D3 result, by the owner's decision. The ledger is append-only, so its two readings are corrected by a new record. **There was no second pass on these fixes.**
+
+**Question for the owner.** The new ET-D2-4 cases test that PX4 sees the loss. What the node sends after SIGCONT or on restart is reported, not thresholded. AGENTS §13.4 says expired setpoints are never sent; a threshold of "after SIGCONT and after restart, no setpoint older than the 200 ms bound is sent; 3/3" would test that. I have not added it, because you did not set it.
+
 ## 5. Retro
 Shopify sellers rate-limit repeated reads; one read per seller per minute, and a search snippet is not a page read.

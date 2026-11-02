@@ -6,10 +6,10 @@
   "applies_to": "D3 only",
   "height_cap_m": 10,
   "wind_limit_m_s": 4,
-  "wind_limit_reading": "steady wind on a handheld meter before each flight, as in docs/OPERATING_ENVELOPE.md",
+  "wind_limit_reading": "steady wind on a handheld meter at about 1.5 m above ground, before each flight. The 4 m/s limit covers wind shear up to a power-law exponent of about 0.24 (WO-022 section 2).",
   "fence_ceiling_m": 14,
   "exclusion_radius_m": 160,
-  "exclusion_radius_basis": "Option A+ of reports/WO-022-x650-envelope-and-d2-tests.md section 2: 140.3 m measured on the proxy with an estimated delay, and about 160 m with a large tumble (estimated). The fence radius (40 m), overrun margin (9 m), flight box (30 m) and standoffs are unchanged (evals/D3-standoffs-x650.json); the bystander distance beyond fence plus overrun becomes 111 m.",
+  "exclusion_radius_basis": "Option A+ of reports/WO-022-x650-envelope-and-d2-tests.md section 2: 140.3 m measured on the proxy with an estimated delay, and about 160 m with a large tumble (estimated). The fence radius (40 m), overrun margin (9 m), flight box (30 m) and standoffs are unchanged (evals/D3-standoffs-x650.json); the bystander distance beyond fence plus overrun becomes 111 m. The estimated large-tumble case is at the radius, with no margin.",
   "field_across_m": 320,
   "crew": {
     "distance_from_home_m": 85,
@@ -17,6 +17,6 @@
     "status": "accepted by the owner, 2026-11-02"
   },
   "supersedes_for_d3": "the exclusion radius and the crew distance in evals/D3-standoffs-x650.json, and the height and wind table in docs/OPERATING_ENVELOPE.md",
-  "ends": "No stage after D3 may raise the height cap until the limits are re-derived from measured D3 data, with the ARK Flow MR modelled as the backup velocity source when position is lost.",
+  "ends": "D3 only. The 10 m cap carries into later stages until the limits are re-derived from measured D3 data, with the ARK Flow MR modelled as the backup velocity source when position is lost.",
   "label": "The radius rests on simulation of a proxy and on estimates, not on flight data."
 }
