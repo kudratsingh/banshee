@@ -3,6 +3,8 @@
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 repo="$(cd "$here/../../../.." && pwd)"
-limactl start --tty=false --name=banshee-sitl \
+vm="${BANSHEE_VM:-banshee-sitl}"
+yaml="${BANSHEE_VM_YAML:-banshee-sitl.yaml}"
+limactl start --tty=false --name="$vm" \
   --set ".mounts=[{\"location\":\"$repo\",\"writable\":false}]" \
-  "$here/banshee-sitl.yaml"
+  "$here/$yaml"

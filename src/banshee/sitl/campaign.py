@@ -18,12 +18,14 @@ from pathlib import Path
 from ironclad.contracts.v1.validate import ContractError
 from ironclad.core.runs import finish_run, new_run_dir
 
+from banshee.sitl import stack as sitl_stack
+
 from ..export.episode import export_run
 from ..outcome.truth_check import read_truth_track, truth_outcome
 from ..outcome.waypoints import judge, read_steps, tolerance_from_evals
 from .bounded import COMPLETED, free_space_problems, run_bounded, vm_free_bytes
 
-VM = "banshee-sitl"
+VM = sitl_stack.vm_name()
 MIN_FREE_BYTES = 20_000_000_000
 
 
@@ -31,7 +33,7 @@ def run_once(repo: Path, abs_repo: Path, export_root: Path) -> dict[str, object]
     """One mission. Returns its summary; a failed mission is a result, not an exception."""
     route = json.loads((repo / "evals/D1-route.json").read_text(encoding="utf-8"))
     evals = json.loads((repo / "evals/D1-exit-tests.json").read_text(encoding="utf-8"))
-    lock = json.loads((repo / "config/stack-lock.resolved.json").read_text(encoding="utf-8"))
+    lock = json.loads(sitl_stack.resolved_lock(repo).read_text(encoding="utf-8"))
     run_dir = new_run_dir(
         repo,
         purpose="d1_nominal_mission",

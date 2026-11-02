@@ -17,12 +17,14 @@ from typing import Any
 from ironclad.contracts.v1.validate import ContractError
 from ironclad.core.runs import finish_run, new_run_dir
 
+from banshee.sitl import stack as sitl_stack
+
 from ..export.episode import export_run
 from ..outcome.waypoints import read_steps
 from ..sitl.bounded import COMPLETED, free_space_problems, run_bounded, vm_free_bytes
 from .analyze import analyze_dir
 
-VM = "banshee-sitl"
+VM = sitl_stack.vm_name()
 MIN_FREE_BYTES = 20_000_000_000
 EXPORT_ROOT = Path("data/derived/d1-faults")
 FAULT_NOTES = (
@@ -139,7 +141,7 @@ def main(argv: list[str] | None = None) -> int:
         return 3
     cases = json.loads(args.matrix.read_text(encoding="utf-8"))["cases"]
     wanted = {c for c in args.only.split(",") if c}
-    lock = json.loads((repo / "config/stack-lock.resolved.json").read_text(encoding="utf-8"))
+    lock = json.loads(sitl_stack.resolved_lock(repo).read_text(encoding="utf-8"))
     failed = 0
     for case in cases:
         if wanted and case["id"] not in wanted:

@@ -1,0 +1,18 @@
+# Dedicated Ubuntu 22.04 VM for PX4 SITL on ROS 2 Humble (WO-025); the Jazzy VM stays as the D1 record. Own disk and processes, no shared daemon
+# (AGENTS.md 1.3). Remove it with: limactl delete banshee-sitl-humble
+# The disk is a fixed maximum, set by the owner, so that a runaway inside the VM cannot fill the Mac.
+vmType: vz
+arch: aarch64
+cpus: 8
+memory: 12GiB
+disk: 45GiB
+images:
+  - location: https://cloud-images.ubuntu.com/releases/jammy/release-20261020/ubuntu-22.04-server-cloudimg-arm64.img
+    arch: aarch64
+    digest: sha256:e720ae083f93baae47ac9b76a096243fe1027f60998cf1127a47a74c880f64ed
+# The only mount is this repository, read-only, set by start_vm.sh. The default mount of the home
+# directory is deliberately replaced, so the VM cannot see other projects (AGENTS.md 1.1).
+mounts: []
+containerd:
+  system: false
+  user: false

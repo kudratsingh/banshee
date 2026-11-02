@@ -25,7 +25,12 @@ def read_manifest(work: Path) -> dict[str, str]:
     """What is installed in the VM, read from the tools themselves."""
     return {
         "os": _capture("lsb_release", "-ds"),
-        "ros2": _capture("dpkg-query", "-W", "-f=${Version}", "ros-jazzy-ros-base"),
+        "ros2": _capture(
+            "dpkg-query",
+            "-W",
+            "-f=${Version}",
+            f"ros-{os.environ.get('ROS_DISTRO', 'jazzy')}-ros-base",
+        ),
         "gazebo": _capture("dpkg-query", "-W", "-f=${Version}", "gz-harmonic"),
         "gz_sim": _capture("gz", "sim", "--versions").splitlines()[0],
         "px4": _capture("git", "-C", str(work / "PX4-Autopilot"), "rev-parse", "HEAD"),

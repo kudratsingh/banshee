@@ -11,6 +11,6 @@ here="$(cd "$(dirname "$0")" && pwd)"
 repo="$(cd "$here/../../../.." && pwd)"
 PYTHONPATH="$repo/src" exec python3 -m banshee.sitl.bounded \
   --log "$1" --max-log-bytes 200000000 --timeout-s 10800 --min-free-bytes 20000000000 \
-  --vm banshee-sitl -- \
-  limactl shell banshee-sitl -- bash -c \
-  "timeout 3h bash '$here/provision.sh' '$repo' </dev/null 2>&1 | head -c 200000000"
+  --vm "${BANSHEE_VM:-banshee-sitl}" -- \
+  limactl shell "${BANSHEE_VM:-banshee-sitl}" -- bash -c \
+  "timeout 3h bash '$here/provision.sh' '$repo' '${BANSHEE_PROPOSED_LOCK:-config/stack-lock.proposed.json}' </dev/null 2>&1 | head -c 200000000"
