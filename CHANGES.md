@@ -100,3 +100,6 @@ D3 runs under a temporary rule: 10 m, 4 m/s, 160 m, crew 85 m upwind. ET-D2-4 ga
 
 ## After import: D1 holds on Humble (2026-11-02, WO-025)
 A second VM on Ubuntu 22.04 and ROS 2 Humble, with PX4 at the same commit, re-ran the D1 regression: 10/10 missions, 10/10 contract-valid episodes, 47/47 fault cases with the same 7 deviations. `BANSHEE_STACK=humble` selects it; the Jazzy VM stays as the record.
+
+## After import: Humble differences are noise (2026-11-02, WO-028)
+R-06 and N-01, six runs each on Jazzy and Humble, overlap: the two WO-025 differences were single runs at the ends of wide spreads. One Jazzy run tripped the freshness gate early on PX4's x500, so the early trips are not specific to the X650 proxy.
