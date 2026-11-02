@@ -3,7 +3,7 @@
 **Date:** 2026-10-31 · **Status:** accepted on the owner's decisions of 2026-10-31 (`ledgers/approvals.jsonl`), **amended by the owner's decision of 2026-11-01 below: the X500 V2 is superseded;** nothing here is purchased or tested · **Work order:** WO-001, amended in WO-021 · **Program link:** PROGRAM §5.1, §12
 
 ## Amendment, 2026-11-01 (owner's decision; WO-021)
-The owner decided that the drone is a powerful omni platform, and that this governs every hardware choice from here on ("Tier B", in their words). The decision text below is the record of 2026-10-31, and these items replace it:
+The owner decided that the drone is a powerful omni platform, and that this governs every hardware choice from here on. **Tier B, defined by the owner on 2026-11-02:** X650 + Pixhawk 6X/Orin NX 16 GB Jetson Baseboard bundle + OAK-D Pro W fixed-focus + ARK Flow MR + 6S power. The decision text below is the record of 2026-10-31, and these items replace it:
 
 | Item | Was | Now |
 |---|---|---|
@@ -16,7 +16,7 @@ The owner decided that the drone is a powerful omni platform, and that this gove
 | 8. RC link | TX16S with an ELRS receiver | TX16S MKII ELRS and RP3 V2, still CRSF |
 | 9. Telemetry | 915 MHz SiK | **SiK withdrawn.** FCC ID 2AP22-HT03-V3 is certified under 15.249, so at 100 mW it operates outside its grant (owner's correction, `ledgers/approvals.jsonl`). RFD900x-US, FCC ID 2ADLE-900X, 15.247, at D3 |
 
-**Open: the stack on the Jetson (item 3 and item 6).** The baseboard supports only JetPack 5.1.2–6.0 and 6.2.2 [D63], and Isaac ROS 4.6.0 needs JetPack 7.2 [D46]. Proposed, not decided: JetPack 6.2.2, Ubuntu 22.04, ROS 2 Humble and Isaac ROS 3.2 on the Jetson, which is this ADR's stated fallback, with its support ending in May 2027. The simulator stack stays as locked until the owner decides. D1's evidence is on `gz_x500` and Jazzy; it stands as the record of that model and stack, and it does not transfer to the X650 or to Humble by itself.
+**Decided by the owner, 2026-11-02: the stack on the Jetson (item 3 and item 6) is JetPack 6.2.2, Ubuntu 22.04, ROS 2 Humble and Isaac ROS 3.2.** The baseboard supports only JetPack 5.1.2–6.0 and 6.2.2 [D63], and Isaac ROS 4.6.0 needs JetPack 7.2 [D46]. Humble's support ends in May 2027; WO-024 is the placeholder for the JetPack 7 migration. WO-025 re-runs the D1 regression on Humble in simulation. D1's evidence is on `gz_x500` and Jazzy; it stands as the record of that model and stack, and it does not transfer to the X650 or to Humble by itself.
 
 **VIO and the lens.** BasaltVIO's source handles fisheye (Kannala-Brandt) and pinhole-radtan; Isaac ROS's current docs accept `fisheye`. Neither is run, and the 3.2 list is unconfirmed (`docs/BUY_LIST-REPRICED-2026-11-01.md`).
 

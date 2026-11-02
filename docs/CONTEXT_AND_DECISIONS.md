@@ -45,6 +45,9 @@ Fast, autonomous iteration through bounded work orders; continue to the next rea
 | 4 | Stack pins (PX4, ROS 2, Gazebo, bridge, QGC) | proposed in WO-001; Jazzy first, Humble as the fallback; tested in WO-002 |
 | 5 | Frame convention ADR | ROS ENU/FLU internally, convert at the PX4 boundary |
 | 6 | Remote repository | decided: `kudratsingh/banshee`, private (ADR-0006) |
+| 7 | Platform, Tier B | decided 2026-11-02: X650 + Pixhawk 6X/Orin NX 16 GB Jetson Baseboard bundle + OAK-D Pro W fixed-focus + ARK Flow MR + 6S power (ADR-0007) |
+| 8 | Jetson stack | decided 2026-11-02: JetPack 6.2.2, Ubuntu 22.04, ROS 2 Humble, Isaac ROS 3.2; JetPack 7 later (WO-024) |
+| 9 | D3 limits | decided 2026-11-02, temporary: 10 m, 4 m/s, 160 m, crew 85 m upwind (`evals/D3-temporary-rule-2026-11-02.json`) |
 
 ## 6. Contradictions found while consolidating
 | Conflict | Resolution |

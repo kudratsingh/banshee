@@ -1,5 +1,7 @@
 # Re-priced buy list — X650 platform, 2026-11-01
 
+**Superseded on 2026-11-02 by `docs/BUY_LIST-FINAL-2026-11-02.md`,** which applies the owner's decisions of that date. This page stays as the record of 2026-11-01.
+
 **Status: ALL PURCHASES ON HOLD by the owner's decision of 2026-11-01 (`ledgers/approvals.jsonl`), until the owner approves this list line by line.** Earlier line approvals in `docs/BUY_LIST-2026-11-01.md` are held with it. The owner places the orders; the agent places none. Prices are dated page readings, not quotes. "Read" means read by the agent on 2026-11-01, unless the row says otherwise.
 
 ## Decisions to make before ordering
