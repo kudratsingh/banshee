@@ -1,0 +1,381 @@
+{
+ "schema": "banshee-fault-matrix-1",
+ "status": "measurement set, not an exit test",
+ "stack": "config/stack-lock.resolved.json",
+ "frozen_bounds": "evals/D1-exit-tests.json",
+ "note": "WO-022. The no-fault case alternating between PX4's x500 and the X650 proxy, to find whether early gate trips in the proxy recordings come from the proxy or from the host. Deviations here are measurements.",
+ "cases": [
+  {
+   "id": "N-01-X500-1",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 1)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-1",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 1)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "N-01-X500-2",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 2)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-2",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 2)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "N-01-X500-3",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 3)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-3",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 3)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "N-01-X500-4",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 4)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-4",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 4)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "N-01-X500-5",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 5)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-5",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 5)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  },
+  {
+   "id": "N-01-X500-6",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x500, control 6)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x500"
+   }
+  },
+  {
+   "id": "N-01-X650-6",
+   "group": "protocol",
+   "title": "Nominal hover (gz_x650_proxy, control 6)",
+   "fly": {
+    "waypoints_enu_m": [
+     [
+      0,
+      0,
+      5
+     ]
+    ],
+    "after_waypoint": 0,
+    "delay_s": 3
+   },
+   "observe_s": 15,
+   "configured": "Stays in offboard at the hover point; the gate continues.",
+   "expect": {
+    "nav_never": [
+     4,
+     5,
+     18
+    ],
+    "final_latch": "none",
+    "gate_mode": "continue",
+    "max_horizontal_travel_m": 0.5
+   },
+   "env": {
+    "PX4_SIM_MODEL": "gz_x650_proxy"
+   }
+  }
+ ]
+}
