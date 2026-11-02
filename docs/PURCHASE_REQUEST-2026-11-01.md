@@ -2,6 +2,8 @@
 
 **Status: a request, for approval line by line. Nothing has been bought, and no cart or account was used.** Prices are dated readings from suppliers' pages, not quotes. No netting. The Covered List column is a planning check, not legal advice.
 
+**Decided 2026-11-01:** the owner's decision is in `ledgers/approvals.jsonl`, and the resulting order is `docs/BUY_LIST-2026-11-01.md`. This table stays as the request.
+
 ## The order
 Tick each line. The total below assumes lines 1–26, F1, F2 and U1. Lines A1–A6 and S1 are not in it.
 
