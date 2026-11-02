@@ -85,3 +85,6 @@ The re-priced Option A order is one table in `docs/PURCHASE_REQUEST-2026-11-01.m
 
 ## After import: purchase approval recorded (2026-11-01, WO-018)
 The owner's line-by-line approval is in `ledgers/approvals.jsonl`, and `docs/BUY_LIST-2026-11-01.md` applies its substitutions and sourcing rule. The planning total is $3,352.02. Nothing is bought yet. WO-019 holds the stale-status window to close before D3.
+
+## After import: buy-list decisions recorded (2026-11-01, WO-020)
+Each decision is in `ledgers/approvals.jsonl`, including the owner's correction of C2: the SiK V3 is withdrawn, and an RFD900x-US is the D3 substitute. The planning total is $3,506.19 at Standard FOV or $3,615.19 at Wide. The field-of-view pick is open. Nothing is bought yet.

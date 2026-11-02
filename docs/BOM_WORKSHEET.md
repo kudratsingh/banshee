@@ -6,7 +6,7 @@
 
 **Re-priced 2026-11-01:** the current lines and total, $3,884.44, are in `docs/PURCHASE_REQUEST-2026-11-01.md`. No price read that day differed from this worksheet. The numbers below stay as the record of 2026-10-31. New since then: DA 26-761's text was read and confirms 2028-01-01; the Dronetag page names G2; Holybro sells spare motors at $19.99, and its spare ESC is sold out.
 
-**Approved 2026-11-01:** the owner's lines and substitutions are in `docs/BUY_LIST-2026-11-01.md`, with an approved planning total of $3,352.02.
+**Approved 2026-11-01, then changed by the owner's decisions the same day:** the current lines and substitutions are in `docs/BUY_LIST-2026-11-01.md`, with a planning total of $3,506.19 at Standard FOV or $3,615.19 at Wide. The earlier figure was $3,352.02. The SiK V3 is withdrawn: its FCC ID was certified under 15.249, not 15.247 (`docs/OPERATING_ENVELOPE.md`). The telemetry lines below are the record of 2026-10-31.
 
 ## Option A: post-D1 order
 | Item | Candidate | Qty | Unit USD | Line USD | Supplier (read 2026-10-31) | Stock read | Compatibility evidence |
