@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 02:33 UTC · ledger records: 96
+Generated: 2026-11-02 03:02 UTC · ledger records: 100
 
 ## Phases
 
@@ -10,7 +10,7 @@ Generated: 2026-11-02 02:33 UTC · ledger records: 96
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014, WO-016 |
-| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020 |
+| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020, WO-021, WO-022 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015, WO-019 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
@@ -82,4 +82,6 @@ Generated: 2026-11-02 02:33 UTC · ledger records: 96
 | WO-018 | Record the owner's purchase approval and write the buy list | D2 | **accepted** | 2026-11-02T01:23:37.444448Z | reports/WO-018-purchase-approval.md |
 | WO-019 | Close the stale-status offboard-command window in the mode-override fix | D3 | **created** | 2026-11-02T01:22:35.987284Z | — |
 | WO-020 | Record the owner's buy-list decisions and the C2 correction | D2 | **accepted** | 2026-11-02T02:33:42.821764Z | reports/WO-020-buy-list-decisions.md |
+| WO-021 | Record the X650 decision and the hold; re-price the list | D2 | **in_progress** | 2026-11-02T03:02:51.594857Z | — |
+| WO-022 | Recompute the envelope for the X650 and update the D2 exit tests | D2 | **created** | 2026-11-02T03:02:51.633777Z | — |
 

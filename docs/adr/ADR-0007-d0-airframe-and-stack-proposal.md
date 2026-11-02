@@ -1,6 +1,26 @@
 # ADR-0007 — D0 airframe, flight controller, stack and compute
 
-**Date:** 2026-10-31 · **Status:** accepted on the owner's decisions of 2026-10-31 (`ledgers/approvals.jsonl`); nothing here is purchased or tested · **Work order:** WO-001 · **Program link:** PROGRAM §5.1, §12
+**Date:** 2026-10-31 · **Status:** accepted on the owner's decisions of 2026-10-31 (`ledgers/approvals.jsonl`), **amended by the owner's decision of 2026-11-01 below: the X500 V2 is superseded;** nothing here is purchased or tested · **Work order:** WO-001, amended in WO-021 · **Program link:** PROGRAM §5.1, §12
+
+## Amendment, 2026-11-01 (owner's decision; WO-021)
+The owner decided that the drone is a powerful omni platform, and that this governs every hardware choice from here on ("Tier B", in their words). The decision text below is the record of 2026-10-31, and these items replace it:
+
+| Item | Was | Now |
+|---|---|---|
+| 1. Airframe | X500 V2, with an X650 class planned for D7+ | **X500 V2 superseded.** Holybro X650 ARF from the start: X650 V2 frame, T-Motor MN4014 330KV, Tekko32 F4 45A, Gemfan 1555 carbon props, about 4–5 kg at takeoff. No frame swap at D7 |
+| 2. Flight controller | Pixhawk 6X on a Standard v2A baseboard | Pixhawk 6X on the Holybro Pixhawk Jetson Baseboard. Target stays `px4_fmu-v6x_default`. The ARKV6X option closes |
+| 4. Compute | Orin Nano Super 8 GB, plus NVMe and BEC | Orin NX 16 GB on the baseboard, in the bundle with a 512 GB SSD, 12 A UBEC (3–14S), PM02D and PDB. The board's own regulator takes 7–21 V, so on 6S the UBEC feeds it, at Holybro's recommended 7.2 V |
+| 5. Camera | OAK-D Pro | OAK-D Pro W, fixed-focus RGB; stereo pair 150° diagonal |
+| New | — | ARK Flow MR over DroneCAN: downward optical flow and a rangefinder to about 50 m |
+| 7. Companion link | TELEM2 by UART, with Ethernet as the alternative | On the baseboard both are board-level: TELEM2 goes to the Jetson's UART1, and an Ethernet switch joins both computers. The JetPack 7 UART1 fault [D52] does not apply on JetPack 6, untested |
+| 8. RC link | TX16S with an ELRS receiver | TX16S MKII ELRS and RP3 V2, still CRSF |
+| 9. Telemetry | 915 MHz SiK | **SiK withdrawn.** FCC ID 2AP22-HT03-V3 is certified under 15.249, so at 100 mW it operates outside its grant (owner's correction, `ledgers/approvals.jsonl`). RFD900x-US, FCC ID 2ADLE-900X, 15.247, at D3 |
+
+**Open: the stack on the Jetson (item 3 and item 6).** The baseboard supports only JetPack 5.1.2–6.0 and 6.2.2 [D63], and Isaac ROS 4.6.0 needs JetPack 7.2 [D46]. Proposed, not decided: JetPack 6.2.2, Ubuntu 22.04, ROS 2 Humble and Isaac ROS 3.2 on the Jetson, which is this ADR's stated fallback, with its support ending in May 2027. The simulator stack stays as locked until the owner decides. D1's evidence is on `gz_x500` and Jazzy; it stands as the record of that model and stack, and it does not transfer to the X650 or to Humble by itself.
+
+**VIO and the lens.** BasaltVIO's source handles fisheye (Kannala-Brandt) and pinhole-radtan; Isaac ROS's current docs accept `fisheye`. Neither is run, and the 3.2 list is unconfirmed (`docs/BUY_LIST-REPRICED-2026-11-01.md`).
+
+**The envelope, standoffs and D2 exit tests** follow in WO-022. The planning total is in `docs/BUY_LIST-REPRICED-2026-11-01.md`, and purchases are on hold.
 
 ## Context
 D0 must settle a platform and a software stack to test in D1, with no purchase and no hardware. Sources are in `docs/SOURCES.md` and `docs/SOURCES-D0.md`; nothing here has been installed, run or flown.
