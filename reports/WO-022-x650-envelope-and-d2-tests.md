@@ -97,6 +97,7 @@ Each saw `estimator stale` at an armed tick, first at 102–157 ms against the 1
 ## 8. Other disclosures
 - The first proxy smoke run failed on an invalid inertia, from my replacing text in the model; that is fixed, tested, and the failed run stays in `runs/`.
 - Expected values in the proxy case files are the X500's. G-01 and G-02 show the same 5 s hold deviation as in D1, a known error in those expected values.
+- **The work order's file list is out of date, and it stays as written because accepted work orders are frozen.** It names `src/banshee/sitl/vm/x650_proxy/`. The code is `src/banshee/sitl/x650_proxy.py`, and this work also changed `tests/test_x650_proxy.py`, `src/banshee/export/episode.py`, `src/banshee/faults/run_matrix.py`, `docs/SOURCES-D0.md`, `ledgers/runs.jsonl` and `docs/STATUS_BOARD.md`, and added `evals/X650-proxy-control-cases.json` and `evals/X650-position-lost-cases.json`.
 - Hover time is scaled, not published: Holybro's 30 min on 6S 10 Ah is with no added payload. The ≤ 8 min plan stays.
 - The generated model files were not read back in the review, because the VM was stopped; hover thrust and parameter dumps from the runs support them.
 
