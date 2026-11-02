@@ -93,3 +93,4 @@
 {"actor":"agent","event":"created","note":"owner_buy_list_decisions_2026-11-01","record_id":"status-20261102T023226961265Z-df7995","ts":"2026-11-02T02:32:26.961265Z","wo":"WO-020"}
 {"actor":"agent","event":"ready","note":"scope_is_records_and_list","record_id":"status-20261102T023227014302Z-7bceed","ts":"2026-11-02T02:32:27.014302Z","wo":"WO-020"}
 {"actor":"agent","event":"in_progress","note":"branch_wo/WO-020-buy-list-decisions","record_id":"status-20261102T023227058221Z-2f6991","ts":"2026-11-02T02:32:27.058221Z","wo":"WO-020"}
+{"actor":"agent","commit":"b94ce6f0dc3a1f9560dacd435065136b9d17d96b","event":"accepted","note":"decisions recorded; C2 corrected; three items open; nothing bought","record_id":"status-20261102T023342821764Z-4f9263","report":"reports/WO-020-buy-list-decisions.md","ts":"2026-11-02T02:33:42.821764Z","wo":"WO-020"}
