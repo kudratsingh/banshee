@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 10:31 UTC · ledger records: 113
+Generated: 2026-11-02 11:58 UTC · ledger records: 116
 
 ## Phases
 
@@ -10,7 +10,7 @@ Generated: 2026-11-02 10:31 UTC · ledger records: 113
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014, WO-016 |
-| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020, WO-021, WO-022, WO-023, WO-025 |
+| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020, WO-021, WO-022, WO-023, WO-025, WO-028 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015, WO-019 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
@@ -87,4 +87,5 @@ Generated: 2026-11-02 10:31 UTC · ledger records: 113
 | WO-023 | Record the owner's decisions of 2026-11-02: the D3 rule, ET-D2-4's cases, the stack, Tier B and the final buy list | D2 | **accepted** | 2026-11-02T09:03:02.752529Z | reports/WO-023-owner-decisions-2026-11-02.md |
 | WO-024 | Migrate the Jetson to JetPack 7 (placeholder) | D7 | **created** | 2026-11-02T08:52:47.776257Z | — |
 | WO-025 | Re-run the D1 regression on ROS 2 Humble | D2 | **accepted** | 2026-11-02T10:31:52.823440Z | reports/WO-025-d1-regression-on-humble.md |
+| WO-028 | Repeat the two cases that differed on Humble, and say whether the difference is noise | D2 | **in_progress** | 2026-11-02T11:58:16.732907Z | — |
 
