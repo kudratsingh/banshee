@@ -1,6 +1,6 @@
 # WO-022 — Envelope recomputed for the X650; D2 exit tests updated
 
-**Status:** stop condition fired. On a simulated proxy of the X650, the owner's 150 m position-lost rule is not met above 10 m. Reported with options; nothing was adjusted to fit. The standoffs and D2 tests are done. No result exists for a real X650.
+**Status:** stop condition fired. On a simulated proxy of the X650, the owner's 150 m position-lost rule is not met. On the proxy the rule is not met at 20 m and 25 m at nominal drag, nor at 14 m through one tumble at double drag. At 10 m and 5 m/s it is met only in uniform wind with no large tumble. Reported with options; nothing was adjusted to fit. The standoffs and D2 tests are done. No result exists for a real X650.
 **Date:** 2026-11-01 · **Author:** claude-code-banshee · **Work order:** WO-022 · **Phase:** D2 (not started)
 **Program link:** PROGRAM §5.1
 
@@ -13,37 +13,43 @@
 | Standoff at 1.0 m/s | 3.35 m | **3.4 m, frozen** | same |
 | Overrun margin | 9 m | **9 m, frozen** | 8.7 m rounded up |
 | Exclusion radius | 150 m | **150 m, frozen** | 40 + 9 + 100 = 149 m, rounded up |
-| Position loss alone, reach at the table's limits | 139.5–144.9 m, estimated | **up to 169.6 m; rule not met above 10 m** | measured, plus an estimated 5 s delay |
+| Position loss alone, reach at the table's limits | 139.5–144.9 m, estimated | **up to 172.7 m; rule not met** | measured, plus an estimated 5 s delay |
 | Crew from Home | 50 m | **85 m and upwind, proposed** | estimated; the owner has not named it |
 
 `evals/D3-standoffs-x650.json` holds these. `evals/D3-standoffs.json` stays as the X500's record. `evals/D2-exit-tests.json` is now sha256 `f543c93eb3ee6c6d059781141baee6b21578d41c9128e29b97239245c41ada0c`; it was `0ac32802c5691662abca0fe7f81c0df46e1151176ba88624e3fbff0a448b8131`.
 
-## 2. The 150 m rule: not met above 10 m
-**This corrects my first draft, which said the rule held by 0.9 m.** The independent review showed that the draft used a carried-speed term from a 5 m flight, where the ground cuts it short with the aircraft still moving, and applied it at up to 25 m. So I measured each row directly: position lost about 32 m out (the 30 m flight box plus the 2 m position error), flying downwind at 2.5 m/s, three usable runs per row and drag. Reach is ground truth from Home to the end of the ground slide. The two right-hand columns add 5 s of operator delay, *estimated* as wind × 5 s.
+## 2. The 150 m rule: not met
+**On the proxy the rule is not met at 20 m and 25 m at nominal drag, nor at 14 m through one tumble at double drag. At 10 m and 5 m/s it is met only in uniform wind with no large tumble.**
+
+**This corrects my first draft, which said the rule held by 0.9 m.** The independent review showed that the draft used a carried-speed term from a 5 m flight, where the ground cuts it short with the aircraft still moving, and applied it at up to 25 m. So I measured each row directly: position lost about 32 m out (the 30 m flight box plus the 2 m position error), flying downwind at 2.5 m/s, three usable runs per row and drag. Reach is ground truth from Home to the end of the ground slide. The two right-hand columns add 5 s of operator delay, *estimated* per run as 5 s × the larger of the wind and the speed at touchdown.
 
 | Wind, height | Nominal drag | Half drag | Double drag | Nominal, with delay | Worst, with delay |
 |---|---:|---:|---:|---:|---:|
-| 5 m/s, 10 m | 89.3–99.8 m | 82.4–90.2 m | 102.2–113.9 m | 124.8 m | **138.9 m, inside** |
-| 4 m/s, 14 m | 106.2–108.7 m | 97.6–112.7 m | 108.2–149.6 m | 128.7 m | **169.6 m, past** |
-| 3 m/s, 20 m | 117.6–131.6 m | 116.0–123.7 m | 121.6–135.7 m | 146.6 m | **150.7 m, past** |
-| 2.5 m/s, 25 m | 132.1–143.4 m | 127.5–144.2 m | 128.6–137.6 m | 155.9 m | **156.7 m, past** |
+| 5 m/s, 10 m | 89.3–99.8 m | 82.4–90.2 m | 102.2–113.9 m | 125.2 m | **140.3 m, inside** |
+| 4 m/s, 14 m | 106.2–108.7 m | 97.6–112.7 m | 108.2–149.6 m | 131.0 m | **172.7 m, past** |
+| 3 m/s, 20 m | 117.6–131.6 m | 116.0–123.7 m | 121.6–135.7 m | **151.6 m, past** | **154.8 m, past** |
+| 2.5 m/s, 25 m | 132.1–143.4 m | 127.5–144.2 m | 128.6–137.6 m | **162.9 m, past** | **162.9 m, past** |
 
-- **Only the 25 m row breaks at nominal drag.** The 14 m and 20 m rows break only at double drag, and the 14 m row through one 35 m slide after a tumble. The X650's drag is not known, and simulated ground contact is not validated.
-- **The drift formula is not a bound.** The proxy exceeded the wind speed at the lower winds: up to 3.9 m/s in 2.5 m/s of wind. Cause not established. Not run on the x500, so I do not know whether the X500's arithmetic had the same gap.
-- **Wind shear is not in these numbers.** The limit is read near the ground. A 1/7 power law from 1.5 m gives 1.15–1.31 times that wind averaged over the descent (*estimated*), which could take the 10 m row to about 143 m at nominal drag and 159 m at double drag.
+- **The 14 m row breaks only through one 35 m slide after a tumble,** at double drag. Without that run it is 136.2 m. The X650's drag is not known, and simulated ground contact is not validated.
+- **The drift formula is not a bound.** The proxy outran the wind at the lower winds, up to 3.9 m/s in 2.5 m/s of wind, and mostly across the wind. In `ca4bece3`, the run I checked, true tilt grew to 1.3° late in the descent while the estimator read about 0.02°. The cause of the tilt is not established, and this was not run on the x500.
+- **"Downwind" is not the worst case.** Only one wind direction was run. If the side drift lined up with the wind, the estimate adds about 24 m at 25 m, 11 m at 20 m and 1–2 m at 10 m.
+- **The 10 m row is inside only in uniform wind with no large tumble.** With shear, a 1/7 power law from 1.5 m gives 1.15–1.31 times the handheld reading averaged over the descent (*estimated*), which takes it to about 143 m at nominal drag and 161 m at double drag. With a 35 m slide it reaches about 160 m (touchdown 97.4 m + 27 m of delay + 35 m, *estimated*). The largest slide actually seen in that row is 20.1 m.
 - **Position loss at the fence's edge** starts about 17 m further out, and is a second failure.
 
 ### Options for the owner
-| Option | What changes | Reach (worst measured, with delay) | Cost |
-|---|---|---:|---|
-| **A, recommended:** cap at 10 m and lower the wind limit | ≤ 10 m at every stage until flight logs replace this; handheld wind ≤ 4 m/s, not 5 | **138.9 m, 11 m inside;** 4 m/s on the handheld is about 4.6 m/s averaged over the descent with shear, so the 5 m/s row covers it (*estimated*) | Fewer flying days; D4+ viewpoints stay at or below 10 m |
-| B: raise the radius | Keep the table; radius 170 m | 169.6 m, not counting shear, which could reach about 197 m at 25 m (*estimated*) | Field about 340 m across |
-| C: shrink the flight box | Keep the table and 150 m; box 23 m, or 10 m to cover the tumble | 150 m | Much less room to fly, and shear not covered |
+Any option can also lower the wind limit, which is the only thing here that addresses shear.
 
-D2 flies nothing, so this does not hold up D2. It must be settled before D3, and D3 is already ≤ 10 m. **The envelope's table is unchanged, with the rows above 10 m marked,** until the owner decides.
+| Option | What changes | Reach, uniform wind | With a large tumble or shear | Cost |
+|---|---|---:|---|---|
+| **A:** cap height and wind | ≤ 10 m at every stage until flight logs replace this; handheld wind ≤ 4 m/s, not 5 | **140.3 m,** using the 5 m/s row | Shear: 4 m/s reads as about 4.6 m/s over the descent, so the 5 m/s row covers it, up to a shear exponent of about 0.24 and for a reading at 1.5 m. Tumble: about 160 m, past 150 m (*estimated*) | Flying days, not quantified because no site is named. Whether D4+ viewpoints need more than 10 m is not decided |
+| **A+, recommended:** A and a 160 m radius | As A; fence, box and crew unchanged | **140.3 m** | Tumble: about 160 m, at the radius, with no margin | As A, and a field about 320 m across |
+| B: raise the radius only | Keep the table and the 5 m/s limit; radius 173 m | 172.7 m | Shear: about 200 m (*estimated*) | Field about 346 m across |
+| C: shrink the flight box only | Keep the table and 150 m; box 17 m, or 7 m to cover the tumble | about 150 m | Shear not covered | Much less room to fly |
+
+**I recommend A+,** or A if no 320 m site is available and the owner accepts that a tumble in the simulator's unvalidated ground contact is not covered. D2 flies nothing, so this does not hold up D2. It must be settled before D3, and D3's existing 10 m limit does not settle it, because the 5 m/s limit is part of the problem. **The envelope's table is unchanged, and marked,** until the owner decides.
 
 ## 3. The proxy
-PX4's x500 model, with mass 5 kg (and 4 kg), arm 0.23 m and 3.0 kg of thrust per motor. Published: 650 mm wheelbase, 2,000 g kit. Estimated: thrust per motor, inertia scaled as m·L², motor time constants 0.10 and 0.15 s. **Drag is set so that deceleration per unit speed equals the x500's at every mass,** then varied by half and double. It is a stand-in, not a model of the X650. Not modelled: real motor response, prop aerodynamics, vibration, the frame's own drag.
+PX4's x500 model, with mass 5 kg (and 4 kg), arm 0.23 m and 3.0 kg of thrust per motor. Published: 650 mm wheelbase, 2,000 g kit. Estimated: thrust per motor, inertia scaled as m·L², motor time constants 0.10 and 0.15 s. **Drag is set so that deceleration per unit speed equals the x500's at every mass,** then varied by half and double. It is a stand-in, not a model of the X650. **The proxy has about 2.4:1 thrust at 5 kg, which is estimated; a lower margin was not run.** Holybro's 6,300 g limit at 70% throttle gives about 1.8:1 if thrust is linear in throttle, and about 2.6:1 if quadratic. Not modelled: real motor response, prop aerodynamics, vibration, the frame's own drag.
 
 ## 4. Other measurements (simulation on the proxy; three usable runs per case)
 | Term | Case | 5 kg | 4 kg | Half drag | X500 (WO-004) |
@@ -56,7 +62,7 @@ PX4's x500 model, with mass 5 kg (and 4 kg), arm 0.23 m and 3.0 kg of thrust per
 | Fence overrun above 14 m | G-02 | 0.48–0.79 m | not run | not run | 0.53–0.68 m |
 | Climb, C-05 | C-05 | 1.50–1.57 m | not run | not run | 1.45–1.50 m |
 | Vertical travel, C-06 | C-06 | 0.70–0.75 m | not run | not run | 0.70–0.71 m |
-| Return, peak speed | T-01 | 2.67–2.69 m/s | not run | not run | 2.67–2.69 m/s |
+| Return, peak speed | T-01 | 2.67–2.69 m/s | not run | not run | about 2.69 m/s |
 | Carried from 5 m, no wind | G-04 | 12.4–12.8 m | 12.3–12.5 m | 15.2–17.2 m | 12.5–13.1 m |
 | Wind drift, 5.4 m/s, 10 m, with slide | W-01 | 41.3–60.9 m | not run | 25.0–26.5 m | 40.9–46.1 m |
 
@@ -65,7 +71,7 @@ PX4's x500 model, with mass 5 kg (and 4 kg), arm 0.23 m and 3.0 kg of thrust per
 One W-01 run tumbled on touchdown: 17.85 m/s peak and a 3.9 m rebound. Read this as "a drifting landing may flip", and not as a distance.
 
 ## 5. The props and the crew (*estimated*, no test)
-Ballistic with quadratic drag and an assumed area, 25 m release, best angle: 2–5 g tumbling fragments land within 48–55 m in still air and about 72 m downwind at 5 m/s; a 15 g half blade within 27–31 m. **That supports "tens of metres". It is not a bound:** halving the area gives about 95 m in still air and 114 m in wind, and a chip flying stably edge-on reaches 311–432 m in the same model, which is not credible for a tumbling piece but is not excluded. I found no basis to move the 100 m bystander distance, which is PX4's rule of thumb and names no mass. **I propose moving the crew from 50 m to 85 m from Home, upwind of the box. The owner has not named this.**
+Ballistic with quadratic drag and an assumed area, 25 m release, best angle: 2–5 g tumbling fragments land within 48–55 m in still air and about 79 m downwind at 5 m/s; a 15 g half blade within 27–31 m. **That supports "tens of metres". It is not a bound:** halving the area gives about 95 m in still air and 121 m in wind, and a chip flying stably edge-on reaches 311–432 m in the same model, which is not credible for a tumbling piece but is not excluded. I found no basis to move the 100 m bystander distance, which is PX4's rule of thumb and names no mass. **I propose moving the crew from 50 m to 85 m from Home, upwind of the box. The owner has not named this.**
 
 ## 6. D2 exit tests
 Thresholds carry over. Changes, before any result exists:
@@ -82,9 +88,9 @@ Each saw `estimator stale` at an armed tick, first at 102–157 ms against the 1
 
 **Cause not established.** What is known:
 - Two hypotheses remain. Most tripped runs kept a high age, which fits the clock mapping in `src/banshee/offboard/mission.py`, which keeps the smallest offset seen. But `c873f232` tripped on one tick at 104 ms and `3547bf7b` on two, which fits jitter at least as well. `ca564dcf` also has one mapped capture time near −1.79e18 ns, which bears on the mapping.
-- A stall over 300 ms appears in 24 of 63, 10 of 19, 7 of 12 and 12 of 37 runs, so it did not fall when the trips did. It alone does not explain them. Run `9c250368`, in the clean group, had a median age of 70 ms.
+- A stall over 300 ms appears in 26 of 63, 10 of 19, 7 of 12 and 12 of 37 runs, so it did not fall when the trips did. It alone does not explain them. Run `9c250368`, in the clean group, had a median age of 70 ms.
 - **The control does not settle whether the proxy matters.** N-01 alternated between x500 and the proxy, 6 each, with no trips on either. Another project's process was using one core when I looked; I did not stop it, and I do not know whether it ran during the first recording.
-- Two tripped runs, G-04 `ca564dcf` and PL-3 `041219ff`, had the gate's response off by design. PL-3 still entered Land. I did not explain that.
+- Two tripped runs, G-04 `ca564dcf` and PL-3 `041219ff`, had the gate's response off by design. In PL-3 the gate stopped transmitting at 15.6 m, PX4 stayed in offboard on the last climb setpoint and went past the 20 m target, and the 24 m fence then acted at 24.27 m: Hold, then Land, so the fence and not the gate landed it. `ca564dcf`, which never lifted, is probably the same path, which I did not verify. The fence did not act in any run used.
 
 **Effect on the numbers.** The rule: a run is usable if the trigger fired and no mode other than offboard came before it, and the first three usable runs in time order are used. **I fixed that rule after seeing the first 63 runs,** and before the further recordings. The independent review checked that no later usable run exceeds a frozen term, so exclusion biases none low. Two usable runs, K-01-4KG and H-02-4KG in recording 2, tripped to Land after the fault; K-01-4KG's sets the 3.26 m, so they raise the braking term. The gate code and its bound did not change.
 
@@ -97,9 +103,10 @@ Each saw `estimator stale` at an armed tick, first at 102–157 ms against the 1
 ## 9. Verification and review
 `make check` passes. 131 runs recorded across three sets, plus one smoke run of PL-2p5, `20261102T051639Z_ee248af2`, not used; none failed to execute.
 
-**Independent review (read-only, recomputed from the raw data).** It found: the carried term cut short, so the 0.9 m margin was unsound (high, fixed by §2's direct measurement); terms the margin left out, such as shear and position error (high, §2); "mass did not matter" being built in for carried and wind, with a wrong reason (high, §4); the gate split wrong, and my claim that age stayed high false for two runs (medium, §7); the fragment estimate overused (medium, §5); ET-D2-4 under-specified (medium, §6); and smaller items, all fixed. A second pass on the changes: see §12.
+**Independent review (read-only, recomputed from the raw data).** It found: the carried term cut short, so the 0.9 m margin was unsound (high, fixed by §2's direct measurement); terms the margin left out, such as shear and position error (high, §2); "mass did not matter" being built in for carried and wind, with a wrong reason (high, §4); the gate split wrong, and my claim that age stayed high false for two runs (medium, §7); the fragment estimate overused (medium, §5); ET-D2-4 under-specified (medium, §6); and smaller items. A second pass on the changes: see §12.
 
 ## 10. To reproduce
+sha256: `evals/X650-proxy-cases.json` `7a5fd59a…e136`, `evals/X650-proxy-control-cases.json` `3a6c247b…3785`, `evals/X650-position-lost-cases.json` `f85f3861…fb`, `src/banshee/sitl/x650_proxy.py` `128ed37a…1`. PX4 commit d6f12ad1.
 ```bash
 limactl shell banshee-sitl -- bash -c "PYTHONPATH=$PWD/src python3 $PWD/src/banshee/sitl/x650_proxy.py --px4 ~/sitl/PX4-Autopilot"
 PYTHONPATH=src python -m banshee.faults.run_matrix --matrix evals/X650-proxy-cases.json
@@ -145,4 +152,10 @@ PL-2p5-HD | 20261102T053915Z_69e9ebba, 20261102T060135Z_466ae735, 20261102T06235
 ```
 Excluded: H-01 `de0daa39`, `e7e1d842`; C-06 `822ef3b3`; G-01 `2b3321e2`; G-04 `ca564dcf`; H-02-4KG `aac2b923`; K-01-4KG `54b0c263`; G-01-4KG `c873f232`; K-01 `aa3d9875`; N-01 `3547bf7b`; PL-3 `041219ff`.
 Control: `929412af`, `24132759`, `54630a16`, `b0e27690`, `527dd9de`, `8247632f`, `fc183c36`, `24ae4488`, `8cc9caa0`, `89c00e7e`, `6fc76708`, `0a4620ff`.
+
+## 12. Second review pass
+It confirmed that every measured range, the run selection and the D2 files reproduce. It found: the delay columns too low, because the aircraft outruns the wind, which moved the 20 m row past 150 m at nominal drag; Option A not charged for the tumble that the others were charged for, and the options framed to favour it; the headline implying that 10 m meets the rule; the tilt and wind-direction facts missing; the PL-3 Land explicable; and smaller items. All are fixed here, and I recomputed the delay columns and checked the tilt and PL-3 myself. Where its figures differed slightly from mine through log sampling (140.2 and 140.3 m, 172.8 and 172.7 m, 162.8 and 162.9 m), I kept mine. **There was no third pass, so these last edits have only my own check.**
+
+## 13. Retro
+A term measured in one condition is not a measurement in another. My first draft rested on a 5 m flight applied at 25 m, and a direct run of each row cost about an hour. I should have run those rows first.
 

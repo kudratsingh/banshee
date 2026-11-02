@@ -2,7 +2,7 @@
   "phase": "D3",
   "status": "frozen",
   "frozen": "2026-11-01, owner decision of that date (ledgers/approvals.jsonl), before D2 starts. Frozen: the standoffs, the overrun margin and the exclusion radius. Not settled: whether the radius meets the owner's position-lost rule (position_lost_rule), and the crew distance, which is the agent's proposal.",
-  "status_note": "Replaces evals/D3-standoffs.json, which stays as the record for the X500. The braking, overrun and carried-speed terms were measured on a simulated proxy of the X650 (src/banshee/sitl/x650_proxy.py). They are not flight measurements, and the proxy's thrust, drag and motor lag are estimated. D3 logs may replace these values only through a new dated owner decision.",
+  "status_note": "Replaces evals/D3-standoffs.json, which stays as the record for the X500. The braking and overrun terms and the position-lost reach were measured on a simulated proxy of the X650 (src/banshee/sitl/x650_proxy.py). They are not flight measurements, and the proxy's thrust, drag and motor lag are estimated. D3 logs may replace these values only through a new dated owner decision.",
   "consumer": "docs/OPERATING_ENVELOPE.md; ET-D3-4 containment sign-off",
   "aircraft": "Holybro X650 ARF, about 4-5 kg at takeoff, 15-inch carbon props",
   "standoff_m": {
@@ -36,8 +36,8 @@
   },
   "position_lost_rule": {
     "rule": "The owner's rule of 2026-11-01: the 150 m exclusion radius covers position-lost cases on its own.",
-    "status": "NOT MET on the proxy above 10 m: reported to the owner with options under WO-022's stop condition. No value was adjusted to fit.",
-    "method": "Measured on the proxy: position lost at about 32 m out (the 30 m flight box plus the 2 m position error), flying downwind at 2.5 m/s, at each row's height and wind. Reach is ground truth from Home to the end of the ground slide. The 5 s of operator delay is estimated, as wind x 5 s. Wind is uniform, and ground contact is not validated.",
+    "status": "NOT MET. On the proxy the rule is not met at 20 m and 25 m at nominal drag, nor at 14 m through one tumble at double drag. At 10 m and 5 m/s it is met only in uniform wind with no large tumble. Reported to the owner with options under WO-022's stop condition. No value was adjusted to fit.",
+    "method": "Measured on the proxy: position lost at about 32 m out (the 30 m flight box plus the 2 m position error), flying downwind at 2.5 m/s, at each row's height and wind. Reach is ground truth from Home to the end of the ground slide. Wind is uniform, from one direction, and ground contact is not validated. The 5 s of operator delay is estimated, per run, as 5 s times the larger of the wind and the speed at touchdown, because the aircraft outruns the wind.",
     "rows_m": [
       {
         "wind_m_s": 5,
@@ -54,9 +54,9 @@
           102.2,
           113.9
         ],
-        "nominal_with_delay": 124.8,
-        "worst_with_delay": 138.9,
-        "inside_150": true
+        "nominal_with_delay": 125.2,
+        "worst_with_delay": 140.3,
+        "inside_150_in_uniform_wind_with_no_large_tumble": true
       },
       {
         "wind_m_s": 4,
@@ -73,9 +73,9 @@
           108.2,
           149.6
         ],
-        "nominal_with_delay": 128.7,
-        "worst_with_delay": 169.6,
-        "inside_150": false
+        "nominal_with_delay": 131.0,
+        "worst_with_delay": 172.7,
+        "inside_150_in_uniform_wind_with_no_large_tumble": false
       },
       {
         "wind_m_s": 3,
@@ -92,9 +92,9 @@
           121.6,
           135.7
         ],
-        "nominal_with_delay": 146.6,
-        "worst_with_delay": 150.7,
-        "inside_150": false
+        "nominal_with_delay": 151.6,
+        "worst_with_delay": 154.8,
+        "inside_150_in_uniform_wind_with_no_large_tumble": false
       },
       {
         "wind_m_s": 2.5,
@@ -111,12 +111,12 @@
           128.6,
           137.6
         ],
-        "nominal_with_delay": 155.9,
-        "worst_with_delay": 156.7,
-        "inside_150": false
+        "nominal_with_delay": 162.9,
+        "worst_with_delay": 162.9,
+        "inside_150_in_uniform_wind_with_no_large_tumble": false
       }
     ],
-    "not_included": "Wind shear: the limit is read on a handheld meter near the ground. A 1/7 power law from 1.5 m gives 1.15 to 1.31 times that wind, averaged over the descent (estimated)."
+    "not_included": "Wind shear: the limit is read on a handheld meter near the ground, and a 1/7 power law from 1.5 m gives 1.15 to 1.31 times that wind averaged over the descent (estimated), which takes the 10 m row to about 143 m at nominal drag and 161 m at double drag. A large tumble in the 10 m row: touchdown at 97.4 m, 27 m of delay and the 35 m slide seen at 14 m give about 160 m (estimated). Other wind directions: not run. If the side drift lined up with the wind, the estimate adds about 24 m at 25 m, 11 m at 20 m and 1-2 m at 10 m."
   },
   "crew_distance_from_home_m": 85,
   "crew_distance_terms_m": {
@@ -124,7 +124,7 @@
     "tumbling_fragment_range": 55,
     "sum": 85
   },
-  "crew_distance_label": "estimated, and proposed by the agent; the owner has not named it. Ballistic with quadratic drag, 2-15 g tumbling fragments at up to 140 m/s, 25 m release height, still air: this supports tens of metres, not a bound. Crew upwind of the flight box, because a downwind fragment travels further (72 m at 5 m/s).",
+  "crew_distance_label": "estimated, and proposed by the agent; the owner has not named it. Ballistic with quadratic drag, 2-15 g tumbling fragments at up to 140 m/s, 25 m release height, still air: this supports tens of metres, not a bound. Crew upwind of the flight box, because a downwind fragment travels further (79 m at 5 m/s).",
   "evidence": "reports/WO-022-x650-envelope-and-d2-tests.md",
   "overrun_margin_note": "The 8.7 m standoff, rounded up. Measured fence overrun on the proxy: 3.28-3.67 m in the runs used; 3.64 m at 5 kg in a further run (G-01).",
   "reaction_note": "At the nominal speed limit, as on the X500. The proxy flew 2.50-2.63 m/s at the trigger; at 2.6 m/s the standoff would be 8.8 m, still under the 9 m margin."
