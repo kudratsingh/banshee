@@ -111,6 +111,14 @@
 {"actor":"agent","event":"ready","note":"wo023_accepted","record_id":"status-20261102T090824207192Z-046171","ts":"2026-11-02T09:08:24.207192Z","wo":"WO-025"}
 {"actor":"agent","event":"in_progress","note":"branch_wo/WO-025-d1-on-humble","record_id":"status-20261102T090824236909Z-6cf336","ts":"2026-11-02T09:08:24.236909Z","wo":"WO-025"}
 {"actor":"agent","commit":"44ed9f6","event":"accepted","note":"ci_only","record_id":"status-20261102T103152823440Z-9f511b","report":"reports/WO-025-d1-regression-on-humble.md","ts":"2026-11-02T10:31:52.823440Z","wo":"WO-025"}
+{"actor":"agent","event":"created","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221157967Z-a061a5","ts":"2026-11-02T12:02:21.157967Z","wo":"WO-027"}
+{"actor":"agent","event":"ready","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221195527Z-62e9ca","ts":"2026-11-02T12:02:21.195527Z","wo":"WO-027"}
+{"actor":"agent","event":"in_progress","note":"owner_decision_2026-11-02","record_id":"status-20261102T120221230369Z-0bc0dd","ts":"2026-11-02T12:02:21.230369Z","wo":"WO-027"}
+{"actor":"agent","commit":"7d86293","event":"accepted","note":"ci_only","record_id":"status-20261102T120224205711Z-801fac","report":"reports/WO-027-onboard-package.md","ts":"2026-11-02T12:02:24.205711Z","wo":"WO-027"}
+{"actor":"agent","event":"created","note":"owner_decision_2026-11-02","record_id":"status-20261102T120639894677Z-947b23","ts":"2026-11-02T12:06:39.894677Z","wo":"WO-026"}
+{"actor":"agent","event":"ready","note":"owner_decision_2026-11-02","record_id":"status-20261102T120639924440Z-c55cb1","ts":"2026-11-02T12:06:39.924440Z","wo":"WO-026"}
+{"actor":"agent","event":"in_progress","note":"owner_decision_2026-11-02","record_id":"status-20261102T120639954435Z-571434","ts":"2026-11-02T12:06:39.954435Z","wo":"WO-026"}
+{"actor":"agent","commit":"d84f3c4","event":"accepted","note":"reviewed_once","record_id":"status-20261102T121227870695Z-d189ac","report":"reports/WO-026-owner-decisions-2.md","ts":"2026-11-02T12:12:27.870695Z","wo":"WO-026"}
 {"actor":"agent","event":"created","note":"owner_decision_2026-11-02","record_id":"status-20261102T115816665989Z-810df5","ts":"2026-11-02T11:58:16.665989Z","wo":"WO-028"}
 {"actor":"agent","event":"ready","note":"owner_decision_2026-11-02","record_id":"status-20261102T115816701694Z-a2f53e","ts":"2026-11-02T11:58:16.701694Z","wo":"WO-028"}
 {"actor":"agent","event":"in_progress","note":"owner_decision_2026-11-02","record_id":"status-20261102T115816732907Z-3cd53d","ts":"2026-11-02T11:58:16.732907Z","wo":"WO-028"}

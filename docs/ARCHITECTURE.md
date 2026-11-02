@@ -23,7 +23,7 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 |---|---|---|---|
 | Mission executive | this project | explicit state machine (reuses the Incident Commander pattern: deterministic guards, independent success detector, bounded recovery) | an LLM may interpret requests into subgoals; spatial facts always come from the estimator and map |
 | Local planner / skills | this project | conventional route planning and avoidance on the map | learned residual dynamics inside MPC, **gated by calibrated uncertainty** (the research question) |
-| Command gate | this project | `src/banshee/freshness.py` + limits + clearance + operator override | never learned |
+| Command gate | this project | `onboard/src/banshee_onboard/freshness.py` + limits + clearance + operator override | never learned |
 | Flight control | PX4 | stock firmware, pinned | never |
 | State estimation | this project (configuration) | PX4 EKF2 with external VIO input | never in the loop; the world model may consume logs offline |
 | Reference (evaluation only) | this project | outside-in cameras + AprilTags, independent clocks | — |
@@ -45,10 +45,10 @@ A general-purpose aerial autonomy platform built **conventionally first** and ex
 | Module | Path | Status |
 |---|---|---|
 | Core record helpers (append-only ledgers, artifact store, run dirs, logs, config) | `ironclad.core` | implemented, tested |
-| Setpoint freshness / estimator validity gate (pure logic) | `src/banshee/freshness.py` | implemented, tested; bounds to be frozen in D1 |
+| Setpoint freshness / estimator validity gate (pure logic) | `onboard/src/banshee_onboard/freshness.py` | implemented, tested; bounds to be frozen in D1 |
 | Typed interfaces (estimator, gate, mission executive, skill, learned-proposal adapter) | `src/banshee/interfaces.py` | implemented as Protocols |
 | SITL launch + version manifest | `src/banshee/sitl/` | **not implemented** (WO-002) |
-| Offboard velocity bridge + mission runner | `src/banshee/offboard/` | **not implemented** (WO-002) |
+| Offboard velocity bridge + mission runner | `onboard/src/banshee_onboard/` (`mission.py`, `gate.py`, `response.py`); launched as `banshee.offboard.mission` | implemented (WO-002, WO-004, WO-016) |
 | Contract export of flight logs | `src/banshee/export/` | **not implemented** (WO-002) |
 | Fault-matrix harness | `src/banshee/faults/` | **not implemented** (WO-004) |
 | Outside-in reference pipeline | `src/banshee/reference/` | **not implemented** (D2) |
@@ -60,3 +60,12 @@ Laptop for SITL in D1. Jetson Orin Nano Super from D2, hand-carried, then flown 
 
 ## 7. Data
 Every flight (SITL or real) is exported through `ironclad.contracts.v1.writer` as a `physics_sim` or `real` episode with the drone's configuration, controller version and calibration ids; raw PX4 logs (ulog) are retained alongside. These exports are the drone's only interface to the world-model project (M4). Reference streams carry `role: reference_only`.
+
+## Onboard and off-board (owner, 2026-11-02; WO-027)
+| Package | Where | Python | May import |
+|---|---|---|---|
+| `banshee_onboard`: freshness gate, command path, offboard bridge, the simulator's fault injection | `onboard/`, own `pyproject.toml` | ≥ 3.10, the Jetson's (JetPack 6.2.2, Humble) | the standard library, ROS 2 (`rclpy`, `px4_msgs`); never `ironclad` or `banshee` (`onboard/tests/test_boundary.py`) |
+| `banshee`: contract export, analysis, SITL tooling | `src/` | ≥ 3.12, off-board | `ironclad`, and `banshee_onboard` |
+
+Contract export runs off-board from the flight logs. CI's `onboard (python 3.10)` job runs the onboard tests with nothing but pytest installed. `banshee.offboard.mission` stays as a launcher, because frozen fault cases stop the node by that process name. `evals/D1-exit-tests.json` still names `src/banshee/freshness.py` as the consumer of its bounds; the file is frozen, and the module is now `banshee_onboard.freshness`.
+

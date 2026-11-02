@@ -101,5 +101,11 @@ D3 runs under a temporary rule: 10 m, 4 m/s, 160 m, crew 85 m upwind. ET-D2-4 ga
 ## After import: D1 holds on Humble (2026-11-02, WO-025)
 A second VM on Ubuntu 22.04 and ROS 2 Humble, with PX4 at the same commit, re-ran the D1 regression: 10/10 missions, 10/10 contract-valid episodes, 47/47 fault cases with the same 7 deviations. `BANSHEE_STACK=humble` selects it; the Jazzy VM stays as the record.
 
+## After import: onboard package on Python 3.10 (2026-11-02, WO-027)
+The freshness gate, command path and offboard bridge moved to `onboard/` as `banshee_onboard`, on Python ≥ 3.10, importing nothing from ironclad. Tooling stays on 3.12. A CI job runs the onboard tests on 3.10.
+
+## After import: line approvals and the D3 limit-raising tests (2026-11-02, WO-026)
+The owner approved 14 lines and held line 31; each approval is in the ledger. ET-D2-4 gains a no-stale-setpoint check after SIGCONT and restart. ET-D3-6 and ET-D3-7 collect the data and set the criteria for raising the D3 limits, with the ARK Flow MR as backup velocity. `docs/D3_APPROVAL_PACKAGE.md` drafts the radio, props and RTK items.
+
 ## After import: Humble differences are noise (2026-11-02, WO-028)
 R-06 and N-01, six runs each on Jazzy and Humble, overlap: the two WO-025 differences were single runs at the ends of wide spreads. One Jazzy run tripped the freshness gate early on PX4's x500, so the early trips are not specific to the X650 proxy.

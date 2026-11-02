@@ -1,6 +1,6 @@
 # Final buy list — Tier B, 2026-11-02
 
-**Status: ALL PURCHASES ON HOLD until the owner approves each line below.** The owner places the orders; the agent places none. This list applies the owner's decisions of 2026-11-02 (`ledgers/approvals.jsonl`) to `docs/BUY_LIST-REPRICED-2026-11-01.md`, which it replaces. Prices were read on 2026-11-01 unless a line says 11-02, and change; recheck at checkout.
+**Status, 2026-11-02: approved by the owner as listed, except line 31, which is on hold** (`ledgers/approvals.jsonl`): lines 1, 2, 4, 11, 12, 13, 14, 15, 16, 17, 18, 23, 28 and 29. The owner places the orders; the agent places none and tracks nothing until parts arrive. **Line 31** waits until the Tattu packs arrive and the connector genders are confirmed by eye. This list applies the owner's decisions of 2026-11-02 (`ledgers/approvals.jsonl`) to `docs/BUY_LIST-REPRICED-2026-11-01.md`, which it replaces. Prices were read on 2026-11-01 unless a line says 11-02, and change; recheck at checkout.
 
 **Tier B** (owner, 2026-11-02): X650 + Pixhawk 6X/Orin NX 16 GB Jetson Baseboard bundle + OAK-D Pro W fixed-focus + ARK Flow MR + 6S power.
 
@@ -8,7 +8,7 @@
 | Line | Item | Seller | Qty | Unit USD | Line USD | Stock | Date read | FCC Covered List status | Note |
 |---:|---|---|---:|---:|---:|---|---|---|---|
 | 1 | Holybro X650 ARF, SKU 30179 | [Kilitronic](https://kilitronic.com/products/x650-kits) | 1 | 999.00 | 999.00 | available | 11-01 | Frame and props: not a critical component (reasoning). Motors, ESCs: **FLAG** | |
-| 2 | Pixhawk Jetson Baseboard Bundle: 6X, Orin NX 16 GB, with case, SKU 20340 | [Kilitronic](https://kilitronic.com/products/pixhawk-jetson-baseboard) | 1 | 2,399.00 | 2,399.00 | available | 11-01 | **FLAG**: Holybro's certification entry has three attachments that were not readable; **open them on the page before approving this line** | Seller approved by the owner, 2026-11-02. Sold with the case only; the case's fit in the X650 is unverified |
+| 2 | Pixhawk Jetson Baseboard Bundle: 6X, Orin NX 16 GB, with case, SKU 20340 | [Kilitronic](https://kilitronic.com/products/pixhawk-jetson-baseboard) | 1 | 2,399.00 | 2,399.00 | available | 11-01 | **Cleared** (the owner's reading, 2026-11-02): Holybro's FCC SDoC for "Pixhawk Jetson Baseboard, PAB-BASE-Orin NX-RC03" is Part 15 Subpart B, report 8230EU012808E, dated 2024-07-17, before the cutoff. The other two attachments are CE-EMC and RoHS, not FCC | Seller approved by the owner, 2026-11-02. Sold with the case only; the case's fit in the X650 is unverified |
 | 11 | OAK-D Pro W, fixed-focus RGB, SKU A00573 | [Luxonis](https://shop.luxonis.com/products/oak-d-pro-w) | 1 | 529.00 | 529.00 | Add to Cart; no stock text | 11-01 | Not a critical component (reasoning); no FCC ID read | |
 | 28 | ARK Flow MR, DroneCAN | [ARK Electronics](https://arkelectron.com/product/ark-flow-mr/) | 1 | 350.00 | 350.00 | **On Backorder** | 11-01 | Exempt candidate: vendor states made in the USA | |
 | 13 | Tattu 22.2 V 30C 6S 10000 mAh, EC5 | [RMRC](https://readymaderc.com/products/details/tattu-6s-30c-10000mah-lipo-battery-ec5) | 3 | 216.99 | 650.97 | In Stock | 11-01, from RMRC's search page; this product page was not read | **FLAG**: batteries are named; no grant possible | Owner's choice, 2026-11-02 |
@@ -36,7 +36,7 @@
 | Shipping, flat allowance | 120.00 | estimated |
 | U1, your ceiling | 306.26 | ceiling, not a price |
 | F1, Part 107 test | 175.00 | about $175 |
-| **Planning total** | **7,203.89** | $2.04 under the re-priced list |
+| **Planning total** | **7,203.89** | $2.04 under the re-priced list. Goods on the approved lines alone: $5,972.17; line 31 ($14.97) is held |
 
 ## The two new lines
 **Line 31, adapter leads.** You asked for 12 AWG, EC5 female to XT60 male. The Gens Ace lead names those genders, but its gauge is not confirmed, and its page returned HTTP 429 to every read. **Sellers name EC5 and XT60 genders inconsistently, so check two things before ordering: that the lead mates the Tattu pack's EC5 lead, and that it mates the XT60 on the PM02D and on the charger's output lead.** Listings found with 12 AWG named the opposite genders: [BenchCraft](https://motionrc.com/products/benchcraft-ec5-male-to-xt60-female-adapter-bct5061-041) and [GetFPV](https://www.getfpv.com/accessories/power-cables-connectors/ec5-male-to-xt60-female-12awg-extension-cable-5cm.html), both EC5 male to XT60 female. [Kiwi Quads](https://www.kiwiquads.co.nz/product/xt60-ec5-connector-adaptor-pair) sells a 12 AWG pair with both genders, but from New Zealand and at an unread price. XT60 is rated about 60 A continuous; at 5 kg the hover current on 6S is about 30–40 A (estimated), so the lead should not carry a full-throttle climb for long.

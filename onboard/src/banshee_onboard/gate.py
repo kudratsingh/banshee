@@ -12,7 +12,7 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
-from ..freshness import FreshnessBounds, GateInputs, Mode, assess
+from .freshness import FreshnessBounds, GateInputs, Mode, assess
 
 Action = tuple[float, float, float, float]
 

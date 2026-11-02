@@ -8,7 +8,7 @@ import shlex
 from pathlib import Path
 from typing import Any
 
-from .injection import load_case
+from banshee_onboard.injection import load_case
 
 
 def env_lines(case: dict[str, Any]) -> list[str]:
