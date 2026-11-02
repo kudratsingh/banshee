@@ -1,3 +1,4 @@
+<!-- Superseded: see docs/BUY_LIST-REPRICED-2026-11-01.md. All purchases are on hold (owner, 2026-11-01). -->
 # Purchase request — Option A, 2026-11-01
 
 **Status: a request, for approval line by line. Nothing has been bought, and no cart or account was used.** Prices are dated readings from suppliers' pages, not quotes. No netting. The Covered List column is a planning check, not legal advice.

@@ -88,3 +88,6 @@ The owner's line-by-line approval is in `ledgers/approvals.jsonl`, and `docs/BUY
 
 ## After import: buy-list decisions recorded (2026-11-01, WO-020)
 Each decision is in `ledgers/approvals.jsonl`, including the owner's correction of C2: the SiK V3 is withdrawn, and an RFD900x-US is the D3 substitute. The planning total is $3,506.19 at Standard FOV or $3,615.19 at Wide. The field-of-view pick is open. Nothing is bought yet.
+
+## After import: X650 platform, purchases on hold (2026-11-01, WO-021)
+The owner chose the X650 and the Pixhawk Jetson bundle and put all purchases on hold. `docs/BUY_LIST-REPRICED-2026-11-01.md` holds the new list and FCC check; ADR-0007 records the X500 as superseded. WO-022 recomputes the envelope and updates the D2 tests.
