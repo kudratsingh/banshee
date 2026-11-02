@@ -6,6 +6,8 @@
 
 **Re-priced 2026-11-01:** the current lines and total, $3,884.44, are in `docs/PURCHASE_REQUEST-2026-11-01.md`. No price read that day differed from this worksheet. The numbers below stay as the record of 2026-10-31. New since then: DA 26-761's text was read and confirms 2028-01-01; the Dronetag page names G2; Holybro sells spare motors at $19.99, and its spare ESC is sold out.
 
+**Approved 2026-11-01:** the owner's lines and substitutions are in `docs/BUY_LIST-2026-11-01.md`, with an approved planning total of $3,352.02.
+
 ## Option A: post-D1 order
 | Item | Candidate | Qty | Unit USD | Line USD | Supplier (read 2026-10-31) | Stock read | Compatibility evidence |
 |---|---|---:|---:|---:|---|---|---|

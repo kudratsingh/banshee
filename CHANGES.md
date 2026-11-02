@@ -82,3 +82,6 @@ Before flight, the node now asks for offboard only from Hold and yields on anyth
 
 ## After import: purchase request and D2 freeze (2026-11-01, WO-017)
 The re-priced Option A order is one table in `docs/PURCHASE_REQUEST-2026-11-01.md`, with a planning total of $3,884.44. D2's exit tests are frozen in `evals/D2-exit-tests.json`, with sample sizes added. D2 is not started, and nothing was bought.
+
+## After import: purchase approval recorded (2026-11-01, WO-018)
+The owner's line-by-line approval is in `ledgers/approvals.jsonl`, and `docs/BUY_LIST-2026-11-01.md` applies its substitutions and sourcing rule. The planning total is $3,352.02. Nothing is bought yet. WO-019 holds the stale-status window to close before D3.

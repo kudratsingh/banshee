@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 00:02 UTC · ledger records: 87
+Generated: 2026-11-02 01:23 UTC · ledger records: 92
 
 ## Phases
 
@@ -10,8 +10,8 @@ Generated: 2026-11-02 00:02 UTC · ledger records: 87
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014, WO-016 |
-| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017 |
-| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015 |
+| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018 |
+| D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 5 | D2 | WO-015, WO-019 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
 | D6 | Fixed-target inspection from N declared viewpoints and return | **not_started** | 0 / 0 / 4 | D5 | — |
@@ -79,4 +79,6 @@ Generated: 2026-11-02 00:02 UTC · ledger records: 87
 | WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **accepted** | 2026-11-01T23:53:22.656911Z | reports/WO-015-owner-decisions-after-d1.md |
 | WO-016 | Stop the node overriding a mode chosen while disarmed | D1 | **accepted** | 2026-11-01T23:53:22.750471Z | reports/WO-016-preflight-mode-override.md |
 | WO-017 | Purchase request for Option A, and freeze D2's exit tests | D2 | **accepted** | 2026-11-02T00:02:15.827420Z | reports/WO-017-purchase-request-and-d2-freeze.md |
+| WO-018 | Record the owner's purchase approval and write the buy list | D2 | **accepted** | 2026-11-02T01:23:37.444448Z | reports/WO-018-purchase-approval.md |
+| WO-019 | Close the stale-status offboard-command window in the mode-override fix | D3 | **created** | 2026-11-02T01:22:35.987284Z | — |
 
