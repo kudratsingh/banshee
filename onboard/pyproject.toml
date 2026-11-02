@@ -1,0 +1,22 @@
+[project]
+name = "banshee-onboard"
+version = "0.0.1"
+description = "Onboard ROS 2 nodes for Banshee: freshness gate, command path, offboard bridge"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q -p no:cacheprovider"
+
+[tool.ruff]
+extend = "../pyproject.toml"
+target-version = "py310"

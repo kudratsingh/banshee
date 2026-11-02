@@ -1,11 +1,10 @@
 """Banshee (Omni Drone) — a general-purpose aerial autonomy platform built conventionally first.
 
-Implemented here: ``freshness`` (the
-setpoint-freshness and estimator-validity gate, pure logic), ``interfaces`` (typed Protocols for the
-modules the work orders will implement). Record helpers and the contract come from the ``ironclad``
-package. SITL, offboard bridge, export, fault harness, reference
-pipeline and mission executive are specified in docs/ and work_orders/ and are NOT implemented yet.
-Nothing here can command an aircraft.
+The off-board package: contract export, analysis and SITL tooling, on Python 3.12. Record helpers
+and the contract come from the ``ironclad`` package. The onboard nodes (freshness gate, command
+path, offboard bridge) are ``banshee_onboard``, in ``onboard/``, on Python 3.10. ``interfaces``
+holds typed Protocols for the modules the work orders implement. Nothing here commands an aircraft
+outside the simulator.
 """
 
 from __future__ import annotations

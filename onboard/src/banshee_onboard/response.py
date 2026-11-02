@@ -13,7 +13,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-from ..freshness import Mode
+from .freshness import Mode
 
 Latch = Literal["none", "hold", "land", "operator"]
 Command = Literal["none", "hold", "land"]
