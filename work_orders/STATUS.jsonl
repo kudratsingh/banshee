@@ -89,3 +89,4 @@
 {"actor":"agent","event":"ready","note":"WO-017_accepted","record_id":"status-20261102T012235910190Z-d91572","ts":"2026-11-02T01:22:35.910190Z","wo":"WO-018"}
 {"actor":"agent","event":"in_progress","note":"branch_wo/WO-018-purchase-approval","record_id":"status-20261102T012235949018Z-b23896","ts":"2026-11-02T01:22:35.949018Z","wo":"WO-018"}
 {"actor":"agent","event":"created","note":"before_D3_not_D2_owner_instruction_2026-11-01","record_id":"status-20261102T012235987284Z-32ed54","ts":"2026-11-02T01:22:35.987284Z","wo":"WO-019"}
+{"actor":"agent","commit":"de2552781ae7092ec8740635b5875ef19e4e56c1","event":"accepted","note":"approval recorded; buy list written; four owner decisions open; nothing bought","record_id":"status-20261102T012337444448Z-0ce0d5","report":"reports/WO-018-purchase-approval.md","ts":"2026-11-02T01:23:37.444448Z","wo":"WO-018"}

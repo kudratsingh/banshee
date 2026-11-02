@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 01:23 UTC · ledger records: 91
+Generated: 2026-11-02 01:23 UTC · ledger records: 92
 
 ## Phases
 
@@ -79,6 +79,6 @@ Generated: 2026-11-02 01:23 UTC · ledger records: 91
 | WO-015 | Record the owner's decisions after D1: ADR-0010, D3 standoffs, VM bounds | D3 | **accepted** | 2026-11-01T23:53:22.656911Z | reports/WO-015-owner-decisions-after-d1.md |
 | WO-016 | Stop the node overriding a mode chosen while disarmed | D1 | **accepted** | 2026-11-01T23:53:22.750471Z | reports/WO-016-preflight-mode-override.md |
 | WO-017 | Purchase request for Option A, and freeze D2's exit tests | D2 | **accepted** | 2026-11-02T00:02:15.827420Z | reports/WO-017-purchase-request-and-d2-freeze.md |
-| WO-018 | Record the owner's purchase approval and write the buy list | D2 | **in_progress** | 2026-11-02T01:22:35.949018Z | — |
+| WO-018 | Record the owner's purchase approval and write the buy list | D2 | **accepted** | 2026-11-02T01:23:37.444448Z | reports/WO-018-purchase-approval.md |
 | WO-019 | Close the stale-status offboard-command window in the mode-override fix | D3 | **created** | 2026-11-02T01:22:35.987284Z | — |
 
