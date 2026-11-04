@@ -1,8 +1,8 @@
-# Banshee — Omni Drone
+# Banshee — Autonomous Aerial Robotics
 
-An aerial autonomy platform built from conventional flight control outward: PX4, offboard guidance, independent outcome checks, and a command gate that can refuse a planner's request. The goal is a robot that earns broader mission capability through demonstrated steps, from waypoint flight to GPS-denied navigation and inspection.
+An **autonomous aerial robotics platform** for visual-inertial localization, GPS-denied navigation and inspection. Its **PX4 / ROS 2** architecture connects flight control, offboard mission guidance, command arbitration, sensing and telemetry, with **Gazebo software-in-the-loop (SITL)** providing the environment for flight-dynamics and failure-mode testing.
 
-**Current milestone: simulation passed; hardware qualification remains open.** D0 (operating envelope) and D1 (PX4/Gazebo simulation, offboard control, logging and fault testing) have passed their recorded exit tests. D2 props-off sensing and localization is ready, with no exit tests passed. See the [status board](docs/STATUS_BOARD.md).
+The control path combines bounded velocity/yaw-rate commands, independent setpoint and estimator freshness checks, fault injection, raw PX4 logs and contract-based trajectory exports. Independent outcome judging and a staged mission ladder connect conventional flight control with learned autonomy.
 
 ## What works today
 
@@ -19,7 +19,9 @@ Mission / planner request
     → raw logs + trajectory export → independent outcome check
 ```
 
-## Evidence and next milestone
+## Simulation evidence and mission ladder
+
+**Recorded simulation milestones:** D0 (operating envelope) and D1 (PX4/Gazebo simulation, offboard control, logging and fault testing) have passed their exit tests. D2 props-off sensing and localization is ready, with no exit tests passed. The [status board](docs/STATUS_BOARD.md) tracks each gate.
 
 The [D1 mission report](reports/WO-002-d1-sitl-offboard-mission-and-contract-export.md) records reproducible launches, waypoint outcomes and validated exports. The [fault-matrix report](reports/WO-004-d1-fault-matrix-and-freshness-gate.md) records executed cases, failures, corrections and review findings. Later platform and compatibility checks are linked from the [status board](docs/STATUS_BOARD.md).
 
