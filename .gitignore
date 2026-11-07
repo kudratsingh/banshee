@@ -25,6 +25,7 @@ secrets/
 data/raw/
 data/derived/
 data/imports/
+data/exports/
 runs/*/
 artifacts/sha256/
 checkpoints/
