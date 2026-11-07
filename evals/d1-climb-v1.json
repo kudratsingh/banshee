@@ -1,0 +1,31 @@
+{
+  "route_id": "d1-climb-v1",
+  "status": "frozen for the D1 variation set, WO-029, 2026-11-06, before any run",
+  "frame": "ENU local, origin at the EKF start point",
+  "waypoints_enu_m": [
+    [
+      0.0,
+      0.0,
+      4.0
+    ],
+    [
+      12.0,
+      -8.0,
+      8.0
+    ],
+    [
+      12.0,
+      8.0,
+      8.0
+    ],
+    [
+      0.0,
+      0.0,
+      4.0
+    ]
+  ],
+  "arrival_radius_m": 0.25,
+  "speed_m_s": 2.0,
+  "gain_per_s": 1.0,
+  "note": "A triangle from 4 m up to 8 m and back down. Inside the sim limits and the 40 m fence and 14 m ceiling of evals/D1-exit-tests.json."
+}
