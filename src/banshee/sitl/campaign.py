@@ -29,16 +29,28 @@ VM = sitl_stack.vm_name()
 MIN_FREE_BYTES = 20_000_000_000
 
 
-def run_once(repo: Path, abs_repo: Path, export_root: Path) -> dict[str, object]:
-    """One mission. Returns its summary; a failed mission is a result, not an exception."""
-    route = json.loads((repo / "evals/D1-route.json").read_text(encoding="utf-8"))
+def run_once(
+    repo: Path,
+    abs_repo: Path,
+    export_root: Path,
+    *,
+    route_path: str = "evals/D1-route.json",
+    world: str = "default",
+    seed: int | None = None,
+    suite_id: str = "d1-nominal",
+) -> dict[str, object]:
+    """One mission. Returns its summary; a failed mission is a result, not an exception.
+
+    ``world`` is the Gazebo world, and ``seed`` goes to Gazebo as ``gz sim --seed``.
+    """
+    route = json.loads((repo / route_path).read_text(encoding="utf-8"))
     evals = json.loads((repo / "evals/D1-exit-tests.json").read_text(encoding="utf-8"))
     lock = json.loads(sitl_stack.resolved_lock(repo).read_text(encoding="utf-8"))
     run_dir = new_run_dir(
         repo,
         purpose="d1_nominal_mission",
-        config={"route": route, "sim_limits": evals["sim_limits"]},
-        seeds={},
+        config={"route": route, "sim_limits": evals["sim_limits"], "world": world},
+        seeds={} if seed is None else {"gz_sim_seed": seed},
         env_lock=lock,
     )
     run_id = run_dir.name
@@ -47,6 +59,7 @@ def run_once(repo: Path, abs_repo: Path, export_root: Path) -> dict[str, object]
         [
             "limactl", "shell", VM, "--", "bash",
             str(abs_repo / "src/banshee/sitl/vm/run_mission.sh"), str(abs_repo), vm_out,
+            str(abs_repo / route_path), world, "" if seed is None else str(seed),
         ],
         run_dir / "vm.log",
         max_log_bytes=5_000_000,
@@ -94,6 +107,7 @@ def run_once(repo: Path, abs_repo: Path, export_root: Path) -> dict[str, object]
             stack=stack,
             target_dir=export_root / run_id,
             tolerance_m=tolerance,
+            suite_id=suite_id,
         )
     except (ContractError, ValueError, OSError) as error:
         finish_run(repo, run_dir, status="failed", note=f"export failed: {error}")

@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-02 12:24 UTC · ledger records: 125
+Generated: 2026-11-07 06:56 UTC · ledger records: 128
 
 ## Phases
 
@@ -10,7 +10,7 @@ Generated: 2026-11-02 12:24 UTC · ledger records: 125
 |---|---|---|---|---|---|
 | D0 | Operating envelope, platform proposal, compliance plan (no purchase) | **passed** | 6 / 6 / 6 | — | WO-001, WO-003, WO-006, WO-007, WO-008, WO-009, WO-011, WO-012 |
 | D1 | PX4/Gazebo SITL, offboard velocity interface, logging to the contract, fault matrix | **passed** | 5 / 5 / 5 | D0 | WO-002, WO-004, WO-013, WO-014, WO-016 |
-| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020, WO-021, WO-022, WO-023, WO-025, WO-026, WO-027, WO-028 |
+| D2 | Props-off sensor and localization walkthrough | **ready** | 0 / 5 / 5 | D1 | WO-005, WO-017, WO-018, WO-020, WO-021, WO-022, WO-023, WO-025, WO-026, WO-027, WO-028, WO-029 |
 | D3 | Outdoor GPS-assisted checkout | **not_started** | 0 / 0 / 7 | D2 | WO-015, WO-019 |
 | D4 | VIO position hold in a controlled setup | **not_started** | 0 / 0 / 5 | D3 | — |
 | D5 | GPS-denied known route | **not_started** | 0 / 0 / 5 | D4 | — |
@@ -92,4 +92,5 @@ Generated: 2026-11-02 12:24 UTC · ledger records: 125
 | WO-026 | Record the owner's second set of decisions of 2026-11-02: ET-D2-4's check, line approvals, line 2's FCC record, and the D3 package and tests | D2 | **accepted** | 2026-11-02T12:12:27.870695Z | reports/WO-026-owner-decisions-2.md |
 | WO-027 | Split the onboard nodes into a Python 3.10 package with no ironclad imports | D2 | **accepted** | 2026-11-02T12:02:24.205711Z | reports/WO-027-onboard-package.md |
 | WO-028 | Repeat the two cases that differed on Humble, and say whether the difference is noise | D2 | **accepted** | 2026-11-02T12:21:51.267250Z | reports/WO-028-humble-differences.md |
+| WO-029 | Publish the D1 simulation data for vishwaroop, with a frozen split and a nominal variation set | D2 | **in_progress** | 2026-11-07T06:56:24.646267Z | — |
 
