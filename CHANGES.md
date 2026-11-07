@@ -109,3 +109,6 @@ The owner approved 14 lines and held line 31; each approval is in the ledger. ET
 
 ## After import: Humble differences are noise (2026-11-02, WO-028)
 R-06 and N-01, six runs each on Jazzy and Humble, overlap: the two WO-025 differences were single runs at the ends of wide spreads. One Jazzy run tripped the freshness gate early on PX4's x500, so the early trips are not specific to the X650 proxy.
+
+## After import: D1 simulation data published (2026-11-07, WO-029)
+Four completed, immutable exports are in `data/exports/`, which is now gitignored: D1 episodes (473, both stacks, failures kept), D1 ULogs, variation episodes (98) and variation ULogs. A frozen family-level split (43 families: 33 train, 10 held out as `dev`) governs them. Of the 99 nominal variation attempts, 86 succeeded, 12 failed and 1 is incomplete (a corrupt capture timestamp). All 13 unsuccessful attempts stopped on the freshness gate's Land latch.
