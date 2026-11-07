@@ -2,7 +2,7 @@
 
 _Derived from `work_orders/STATUS.jsonl` and `config/phases.json` by `ironclad-status`. Do not edit by hand._
 
-Generated: 2026-11-07 06:56 UTC · ledger records: 128
+Generated: 2026-11-07 09:08 UTC · ledger records: 129
 
 ## Phases
 
@@ -92,5 +92,5 @@ Generated: 2026-11-07 06:56 UTC · ledger records: 128
 | WO-026 | Record the owner's second set of decisions of 2026-11-02: ET-D2-4's check, line approvals, line 2's FCC record, and the D3 package and tests | D2 | **accepted** | 2026-11-02T12:12:27.870695Z | reports/WO-026-owner-decisions-2.md |
 | WO-027 | Split the onboard nodes into a Python 3.10 package with no ironclad imports | D2 | **accepted** | 2026-11-02T12:02:24.205711Z | reports/WO-027-onboard-package.md |
 | WO-028 | Repeat the two cases that differed on Humble, and say whether the difference is noise | D2 | **accepted** | 2026-11-02T12:21:51.267250Z | reports/WO-028-humble-differences.md |
-| WO-029 | Publish the D1 simulation data for vishwaroop, with a frozen split and a nominal variation set | D2 | **in_progress** | 2026-11-07T06:56:24.646267Z | — |
+| WO-029 | Publish the D1 simulation data for vishwaroop, with a frozen split and a nominal variation set | D2 | **accepted** | 2026-11-07T09:08:52.962100Z | reports/WO-029-publish-d1-simulation-data.md |
 
