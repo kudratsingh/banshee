@@ -112,4 +112,4 @@ One family, `d1-square-v1|calm|nominal`, appears in both exports, and in both it
 - The SITL VMs are stopped.
 
 ## 6. Files
-`.gitignore` (`data/exports/`), this report, `CHANGES.md`, `ledgers/runs.jsonl` and `ledgers/STATUS.jsonl`. The code, the plan and the frozen evals were merged in PR #34.
+`.gitignore` (`data/exports/`), this report, `CHANGES.md`, `ledgers/runs.jsonl`, `work_orders/STATUS.jsonl` and the board. The code, the plan and the frozen evals were merged in PR #34.
